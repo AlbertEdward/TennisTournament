@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace TennisTournament.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class TennisDBContext : IdentityDbContext
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        public TennisDBContext(DbContextOptions<TennisDBContext> options)
             : base(options)
         {
         }

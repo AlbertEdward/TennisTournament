@@ -9,7 +9,7 @@ using TennisTournament.Data;
 
 namespace TennisTournament.Data.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
+    [DbContext(typeof(TennisDBContext))]
     [Migration("00000000000000_CreateIdentitySchema")]
     partial class CreateIdentitySchema
     {
