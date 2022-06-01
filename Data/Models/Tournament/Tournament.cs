@@ -27,6 +27,8 @@ namespace TennisTournament.Data.Models
         [Required]
         public string LastSet { get; init; }
 
+        public int PlayerId { get; init; }
+
         public ICollection<Player> Players { get; init; }
     }
 }

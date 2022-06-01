@@ -17,7 +17,6 @@ namespace TennisTournament.Data.Models
 
         public string BackHandStroke { get; init; }
 
-
         public string Rank { get; init; }
 
         public string Wins { get; init; }
@@ -26,10 +25,8 @@ namespace TennisTournament.Data.Models
 
         public string TotalMatches { get; init; }
 
-        public ICollection<Tournament> Tournaments { get; init; }
+        public int TournamentId { get; init; }
 
-
-
-
+        public Tournament Tournament { get; init; }
     }
 }
