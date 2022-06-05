@@ -1,10 +1,15 @@
-﻿namespace TennisTournament.Models.Tournament
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace TennisTournament.Models.Tournament
 {
     public class AddTournamentFormModel
     {
         public string Name { get; init; }
 
-        public string Type { get; init; }
+        [Display(Name = "Type")]
+        public int TypeId { get; init; }
+
+        public IEnumerable<TypeOfGameViewModel> TypeOfGames { get; set; }
 
         public string MatchType { get; init; }
 

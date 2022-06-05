@@ -1,17 +1,35 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using TennisTournament.Data;
 using TennisTournament.Models.Tournament;
 
 namespace TennisTournament.Controllers
 {
     public class TournamentController : Controller
     {
-        
-        public IActionResult Add() => View();
+        private readonly TennisDbContext data;
+
+        public TournamentController(TennisDbContext data)
+            => this.data = data;
+
+        public IActionResult Add() => View(new AddTournamentFormModel
+        {
+            TypeOfGames = this.GetTypeOfGames()
+        });
 
         [HttpPost]
         public IActionResult Add(AddTournamentFormModel tournament)
         {
-            return View();
+            return RedirectToAction("Index", "Home");
         }
+
+        private IEnumerable<TypeOfGameViewModel> GetTypeOfGames()
+            => this.data
+            .TypeOfGames
+            .Select(t => new TypeOfGameViewModel
+            {
+                Id = t.Id,
+                Name = t.Name,
+            })
+            .ToList();
     }
 }

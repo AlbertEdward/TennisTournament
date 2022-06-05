@@ -20,6 +20,8 @@ namespace TennisTournament.Data
 
         public DbSet<Player> Players { get; init; }
 
+        public DbSet<TypeOfGame> TypeOfGames { get; init; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)

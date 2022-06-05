@@ -17,7 +17,7 @@ namespace TennisTournament.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.4")
+                .HasAnnotation("ProductVersion", "6.0.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -309,13 +309,31 @@ namespace TennisTournament.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Type")
+                    b.Property<int>("TypeId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TypeId");
+
+                    b.ToTable("Tournaments");
+                });
+
+            modelBuilder.Entity("TennisTournament.Data.TypeOfGame", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Tournaments");
+                    b.ToTable("TypeOfGames");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -382,7 +400,23 @@ namespace TennisTournament.Migrations
 
             modelBuilder.Entity("TennisTournament.Data.Models.Tournament", b =>
                 {
+                    b.HasOne("TennisTournament.Data.TypeOfGame", "Type")
+                        .WithMany("Tournaments")
+                        .HasForeignKey("TypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Type");
+                });
+
+            modelBuilder.Entity("TennisTournament.Data.Models.Tournament", b =>
+                {
                     b.Navigation("Players");
+                });
+
+            modelBuilder.Entity("TennisTournament.Data.TypeOfGame", b =>
+                {
+                    b.Navigation("Tournaments");
                 });
 #pragma warning restore 612, 618
         }

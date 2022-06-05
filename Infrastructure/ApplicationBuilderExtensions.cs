@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TennisTournament.Data;
+using TennisTournament.Data.Models;
 
 namespace TennisTournament.Infrastructure
 {
@@ -14,7 +15,25 @@ namespace TennisTournament.Infrastructure
 
             data.Database.Migrate();
 
+            SeedTypes(data);
+
             return app;
+        }
+
+        private static void SeedTypes(TennisDbContext data)
+        {
+            if (data.TypeOfGames.Any())
+            {
+                return;
+            }
+
+            data.TypeOfGames.AddRange(new[]
+            {
+                new TypeOfGame { Name = "Singles"},
+                new TypeOfGame { Name = "Doubles"},
+            });
+
+            data.SaveChanges();
         }
     }
 }

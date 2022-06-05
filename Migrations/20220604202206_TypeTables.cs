@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TennisTournament.Migrations
 {
-    public partial class TournamentsAndPlayersTables : Migration
+    public partial class TypeTables : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -49,23 +49,16 @@ namespace TennisTournament.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Tournaments",
+                name: "TypeOfGames",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Type = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    MatchType = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Sets = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Games = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Rule = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    LastSet = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PlayerId = table.Column<int>(type: "int", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Tournaments", x => x.Id);
+                    table.PrimaryKey("PK_TypeOfGames", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -175,6 +168,32 @@ namespace TennisTournament.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Tournaments",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TypeId = table.Column<int>(type: "int", nullable: false),
+                    MatchType = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Sets = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Games = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Rule = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LastSet = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PlayerId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Tournaments", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Tournaments_TypeOfGames_TypeId",
+                        column: x => x.TypeId,
+                        principalTable: "TypeOfGames",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Players",
                 columns: table => new
                 {
@@ -244,6 +263,11 @@ namespace TennisTournament.Migrations
                 name: "IX_Players_TournamentId",
                 table: "Players",
                 column: "TournamentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Tournaments_TypeId",
+                table: "Tournaments",
+                column: "TypeId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -274,6 +298,9 @@ namespace TennisTournament.Migrations
 
             migrationBuilder.DropTable(
                 name: "Tournaments");
+
+            migrationBuilder.DropTable(
+                name: "TypeOfGames");
         }
     }
 }
