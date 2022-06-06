@@ -1,6 +1,6 @@
 ﻿namespace TennisTournament.Models.Tournament
 {
-    public class TypeOfGameViewModel
+    public class MatchTypeViewModel
     {
         public int Id { get; set; }
 

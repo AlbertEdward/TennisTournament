@@ -19,6 +19,12 @@ namespace TennisTournament.Controllers
         [HttpPost]
         public IActionResult Add(AddTournamentFormModel tournament)
         {
+            if (!ModelState.IsValid)
+            {
+                tournament.TypeOfGames = this.GetTypeOfGames();
+                return View(tournament);
+            }
+
             return RedirectToAction("Index", "Home");
         }
 

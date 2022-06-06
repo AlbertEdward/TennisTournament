@@ -6,12 +6,14 @@ namespace TennisTournament.Models.Tournament
     {
         public string Name { get; init; }
 
-        [Display(Name = "Type")]
+        [Display(Name = "Type: ")]
         public int TypeId { get; init; }
-
         public IEnumerable<TypeOfGameViewModel> TypeOfGames { get; set; }
 
-        public string MatchType { get; init; }
+        [Display(Name = "Match Type: ")]
+        public int MatchTypeId { get; init; }
+        public IEnumerable<MatchType> MatchTypes { get; set; }
+
 
         public string Sets { get; init; }
 
@@ -19,6 +21,7 @@ namespace TennisTournament.Models.Tournament
 
         public string Rule { get; init; }
 
+        [Display(Name = "Last Set: ")]
         public string LastSet { get; init; }
     }
 }
