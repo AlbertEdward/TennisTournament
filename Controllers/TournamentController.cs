@@ -13,7 +13,10 @@ namespace TennisTournament.Controllers
 
         public IActionResult Add() => View(new AddTournamentFormModel
         {
-            TypeOfGames = this.GetTypeOfGames()
+            GameTypes = this.GetGameTypes(),
+            CourtTypes = this.GetCourtTypes(),
+            Sets = this.GetSets(),
+
         });
 
         [HttpPost]
@@ -21,21 +24,43 @@ namespace TennisTournament.Controllers
         {
             if (!ModelState.IsValid)
             {
-                tournament.TypeOfGames = this.GetTypeOfGames();
+                tournament.GameTypes = this.GetGameTypes();
+                tournament.CourtTypes = this.GetCourtTypes();
+                tournament.Sets = this.GetSets();
+
                 return View(tournament);
             }
 
             return RedirectToAction("Index", "Home");
         }
-
-        private IEnumerable<TypeOfGameViewModel> GetTypeOfGames()
+        private IEnumerable<ViewModel> GetGameTypes()
             => this.data
-            .TypeOfGames
-            .Select(t => new TypeOfGameViewModel
+            .GameTypes
+            .Select(t => new ViewModel
             {
                 Id = t.Id,
-                Name = t.Name,
+                Name = t.Name
             })
             .ToList();
+
+
+        private IEnumerable<ViewModel> GetCourtTypes()
+            => this.data
+            .CourtTypes
+            .Select(t => new ViewModel
+            {
+                Id = t.Id,
+                Name = t.Name
+            })
+            .ToList();
+
+        private IEnumerable<ViewModel> GetSets()
+            => this.data
+            .Sets
+            .Select(t => new ViewModel
+            {
+                Id = t.Id,
+                Name = t.Name
+            });
     }
 }

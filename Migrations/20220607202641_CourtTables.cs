@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TennisTournament.Migrations
 {
-    public partial class TypeTables : Migration
+    public partial class CourtTables : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -49,7 +49,7 @@ namespace TennisTournament.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TypeOfGames",
+                name: "CourtTypes",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -58,7 +58,20 @@ namespace TennisTournament.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TypeOfGames", x => x.Id);
+                    table.PrimaryKey("PK_CourtTypes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "GameTypes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_GameTypes", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -175,7 +188,9 @@ namespace TennisTournament.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TypeId = table.Column<int>(type: "int", nullable: false),
-                    MatchType = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    GameTypeId = table.Column<int>(type: "int", nullable: false),
+                    CourtTypeId = table.Column<int>(type: "int", nullable: false),
+                    SetId = table.Column<int>(type: "int", nullable: false),
                     Sets = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Games = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Rule = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -186,9 +201,15 @@ namespace TennisTournament.Migrations
                 {
                     table.PrimaryKey("PK_Tournaments", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Tournaments_TypeOfGames_TypeId",
-                        column: x => x.TypeId,
-                        principalTable: "TypeOfGames",
+                        name: "FK_Tournaments_CourtTypes_CourtTypeId",
+                        column: x => x.CourtTypeId,
+                        principalTable: "CourtTypes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Tournaments_GameTypes_GameTypeId",
+                        column: x => x.GameTypeId,
+                        principalTable: "GameTypes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -204,9 +225,9 @@ namespace TennisTournament.Migrations
                     StrongHand = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     BackHandStroke = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Rank = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Wins = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Losts = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    TotalMatches = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Wins = table.Column<int>(type: "int", nullable: false),
+                    Losts = table.Column<int>(type: "int", nullable: false),
+                    TotalMatches = table.Column<int>(type: "int", nullable: false),
                     TournamentId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -265,9 +286,14 @@ namespace TennisTournament.Migrations
                 column: "TournamentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Tournaments_TypeId",
+                name: "IX_Tournaments_CourtTypeId",
                 table: "Tournaments",
-                column: "TypeId");
+                column: "CourtTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Tournaments_GameTypeId",
+                table: "Tournaments",
+                column: "GameTypeId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -300,7 +326,10 @@ namespace TennisTournament.Migrations
                 name: "Tournaments");
 
             migrationBuilder.DropTable(
-                name: "TypeOfGames");
+                name: "CourtTypes");
+
+            migrationBuilder.DropTable(
+                name: "GameTypes");
         }
     }
 }

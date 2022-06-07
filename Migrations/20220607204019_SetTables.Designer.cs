@@ -12,8 +12,8 @@ using TennisTournament.Data;
 namespace TennisTournament.Migrations
 {
     [DbContext(typeof(TennisDbContext))]
-    [Migration("20220606163226_Update")]
-    partial class Update
+    [Migration("20220607204019_SetTables")]
+    partial class SetTables
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -226,6 +226,40 @@ namespace TennisTournament.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("TennisTournament.Data.Models.CourtType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CourtTypes");
+                });
+
+            modelBuilder.Entity("TennisTournament.Data.Models.GameType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("GameTypes");
+                });
+
             modelBuilder.Entity("TennisTournament.Data.Models.Player", b =>
                 {
                     b.Property<int>("Id")
@@ -242,9 +276,8 @@ namespace TennisTournament.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Losts")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Losts")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -258,22 +291,37 @@ namespace TennisTournament.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("TotalMatches")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("TotalMatches")
+                        .HasColumnType("int");
 
                     b.Property<int>("TournamentId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Wins")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Wins")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("TournamentId");
 
                     b.ToTable("Players");
+                });
+
+            modelBuilder.Entity("TennisTournament.Data.Models.Set", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Sets");
                 });
 
             modelBuilder.Entity("TennisTournament.Data.Models.Tournament", b =>
@@ -284,15 +332,17 @@ namespace TennisTournament.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<int>("CourtTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("GameTypeId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Games")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastSet")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MatchType")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -307,35 +357,21 @@ namespace TennisTournament.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Sets")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("SetId")
+                        .HasColumnType("int");
 
                     b.Property<int>("TypeId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TypeId");
+                    b.HasIndex("CourtTypeId");
+
+                    b.HasIndex("GameTypeId");
+
+                    b.HasIndex("SetId");
 
                     b.ToTable("Tournaments");
-                });
-
-            modelBuilder.Entity("TennisTournament.Data.Models.TypeOfGame", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("TypeOfGames");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -402,23 +438,49 @@ namespace TennisTournament.Migrations
 
             modelBuilder.Entity("TennisTournament.Data.Models.Tournament", b =>
                 {
-                    b.HasOne("TennisTournament.Data.Models.TypeOfGame", "Type")
+                    b.HasOne("TennisTournament.Data.Models.CourtType", "CourtType")
                         .WithMany("Tournaments")
-                        .HasForeignKey("TypeId")
+                        .HasForeignKey("CourtTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Type");
+                    b.HasOne("TennisTournament.Data.Models.GameType", "GameType")
+                        .WithMany("Tournaments")
+                        .HasForeignKey("GameTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TennisTournament.Data.Models.Set", "Sets")
+                        .WithMany("Tournaments")
+                        .HasForeignKey("SetId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CourtType");
+
+                    b.Navigation("GameType");
+
+                    b.Navigation("Sets");
+                });
+
+            modelBuilder.Entity("TennisTournament.Data.Models.CourtType", b =>
+                {
+                    b.Navigation("Tournaments");
+                });
+
+            modelBuilder.Entity("TennisTournament.Data.Models.GameType", b =>
+                {
+                    b.Navigation("Tournaments");
+                });
+
+            modelBuilder.Entity("TennisTournament.Data.Models.Set", b =>
+                {
+                    b.Navigation("Tournaments");
                 });
 
             modelBuilder.Entity("TennisTournament.Data.Models.Tournament", b =>
                 {
                     b.Navigation("Players");
-                });
-
-            modelBuilder.Entity("TennisTournament.Data.Models.TypeOfGame", b =>
-                {
-                    b.Navigation("Tournaments");
                 });
 #pragma warning restore 612, 618
         }

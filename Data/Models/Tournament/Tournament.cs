@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TennisTournament.Data.Models
 {
@@ -10,14 +11,13 @@ namespace TennisTournament.Data.Models
         public string Name { get; init; }
 
         public int TypeId { get; set; }
+        public GameType GameType { get; init; }
 
-        public TypeOfGame Type { get; init; }
+        public int CourtTypeId { get; set; }
+        public CourtType CourtType { get; init; }
 
-        [Required]
-        public string MatchType { get; init; }
-
-        [Required]
-        public string Sets { get; init; }
+        public int SetId { get; set; }
+        public Set Sets { get; init; }
 
         [Required]
         public string Games { get; init; }

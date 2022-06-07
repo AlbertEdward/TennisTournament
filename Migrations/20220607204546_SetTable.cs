@@ -4,7 +4,7 @@
 
 namespace TennisTournament.Migrations
 {
-    public partial class Update : Migration
+    public partial class SetTable : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

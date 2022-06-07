@@ -8,14 +8,14 @@ namespace TennisTournament.Models.Tournament
 
         [Display(Name = "Type: ")]
         public int TypeId { get; init; }
-        public IEnumerable<TypeOfGameViewModel> TypeOfGames { get; set; }
+        public IEnumerable<ViewModel> GameTypes { get; set; }
 
-        [Display(Name = "Match Type: ")]
-        public int MatchTypeId { get; init; }
-        public IEnumerable<MatchType> MatchTypes { get; set; }
+        [Display(Name = "Court: ")]
+        public int CourtTypeId { get; init; }
+        public IEnumerable<ViewModel> CourtTypes { get; set; }
 
-
-        public string Sets { get; init; }
+        public int SetId { get; init; }
+        public IEnumerable<ViewModel> Sets { get; set; }
 
         public string Games { get; init; }
 

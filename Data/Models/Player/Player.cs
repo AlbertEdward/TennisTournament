@@ -15,15 +15,16 @@ namespace TennisTournament.Data.Models
         [Required]
         public string StrongHand { get; init; }
 
+        [Required]
         public string BackHandStroke { get; init; }
 
         public string Rank { get; init; }
 
-        public string Wins { get; init; }
+        public int Wins { get; init; }
 
-        public string Losts { get; init; }
+        public int Losts { get; init; }
 
-        public string TotalMatches { get; init; }
+        public int TotalMatches { get; init; }
 
         public int TournamentId { get; init; }
 
