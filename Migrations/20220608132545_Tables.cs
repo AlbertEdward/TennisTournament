@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TennisTournament.Migrations
 {
-    public partial class CourtTables : Migration
+    public partial class Tables : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -62,6 +62,19 @@ namespace TennisTournament.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Games",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Games", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "GameTypes",
                 columns: table => new
                 {
@@ -72,6 +85,45 @@ namespace TennisTournament.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_GameTypes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "LastSets",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_LastSets", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Rules",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Rules", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Sets",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Sets", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -191,10 +243,9 @@ namespace TennisTournament.Migrations
                     GameTypeId = table.Column<int>(type: "int", nullable: false),
                     CourtTypeId = table.Column<int>(type: "int", nullable: false),
                     SetId = table.Column<int>(type: "int", nullable: false),
-                    Sets = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Games = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Rule = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    LastSet = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    GameId = table.Column<int>(type: "int", nullable: false),
+                    RuleId = table.Column<int>(type: "int", nullable: false),
+                    LastSetId = table.Column<int>(type: "int", nullable: false),
                     PlayerId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -207,9 +258,33 @@ namespace TennisTournament.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
+                        name: "FK_Tournaments_Games_GameId",
+                        column: x => x.GameId,
+                        principalTable: "Games",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
                         name: "FK_Tournaments_GameTypes_GameTypeId",
                         column: x => x.GameTypeId,
                         principalTable: "GameTypes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Tournaments_LastSets_LastSetId",
+                        column: x => x.LastSetId,
+                        principalTable: "LastSets",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Tournaments_Rules_RuleId",
+                        column: x => x.RuleId,
+                        principalTable: "Rules",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Tournaments_Sets_SetId",
+                        column: x => x.SetId,
+                        principalTable: "Sets",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -291,9 +366,29 @@ namespace TennisTournament.Migrations
                 column: "CourtTypeId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Tournaments_GameId",
+                table: "Tournaments",
+                column: "GameId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Tournaments_GameTypeId",
                 table: "Tournaments",
                 column: "GameTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Tournaments_LastSetId",
+                table: "Tournaments",
+                column: "LastSetId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Tournaments_RuleId",
+                table: "Tournaments",
+                column: "RuleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Tournaments_SetId",
+                table: "Tournaments",
+                column: "SetId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -329,7 +424,19 @@ namespace TennisTournament.Migrations
                 name: "CourtTypes");
 
             migrationBuilder.DropTable(
+                name: "Games");
+
+            migrationBuilder.DropTable(
                 name: "GameTypes");
+
+            migrationBuilder.DropTable(
+                name: "LastSets");
+
+            migrationBuilder.DropTable(
+                name: "Rules");
+
+            migrationBuilder.DropTable(
+                name: "Sets");
         }
     }
 }

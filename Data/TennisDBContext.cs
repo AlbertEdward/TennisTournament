@@ -26,6 +26,12 @@ namespace TennisTournament.Data
 
         public DbSet<Set> Sets { get; init; }
 
+        public DbSet<Game> Games { get; init; }
+
+        public DbSet<Rule> Rules { get; init; }
+
+        public DbSet<LastSet> LastSets { get; init; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)

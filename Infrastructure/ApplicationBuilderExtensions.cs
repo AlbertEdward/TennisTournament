@@ -58,6 +58,42 @@ namespace TennisTournament.Infrastructure
                 new Set { Name = "5"},
             });
 
+            if (data.Games.Any())
+            {
+                return;
+            }
+
+            data.Games.AddRange(new[]
+            {
+                new Game { Name = "4"},
+                new Game { Name = "6"},
+                new Game { Name = "8"},
+            });
+
+            if (data.Rules.Any())
+            {
+                return;
+            }
+
+            data.Rules.AddRange(new[]
+            {
+                new Rule { Name = "Tie-Break"},
+                new Rule { Name = "First"},
+            });
+
+            if (data.LastSets.Any())
+            {
+                return;
+            }
+
+            data.LastSets.AddRange(new[]
+            {
+                new LastSet { Name = "Normal"},
+                new LastSet { Name = "Advantage (2G)"},
+                new LastSet { Name = "Match Tie-Break (7P)"},
+                new LastSet { Name = "Match Tie-Break (10P)"},
+            });
+
             data.SaveChanges();
         }
     }

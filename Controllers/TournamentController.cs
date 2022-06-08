@@ -16,7 +16,9 @@ namespace TennisTournament.Controllers
             GameTypes = this.GetGameTypes(),
             CourtTypes = this.GetCourtTypes(),
             Sets = this.GetSets(),
-
+            Games = this.GetGames(),
+            Rules = this.GetRules(),
+            LastSets = this.GetSets()
         });
 
         [HttpPost]
@@ -27,6 +29,9 @@ namespace TennisTournament.Controllers
                 tournament.GameTypes = this.GetGameTypes();
                 tournament.CourtTypes = this.GetCourtTypes();
                 tournament.Sets = this.GetSets();
+                tournament.Games = this.GetGames();
+                tournament.Rules = this.GetRules();
+                tournament.LastSets = this.GetLastSets();
 
                 return View(tournament);
             }
@@ -57,6 +62,33 @@ namespace TennisTournament.Controllers
         private IEnumerable<ViewModel> GetSets()
             => this.data
             .Sets
+            .Select(t => new ViewModel
+            {
+                Id = t.Id,
+                Name = t.Name
+            });
+
+        private IEnumerable<ViewModel> GetGames()
+            => this.data
+            .Games
+            .Select(t => new ViewModel
+            {
+                Id = t.Id,
+                Name = t.Name
+            });
+
+        private IEnumerable<ViewModel> GetRules()
+            => this.data
+            .Rules
+            .Select(t => new ViewModel
+            {
+                Id = t.Id,
+                Name = t.Name
+            });
+
+        private IEnumerable<ViewModel> GetLastSets()
+            => this.data
+            .LastSets
             .Select(t => new ViewModel
             {
                 Id = t.Id,

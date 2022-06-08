@@ -19,14 +19,14 @@ namespace TennisTournament.Data.Models
         public int SetId { get; set; }
         public Set Sets { get; init; }
 
-        [Required]
-        public string Games { get; init; }
+        public int GameId { get; set; }
+        public Game Games { get; init; }
 
-        [Required]
-        public string Rule { get; init; }
+        public int RuleId { get; set; }
+        public Rule Rules { get; init; }
 
-        [Required]
-        public string LastSet { get; init; }
+        public int LastSetId { get; set; }
+        public LastSet LastSets { get; init; }
 
         public int PlayerId { get; init; }
 

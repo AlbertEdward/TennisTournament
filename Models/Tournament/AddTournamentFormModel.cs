@@ -14,14 +14,21 @@ namespace TennisTournament.Models.Tournament
         public int CourtTypeId { get; init; }
         public IEnumerable<ViewModel> CourtTypes { get; set; }
 
+        [Display(Name = "Sets: ")]
         public int SetId { get; init; }
         public IEnumerable<ViewModel> Sets { get; set; }
 
-        public string Games { get; init; }
+        [Display(Name = "Games: ")]
+        public int GameId { get; init; }
+        public IEnumerable<ViewModel> Games { get; set; }
 
-        public string Rule { get; init; }
+        [Display(Name = "Rule: ")]
+        public int RuleId { get; init; }
+        public IEnumerable<ViewModel> Rules { get; set; }
 
+        
         [Display(Name = "Last Set: ")]
-        public string LastSet { get; init; }
+        public int LastSetId { get; init; }
+        public IEnumerable<ViewModel> LastSets { get; set; }
     }
 }

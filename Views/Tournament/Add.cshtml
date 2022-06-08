@@ -42,23 +42,32 @@
                     }
                 </select>
             </div>
-            <div class="form-group row">
-                <label asp-for="Games" class="col-sm-2 col-form-label">Games</label>
-                <div class="col-sm-10">
-                    <input asp-for="Games" type="text" class="form-control" placeholder="Enter games...">
-                </div>
+            <div class="form-group">
+                <label asp-for="GameId"></label>
+                <select asp-for="GameId" class="form-control">
+                    @foreach (var set in Model.Games)
+                    {
+                        <option value="@set.Id">@set.Name</option>
+                    }
+                </select>
             </div>
-            <div class="form-group row">
-                <label asp-for="Rule" class="col-sm-2 col-form-label">Rule</label>
-                <div class="col-sm-10">
-                    <input asp-for="Rule" type="text" class="form-control" placeholder="Enter rule...">
-                </div>
+            <div class="form-group">
+                <label asp-for="RuleId"></label>
+                <select asp-for="RuleId" class="form-control">
+                    @foreach (var set in Model.Rules)
+                    {
+                        <option value="@set.Id">@set.Name</option>
+                    }
+                </select>
             </div>
-            <div class="form-group row">
-                <label asp-for="LastSet" class="col-sm-2 col-form-label">LastSet</label>
-                <div class="col-sm-10">
-                    <input asp-for="LastSet" type="text" class="form-control" placeholder="Enter lastset...">
-                </div>
+            <div class="form-group">
+                <label asp-for="LastSetId"></label>
+                <select asp-for="LastSetId" class="form-control">
+                    @foreach (var set in Model.LastSets)
+                    {
+                        <option value="@set.Id">@set.Name</option>
+                    }
+                </select>
             </div>
             <div class="form-group row">
                 <div class="col-sm-10">
