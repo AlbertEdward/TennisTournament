@@ -6,6 +6,6 @@
 
         public string Name { get; set; }
 
-        public IEnumerable<Tournament> Tournaments { get; set; } = new List<Tournament>();
+        public IEnumerable<Tournament> Tournaments { get; init; } = new List<Tournament>();
     }
 }

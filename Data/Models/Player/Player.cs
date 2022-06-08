@@ -1,22 +1,18 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace TennisTournament.Data.Models
+﻿namespace TennisTournament.Data.Models
 {
     public class Player
     {
         public int Id { get; init; }
 
-        [Required]
         public string Name { get; init; }
 
-        [Required]
-        public string Gender { get; init; }
+        public int Age { get; init; }
 
-        [Required]
-        public string StrongHand { get; init; }
+        public Gender Gender { get; init; }
 
-        [Required]
-        public string BackHandStroke { get; init; }
+        public StrongHand StrongHand { get; init; }
+
+        public BackHandStroke BackHandStroke { get; init; }
 
         public string Rank { get; init; }
 

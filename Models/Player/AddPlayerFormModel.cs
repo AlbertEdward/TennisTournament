@@ -1,15 +1,19 @@
-﻿namespace TennisTournament.Models.Player
+﻿using System.ComponentModel.DataAnnotations;
+using TennisTournament.Data.Models;
+
+namespace TennisTournament.Models.Player
 {
     public class AddPlayerFormModel
     {
-        public string Name { get; init; }
+        [Required]
+        public string Name { get; set; }
 
-        public string Image { get; init; }
+        public int Age { get; set; }
 
-        public string Gender { get; init; }
+        public Gender Gender { get; init; }
 
-        public string StrongHand { get; init; }
+        public StrongHand StrongHand { get; init; }
 
-        public string BackHandStroke { get; init; }
+        public BackHandStroke BackHandStroke { get; init; }
     }
 }

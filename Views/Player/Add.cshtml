@@ -1,31 +1,50 @@
 ﻿@model AddPlayerFormModel
 
-<form>
-  <div class="form-group">
-    <label asp-for="Name">Name</label>
-    <input class="form-control" placeholder="Enter tournament name...">
-  </div>
-  <div class="form-group">
-    <label asp-for="Gender">Gender</label>
-    <input class="form-control" placeholder="Enter gender...">
-  </div>
-    <div class="form-group">
-    <label asp-for="StrongHand">Strong Hand</label>
-    <input class="form-control" placeholder="Left/Right...">
-  </div>
-    <div class="form-group">
-    <label asp-for="BackHandStroke">Back hand stroke</label>
-    <input class="form-control" placeholder="Two/One hand...">
-  </div>
-  <div class="form-check">
-    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-    <label class="form-check-label" for="exampleCheck1">Check me out</label>
-  </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
+@{
+    ViewData["Title"] = "Add Player";
+}
 
-  <div class="custom-file">
-  <input type="file" class="custom-file-input" id="customFile">
-  <label class="custom-file-label" asp-for="Image">Upload photo</label>
-</div>
+<form method="post">
+    <div class="row">
+        <div class="offset-md-2 col-md-8 col-sm-12">
+            <h2 class="text-center">Add Tournament</h2>
+
+            <div class="form-group row">
+                <label asp-for="Name" class="col-sm-2 col-form-label">Name</label>
+                <div class="col-sm-10">
+                    <input asp-for="Name" type="text" class="form-control" placeholder="Enter league name">
+                    <span asp-validation-for="Name" class="small text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Gender"></label>
+                <select asp-for="Gender" class="form-control">
+                    <span asp-validation-for="Gender" class="small text-danger"></span>
+                    @foreach (Gender gender in (Gender[])Enum.GetValues(typeof(Gender)))
+                    {
+                        <option>@gender</option>
+                    }
+                </select>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="flexRadioDefault"/>
+                <label class="form-check-label" asp-for="Gender">
+                    <span asp-validation-for="Gender" class="small text-danger"></span>
+                    Default radio
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                <label class="form-check-label" for="flexRadioDefault2">
+                    Default checked radio
+                </label>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-10">
+                    <button type="submit" asp-controller="Player" asp-action="Add" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </form>
-

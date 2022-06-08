@@ -7,10 +7,9 @@ namespace TennisTournament.Data.Models
     {
         public int Id { get; init; }
 
-        [Required]
         public string Name { get; init; }
 
-        public int TypeId { get; set; }
+        public int GameTypeId { get; set; }
         public GameType GameType { get; init; }
 
         public int CourtTypeId { get; set; }

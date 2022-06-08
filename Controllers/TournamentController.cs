@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TennisTournament.Data;
+using TennisTournament.Data.Models;
+using TennisTournament.Models;
 using TennisTournament.Models.Tournament;
 
 namespace TennisTournament.Controllers
@@ -18,12 +20,18 @@ namespace TennisTournament.Controllers
             Sets = this.GetSets(),
             Games = this.GetGames(),
             Rules = this.GetRules(),
-            LastSets = this.GetSets()
+            LastSets = this.GetLastSets()
         });
 
         [HttpPost]
         public IActionResult Add(AddTournamentFormModel tournament)
         {
+            if(!this.data.GameTypes.Any(t => t.Id == tournament.GameTypeId))
+            {
+                this.ModelState.AddModelError(nameof(tournament.GameTypeId), "Category does not exist!");
+            }
+
+
             if (!ModelState.IsValid)
             {
                 tournament.GameTypes = this.GetGameTypes();
@@ -35,6 +43,29 @@ namespace TennisTournament.Controllers
 
                 return View(tournament);
             }
+
+            var tournamentData = new Tournament
+            {
+                Name = tournament.Name,
+                GameTypeId = tournament.GameTypeId,
+                CourtTypeId = tournament.CourtTypeId,
+                SetId = tournament.SetId,
+                GameId = tournament.GameId,
+                RuleId = tournament.RuleId,
+                LastSetId = tournament.LastSetId
+            };
+
+            this.data.Tournaments.Add(tournamentData);
+
+            try
+            {
+                this.data.SaveChanges();
+            }
+            catch (Exception)
+            {
+                throw new ArgumentException("greshka brat");
+            }
+           
 
             return RedirectToAction("Index", "Home");
         }
