@@ -23,6 +23,24 @@ namespace TennisTournament.Controllers
             LastSets = this.GetLastSets()
         });
 
+        public IActionResult All()
+        {
+            var tournaments = this.data
+                .Tournaments
+                .OrderByDescending(p => p.Id)
+                .Select(t => new TournamentListingViewModel
+                {
+                    Id = t.Id,
+                    Name = t.Name,
+                    GameType = t.GameType.Name,
+                    CourtType = t.CourtType.Name,
+                    Description = t.Description
+                })
+                .ToList();
+
+            return View(tournaments);
+        }
+
         [HttpPost]
         public IActionResult Add(AddTournamentFormModel tournament)
         {
@@ -52,13 +70,14 @@ namespace TennisTournament.Controllers
                 SetId = tournament.SetId,
                 GameId = tournament.GameId,
                 RuleId = tournament.RuleId,
-                LastSetId = tournament.LastSetId
+                LastSetId = tournament.LastSetId,
+                Description = tournament.Description
             };
 
             this.data.Tournaments.Add(tournamentData);
             this.data.SaveChanges();
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction(nameof(All));
         }
         private IEnumerable<ViewModel> GetGameTypes()
             => this.data

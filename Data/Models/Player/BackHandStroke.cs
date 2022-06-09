@@ -3,6 +3,7 @@
     public enum BackHandStroke
     {
         One,
-        Two
+        Two,
+        Three
     }
 }

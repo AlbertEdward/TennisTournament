@@ -1,0 +1,22 @@
+﻿@model IEnumerable<PlayerListingViewModel>
+
+@{
+    ViewData["Title"] = "All Players";
+}
+
+<div class="row">
+    @foreach (var player in Model)
+    {
+        <div class="col-md-4">
+            <div class="card-group">
+                <div class="card">
+                    <img class="card-img-top" src="...">
+                    <div class="card-body">
+                        <h5 class="card-title">@player.Name</h5>
+                        <p class="card-text">Rank: @player.Rank</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

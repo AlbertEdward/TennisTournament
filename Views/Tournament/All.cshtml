@@ -1,0 +1,24 @@
+﻿@model IEnumerable<TournamentListingViewModel>
+
+@{
+    ViewData["Title"] = "All Tournament";
+}
+
+<div class="row">
+    @foreach (var tournament in Model)
+    {
+        <div class="col-md-4">
+            <div class="card-group">
+                <div class="card">
+                    <img class="card-img-top" src="...">
+                    <div class="card-body">
+                        <h5 class="card-title">@tournament.Name</h5>
+                        <h6 class="card-title">@tournament.GameType | @tournament.CourtType</h6>
+                        <p class="card-text">@tournament.Description</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    }
+</div>

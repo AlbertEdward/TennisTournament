@@ -30,5 +30,8 @@ namespace TennisTournament.Models.Tournament
         [Display(Name = "Last Set: ")]
         public int LastSetId { get; init; }
         public IEnumerable<ViewModel>? LastSets { get; set; }
+
+        [Required]
+        public string Description { get; set; }
     }
 }
