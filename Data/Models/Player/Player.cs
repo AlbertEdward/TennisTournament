@@ -1,4 +1,6 @@
-﻿namespace TennisTournament.Data.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace TennisTournament.Data.Models
 {
     public class Player
     {
@@ -14,16 +16,16 @@
 
         public BackHandStroke BackHandStroke { get; init; }
 
-        public string Rank { get; init; }
+        public double Rank { get; init; } = 0.00;
 
-        public int Wins { get; init; }
+        public int Wons { get; init; } = 0;
 
-        public int Losts { get; init; }
+        public int Losts { get; init; } = 0;
 
-        public int TotalMatches { get; init; }
+        public int TotalMatches { get; init; } = 0;
 
+        [ForeignKey("Tournament")]
         public int TournamentId { get; init; }
-
-        public Tournament Tournament { get; init; }
+        public IEnumerable<Tournament> Tournaments { get; init; }
     }
 }

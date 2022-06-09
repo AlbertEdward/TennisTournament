@@ -7,13 +7,19 @@
 <form method="post">
     <div class="row">
         <div class="offset-md-2 col-md-8 col-sm-12">
-            <h2 class="text-center">Add Tournament</h2>
-
+            <h2 class="text-center">Add Player</h2>
             <div class="form-group row">
                 <label asp-for="Name" class="col-sm-2 col-form-label">Name</label>
                 <div class="col-sm-10">
-                    <input asp-for="Name" type="text" class="form-control" placeholder="Enter league name">
+                    <input asp-for="Name" type="text" class="form-control" placeholder="Enter player name">
                     <span asp-validation-for="Name" class="small text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="Age" class="col-sm-2 col-form-label">Age</label>
+                <div class="col-sm-10">
+                    <input asp-for="Age" type="text" class="form-control" placeholder="Enter age">
+                    <span asp-validation-for="Age" class="small text-danger"></span>
                 </div>
             </div>
             <div class="form-group">
@@ -26,20 +32,26 @@
                     }
                 </select>
             </div>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="flexRadioDefault"/>
-                <label class="form-check-label" asp-for="Gender">
-                    <span asp-validation-for="Gender" class="small text-danger"></span>
-                    Default radio
-                </label>
+            <div class="form-group">
+                <label asp-for="StrongHand"></label>
+                <select asp-for="StrongHand" class="form-control">
+                    <span asp-validation-for="StrongHand" class="small text-danger"></span>
+                    @foreach (StrongHand strongHand in (StrongHand[])Enum.GetValues(typeof(StrongHand)))
+                    {
+                        <option>@strongHand</option>
+                    }
+                </select>
             </div>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
-                <label class="form-check-label" for="flexRadioDefault2">
-                    Default checked radio
-                </label>
+            <div class="form-group">
+                <label asp-for="BackHandStroke"></label>
+                <select asp-for="BackHandStroke" class="form-control">
+                    <span asp-validation-for="BackHandStroke" class="small text-danger"></span>
+                    @foreach (BackHandStroke backHandStroke in (BackHandStroke[])Enum.GetValues(typeof(BackHandStroke)))
+                    {
+                        <option>@backHandStroke</option>
+                    }
+                </select>
             </div>
-
             <div class="form-group row">
                 <div class="col-sm-10">
                     <button type="submit" asp-controller="Player" asp-action="Add" class="btn btn-primary">Save</button>

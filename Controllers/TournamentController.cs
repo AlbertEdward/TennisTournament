@@ -26,7 +26,7 @@ namespace TennisTournament.Controllers
         [HttpPost]
         public IActionResult Add(AddTournamentFormModel tournament)
         {
-            if(!this.data.GameTypes.Any(t => t.Id == tournament.GameTypeId))
+            if (!this.data.GameTypes.Any(t => t.Id == tournament.GameTypeId))
             {
                 this.ModelState.AddModelError(nameof(tournament.GameTypeId), "Category does not exist!");
             }
@@ -56,16 +56,7 @@ namespace TennisTournament.Controllers
             };
 
             this.data.Tournaments.Add(tournamentData);
-
-            try
-            {
-                this.data.SaveChanges();
-            }
-            catch (Exception)
-            {
-                throw new ArgumentException("greshka brat");
-            }
-           
+            this.data.SaveChanges();
 
             return RedirectToAction("Index", "Home");
         }

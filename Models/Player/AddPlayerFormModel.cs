@@ -12,8 +12,10 @@ namespace TennisTournament.Models.Player
 
         public Gender Gender { get; init; }
 
+        [Display(Name = "Strong Hand")]
         public StrongHand StrongHand { get; init; }
 
+        [Display(Name = "Back hand stroke")]
         public BackHandStroke BackHandStroke { get; init; }
     }
 }

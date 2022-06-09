@@ -27,8 +27,8 @@ namespace TennisTournament.Data.Models
         public int LastSetId { get; set; }
         public LastSet LastSets { get; init; }
 
+        [ForeignKey("Players")]
         public int PlayerId { get; init; }
-
-        public ICollection<Player> Players { get; init; }
+        public IEnumerable<Player> Players { get; init; }
     }
 }
