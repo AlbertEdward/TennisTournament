@@ -2,15 +2,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using TennisTournament.Infrastructure;
 using TennisTournament.Data;
+using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
-var connectionString = builder.Configuration.GetConnectionString("TennisDbContextConnection") ?? throw new InvalidOperationException("Connection string 'TennisDbContextConnection' not found.");
-
-builder.Services.AddDbContext<TennisDbContext>(options =>
-    options.UseSqlServer(connectionString));;
-
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<TennisDbContext>();;
 
 var connectionString = @"Server=.;Database=TennisTournaments;Integrated Security=True;";
 builder.Services.AddDbContext<TennisDbContext>(options =>
@@ -28,7 +22,10 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options =>
 })
     .AddEntityFrameworkStores<TennisDbContext>();
 
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews(options =>
+{
+    options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
+});
 
 var app = builder.Build();
 
@@ -56,5 +53,4 @@ app
         endpoints.MapRazorPages();
     });
 
-app.UseAuthentication();
 app.Run();

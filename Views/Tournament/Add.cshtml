@@ -12,67 +12,67 @@
             <div class="form-group row">
                 <label asp-for="Name" class="col-sm-2 col-form-label">Name</label>
                 <div class="col-sm-10">
-                    <input asp-for="Name" type="text" class="form-control" placeholder="Enter league name">
+                    <input asp-for="Name" type="text" class="form-control" placeholder="Enter name">
                     <span asp-validation-for="Name" class="small text-danger"></span>
                 </div>
             </div>
             <div class="form-group">
-                <label asp-for="GameTypeId"></label>
-                <select asp-for="GameTypeId" class="form-control">
-                    <span asp-validation-for="GameTypeId" class="small text-danger"></span>
-                    @foreach (var type in Model.GameTypes)
+                <label asp-for="GameTypes"></label>
+                <select asp-for="GameTypes" class="form-control">
+                    <span asp-validation-for="GameTypes" class="small text-danger"></span>
+                    @foreach (GameType gameType in (GameType[])Enum.GetValues(typeof(GameType)))
                     {
-                        <option value="@type.Id">@type.Name</option>
+                        <option>@gameType</option>
                     }
                 </select>
             </div>
             <div class="form-group">
-                <label asp-for="CourtTypeId"></label>
-                <select asp-for="CourtTypeId" class="form-control">
-                    <span asp-validation-for="CourtTypeId" class="small text-danger"></span>
-                    @foreach (var court in Model.CourtTypes)
+                <label asp-for="CourtTypes"></label>
+                <select asp-for="CourtTypes" class="form-control">
+                    <span asp-validation-for="CourtTypes" class="small text-danger"></span>
+                    @foreach (CourtType courtType in (CourtType[])Enum.GetValues(typeof(CourtType)))
                     {
-                        <option value="@court.Id">@court.Name</option>
+                        <option>@courtType</option>
                     }
                 </select>
             </div>
             <div class="form-group">
-                <label asp-for="SetId"></label>
-                <select asp-for="SetId" class="form-control">
-                    <span asp-validation-for="SetId" class="small text-danger"></span>
-                    @foreach (var set in Model.Sets)
+                <label asp-for="Sets"></label>
+                <select asp-for="Sets" class="form-control">
+                    <span asp-validation-for="Sets" class="small text-danger"></span>
+                    @foreach (Set set in (Set[])Enum.GetValues(typeof(Set)))
                     {
-                        <option value="@set.Id">@set.Name</option>
+                        <option>@set</option>
                     }
                 </select>
             </div>
             <div class="form-group">
-                <label asp-for="GameId"></label>
-                <select asp-for="GameId" class="form-control">
-                    <span asp-validation-for="GameId" class="small text-danger"></span>
-                    @foreach (var set in Model.Games)
+                <label asp-for="Games"></label>
+                <select asp-for="Games" class="form-control">
+                    <span asp-validation-for="Games" class="small text-danger"></span>
+                    @foreach (Game game in (Game[])Enum.GetValues(typeof(Game)))
                     {
-                        <option value="@set.Id">@set.Name</option>
+                        <option>@game</option>
                     }
                 </select>
             </div>
             <div class="form-group">
-                <label asp-for="RuleId"></label>
-                <select asp-for="RuleId" class="form-control">
-                    <span asp-validation-for="RuleId" class="small text-danger"></span>
-                    @foreach (var set in Model.Rules)
+                <label asp-for="Rules"></label>
+                <select asp-for="Rules" class="form-control">
+                    <span asp-validation-for="Rules" class="small text-danger"></span>
+                    @foreach (Rule rule in (Rule[])Enum.GetValues(typeof(Rule)))
                     {
-                        <option value="@set.Id">@set.Name</option>
+                        <option>@rule</option>
                     }
                 </select>
             </div>
             <div class="form-group">
-                <label asp-for="LastSetId"></label>
-                <select asp-for="LastSetId" class="form-control">
-                    <span asp-validation-for="LastSetId" class="small text-danger"></span>
-                    @foreach (var set in Model.LastSets)
+                <label asp-for="LastSets"></label>
+                <select asp-for="LastSets" class="form-control">
+                    <span asp-validation-for="LastSets" class="small text-danger"></span>
+                    @foreach (LastSet lastSet in (LastSet[])Enum.GetValues(typeof(LastSet)))
                     {
-                        <option value="@set.Id">@set.Name</option>
+                        <option>@lastSet</option>
                     }
                 </select>
             </div>

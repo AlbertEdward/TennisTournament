@@ -22,8 +22,8 @@ namespace TennisTournament.Controllers
                 {
                     Id = t.Id,
                     Name = t.Name,
-                    GameType = t.GameType.Name,
-                    CourtType = t.CourtType.Name,
+                    GameType = t.GameType,
+                    CourtType = t.CourtType,
                     Description = t.Description
                 })
                 .Take(3)

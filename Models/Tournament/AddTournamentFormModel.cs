@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using TennisTournament.Data.Models;
 
 namespace TennisTournament.Models.Tournament
 {
@@ -7,29 +8,23 @@ namespace TennisTournament.Models.Tournament
         [Required]
         public string Name { get; init; }
 
-        [Display(Name = "Type: ")]
-        public int GameTypeId { get; init; }
-        public IEnumerable<ViewModel>? GameTypes { get; set; }
+        [Required]
+        public GameType GameTypes { get; set; }
 
-        [Display(Name = "Court: ")]
-        public int CourtTypeId { get; init; }
-        public IEnumerable<ViewModel>? CourtTypes { get; set; }
+        [Required]
+        public CourtType CourtTypes { get; set; }
 
-        [Display(Name = "Sets: ")]
-        public int SetId { get; init; }
-        public IEnumerable<ViewModel>? Sets { get; set; }
+        [Required]
+        public Set Sets { get; set; }
 
-        [Display(Name = "Games per set: ")]
-        public int GameId { get; init; }
-        public IEnumerable<ViewModel>? Games { get; set; }
+        [Required]
+        public Game Games { get; set; }
 
-        [Display(Name = "Rule: ")]
-        public int RuleId { get; init; }
-        public IEnumerable<ViewModel>? Rules { get; set; }
+        [Required]
+        public Rule Rules { get; set; }
 
-        [Display(Name = "Last Set: ")]
-        public int LastSetId { get; init; }
-        public IEnumerable<ViewModel>? LastSets { get; set; }
+        [Required]
+        public LastSet LastSets { get; set; }
 
         [Required]
         public string Description { get; set; }

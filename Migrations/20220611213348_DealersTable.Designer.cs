@@ -12,8 +12,8 @@ using TennisTournament.Data;
 namespace TennisTournament.Migrations
 {
     [DbContext(typeof(TennisDbContext))]
-    [Migration("20220608220828_PlayerTable")]
-    partial class PlayerTable
+    [Migration("20220611213348_DealersTable")]
+    partial class DealersTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -241,7 +241,7 @@ namespace TennisTournament.Migrations
                     b.ToTable("PlayerTournament");
                 });
 
-            modelBuilder.Entity("TennisTournament.Data.Models.CourtType", b =>
+            modelBuilder.Entity("TennisTournament.Data.Models.Dealer", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -253,60 +253,20 @@ namespace TennisTournament.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("CourtTypes");
-                });
-
-            modelBuilder.Entity("TennisTournament.Data.Models.Game", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Name")
+                    b.Property<string>("PhoneNumber")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("Games");
-                });
-
-            modelBuilder.Entity("TennisTournament.Data.Models.GameType", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Name")
+                    b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("GameTypes");
-                });
+                    b.HasIndex("UserId")
+                        .IsUnique();
 
-            modelBuilder.Entity("TennisTournament.Data.Models.LastSet", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("LastSets");
+                    b.ToTable("Dealers");
                 });
 
             modelBuilder.Entity("TennisTournament.Data.Models.Player", b =>
@@ -353,40 +313,6 @@ namespace TennisTournament.Migrations
                     b.ToTable("Players");
                 });
 
-            modelBuilder.Entity("TennisTournament.Data.Models.Rule", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Rules");
-                });
-
-            modelBuilder.Entity("TennisTournament.Data.Models.Set", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Sets");
-                });
-
             modelBuilder.Entity("TennisTournament.Data.Models.Tournament", b =>
                 {
                     b.Property<int>("Id")
@@ -395,16 +321,23 @@ namespace TennisTournament.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("CourtTypeId")
+                    b.Property<int>("CourtType")
                         .HasColumnType("int");
 
-                    b.Property<int>("GameId")
+                    b.Property<int>("DealerId")
                         .HasColumnType("int");
 
-                    b.Property<int>("GameTypeId")
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("GameType")
                         .HasColumnType("int");
 
-                    b.Property<int>("LastSetId")
+                    b.Property<int>("Games")
+                        .HasColumnType("int");
+
+                    b.Property<int>("LastSets")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -414,25 +347,15 @@ namespace TennisTournament.Migrations
                     b.Property<int>("PlayerId")
                         .HasColumnType("int");
 
-                    b.Property<int>("RuleId")
+                    b.Property<int>("Rules")
                         .HasColumnType("int");
 
-                    b.Property<int>("SetId")
+                    b.Property<int>("Sets")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CourtTypeId");
-
-                    b.HasIndex("GameId");
-
-                    b.HasIndex("GameTypeId");
-
-                    b.HasIndex("LastSetId");
-
-                    b.HasIndex("RuleId");
-
-                    b.HasIndex("SetId");
+                    b.HasIndex("DealerId");
 
                     b.ToTable("Tournaments");
                 });
@@ -503,83 +426,27 @@ namespace TennisTournament.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("TennisTournament.Data.Models.Dealer", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                        .WithOne()
+                        .HasForeignKey("TennisTournament.Data.Models.Dealer", "UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("TennisTournament.Data.Models.Tournament", b =>
                 {
-                    b.HasOne("TennisTournament.Data.Models.CourtType", "CourtType")
+                    b.HasOne("TennisTournament.Data.Models.Dealer", "Dealer")
                         .WithMany("Tournaments")
-                        .HasForeignKey("CourtTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasForeignKey("DealerId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("TennisTournament.Data.Models.Game", "Games")
-                        .WithMany("Tournaments")
-                        .HasForeignKey("GameId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("TennisTournament.Data.Models.GameType", "GameType")
-                        .WithMany("Tournaments")
-                        .HasForeignKey("GameTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("TennisTournament.Data.Models.LastSet", "LastSets")
-                        .WithMany("Tournaments")
-                        .HasForeignKey("LastSetId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("TennisTournament.Data.Models.Rule", "Rules")
-                        .WithMany("Tournaments")
-                        .HasForeignKey("RuleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("TennisTournament.Data.Models.Set", "Sets")
-                        .WithMany("Tournaments")
-                        .HasForeignKey("SetId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("CourtType");
-
-                    b.Navigation("GameType");
-
-                    b.Navigation("Games");
-
-                    b.Navigation("LastSets");
-
-                    b.Navigation("Rules");
-
-                    b.Navigation("Sets");
+                    b.Navigation("Dealer");
                 });
 
-            modelBuilder.Entity("TennisTournament.Data.Models.CourtType", b =>
-                {
-                    b.Navigation("Tournaments");
-                });
-
-            modelBuilder.Entity("TennisTournament.Data.Models.Game", b =>
-                {
-                    b.Navigation("Tournaments");
-                });
-
-            modelBuilder.Entity("TennisTournament.Data.Models.GameType", b =>
-                {
-                    b.Navigation("Tournaments");
-                });
-
-            modelBuilder.Entity("TennisTournament.Data.Models.LastSet", b =>
-                {
-                    b.Navigation("Tournaments");
-                });
-
-            modelBuilder.Entity("TennisTournament.Data.Models.Rule", b =>
-                {
-                    b.Navigation("Tournaments");
-                });
-
-            modelBuilder.Entity("TennisTournament.Data.Models.Set", b =>
+            modelBuilder.Entity("TennisTournament.Data.Models.Dealer", b =>
                 {
                     b.Navigation("Tournaments");
                 });

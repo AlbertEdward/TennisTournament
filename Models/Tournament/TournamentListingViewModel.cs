@@ -1,4 +1,6 @@
-﻿namespace TennisTournament.Models.Tournament
+﻿using TennisTournament.Data.Models;
+
+namespace TennisTournament.Models.Tournament
 {
     public class TournamentListingViewModel
     {
@@ -6,9 +8,9 @@
 
         public string Name { get; set; }
 
-        public string GameType { get; set; }
+        public GameType GameType { get; set; }
 
-        public string CourtType { get; set; }
+        public CourtType CourtType { get; set; }
 
         public string Description { get; set; }
     }
