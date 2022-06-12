@@ -14,6 +14,6 @@ namespace TennisTournament.Data.Models
 
         public string UserId { get; init; }
 
-        public IEnumerable<Tournament> Tournaments { get; init; } = new List<Tournament>();
+        //public IEnumerable<Tournament> Tournaments { get; init; } = new List<Tournament>();
     }
 }

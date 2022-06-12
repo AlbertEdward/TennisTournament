@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using TennisTournament.Data;
 using TennisTournament.Data.Models;
 using TennisTournament.Models.Player;
@@ -12,8 +13,10 @@ namespace TennisTournament.Controllers
         public PlayerController(TennisDbContext data)
             => this.data = data;
 
+        [Authorize] 
         public IActionResult Add() => View();
 
+        [Authorize]
         public IActionResult All()
         {
             var players = this.data
@@ -32,6 +35,7 @@ namespace TennisTournament.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public IActionResult Add(AddPlayerFormModel player, IFormFile image)
         {
             var playerData = new Player

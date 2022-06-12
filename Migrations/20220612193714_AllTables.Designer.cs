@@ -12,8 +12,8 @@ using TennisTournament.Data;
 namespace TennisTournament.Migrations
 {
     [DbContext(typeof(TennisDbContext))]
-    [Migration("20220611213348_DealersTable")]
-    partial class DealersTable
+    [Migration("20220612193714_AllTables")]
+    partial class AllTables
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -324,9 +324,6 @@ namespace TennisTournament.Migrations
                     b.Property<int>("CourtType")
                         .HasColumnType("int");
 
-                    b.Property<int>("DealerId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -354,8 +351,6 @@ namespace TennisTournament.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("DealerId");
 
                     b.ToTable("Tournaments");
                 });
@@ -433,22 +428,6 @@ namespace TennisTournament.Migrations
                         .HasForeignKey("TennisTournament.Data.Models.Dealer", "UserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("TennisTournament.Data.Models.Tournament", b =>
-                {
-                    b.HasOne("TennisTournament.Data.Models.Dealer", "Dealer")
-                        .WithMany("Tournaments")
-                        .HasForeignKey("DealerId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Dealer");
-                });
-
-            modelBuilder.Entity("TennisTournament.Data.Models.Dealer", b =>
-                {
-                    b.Navigation("Tournaments");
                 });
 #pragma warning restore 612, 618
         }

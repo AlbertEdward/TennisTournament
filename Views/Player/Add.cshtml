@@ -1,13 +1,13 @@
 ﻿@model AddPlayerFormModel
 
 @{
-    ViewData["Title"] = "Add Player";
+    ViewBag.Title = "Add Player";
 }
 
 <form method="post" enctype="multipart/form-data">
     <div class="row">
         <div class="offset-md-2 col-md-8 col-sm-12">
-            <h2 class="text-center">Add Player</h2>
+            <h2 class="text-center">@ViewBag.Title</h2>
             <div class="form-group row">
                 <label asp-for="Name" class="col-sm-2 col-form-label">Name</label>
                 <div class="col-sm-10">

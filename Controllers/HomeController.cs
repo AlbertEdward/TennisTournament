@@ -13,23 +13,21 @@ namespace TennisTournament.Controllers
 
         public IActionResult Index()
         {
-            
+            //var tournaments = this.data
+            //    .Tournaments
+            //    .OrderByDescending(p => p.Id)
+            //    .Select(t => new TournamentListingViewModel
+            //    {
+            //        Id = t.Id,
+            //        Name = t.Name,
+            //        GameType = t.GameType,
+            //        CourtType = t.CourtType,
+            //        Description = t.Description
+            //    })
+            //    .Take(3)
+            //    .ToList();
 
-            var tournaments = this.data
-                .Tournaments
-                .OrderByDescending(p => p.Id)
-                .Select(t => new TournamentListingViewModel
-                {
-                    Id = t.Id,
-                    Name = t.Name,
-                    GameType = t.GameType,
-                    CourtType = t.CourtType,
-                    Description = t.Description
-                })
-                .Take(3)
-                .ToList();
-
-            return View(tournaments);
+            return View();
         }
     }
 }

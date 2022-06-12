@@ -24,9 +24,9 @@ namespace TennisTournament.Data.Models
 
         [ForeignKey("Players")]
         public int PlayerId { get; init; }
-        public IEnumerable<Player> Players { get; init; }
+        public IEnumerable<Player>? Players { get; init; }
 
-        public int DealerId { get; init; }
-        public Dealer Dealer { get; init; }
+        //public int DealerId { get; init; }
+        //public Dealer Dealer { get; init; }
     }
 }

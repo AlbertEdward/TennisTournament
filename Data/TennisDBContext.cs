@@ -24,12 +24,12 @@ namespace TennisTournament.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder
-                .Entity<Tournament>()
-                .HasOne(d => d.Dealer)
-                .WithMany(d => d.Tournaments)
-                .HasForeignKey(t => t.DealerId)
-                .OnDelete(DeleteBehavior.Restrict);
+            //builder
+            //   .Entity<Tournament>()
+            //   .HasOne(d => d.Dealer)
+            //   .WithMany(d => d.Tournaments)
+            //   .HasForeignKey(t => t.DealerId)
+            //   .OnDelete(DeleteBehavior.Restrict);
 
             builder
                 .Entity<Dealer>()

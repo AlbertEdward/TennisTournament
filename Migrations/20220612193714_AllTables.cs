@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TennisTournament.Migrations
 {
-    public partial class DealersTable : Migration
+    public partial class AllTables : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -68,6 +68,27 @@ namespace TennisTournament.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Players", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Tournaments",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    GameType = table.Column<int>(type: "int", nullable: false),
+                    CourtType = table.Column<int>(type: "int", nullable: false),
+                    Sets = table.Column<int>(type: "int", nullable: false),
+                    Games = table.Column<int>(type: "int", nullable: false),
+                    Rules = table.Column<int>(type: "int", nullable: false),
+                    LastSets = table.Column<int>(type: "int", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PlayerId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Tournaments", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -198,34 +219,6 @@ namespace TennisTournament.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Tournaments",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    GameType = table.Column<int>(type: "int", nullable: false),
-                    CourtType = table.Column<int>(type: "int", nullable: false),
-                    Sets = table.Column<int>(type: "int", nullable: false),
-                    Games = table.Column<int>(type: "int", nullable: false),
-                    Rules = table.Column<int>(type: "int", nullable: false),
-                    LastSets = table.Column<int>(type: "int", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PlayerId = table.Column<int>(type: "int", nullable: false),
-                    DealerId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Tournaments", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Tournaments_Dealers_DealerId",
-                        column: x => x.DealerId,
-                        principalTable: "Dealers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "PlayerTournament",
                 columns: table => new
                 {
@@ -298,11 +291,6 @@ namespace TennisTournament.Migrations
                 name: "IX_PlayerTournament_TournamentsId",
                 table: "PlayerTournament",
                 column: "TournamentsId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Tournaments_DealerId",
-                table: "Tournaments",
-                column: "DealerId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -323,22 +311,22 @@ namespace TennisTournament.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Dealers");
+
+            migrationBuilder.DropTable(
                 name: "PlayerTournament");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
+                name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
                 name: "Players");
 
             migrationBuilder.DropTable(
                 name: "Tournaments");
-
-            migrationBuilder.DropTable(
-                name: "Dealers");
-
-            migrationBuilder.DropTable(
-                name: "AspNetUsers");
         }
     }
 }

@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 using TennisTournament.Data;
 using TennisTournament.Data.Models;
-using TennisTournament.Models;
+using TennisTournament.Infrastructure;
 using TennisTournament.Models.Tournament;
 
 namespace TennisTournament.Controllers
@@ -13,9 +15,12 @@ namespace TennisTournament.Controllers
         public TournamentController(TennisDbContext data)
             => this.data = data;
 
-        public IActionResult Add() => View(new AddTournamentFormModel
+        [Authorize]
+        public IActionResult Add()
         {
-        });
+            return View(new AddTournamentFormModel());
+        }
+        
 
         public IActionResult All()
         {
@@ -35,8 +40,25 @@ namespace TennisTournament.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public IActionResult Add(AddTournamentFormModel tournament)
         {
+            var dealerId = this.data
+                .Dealers
+                .Where(d => d.UserId == this.User.GetId())
+                .Select(d => d.Id)
+                .FirstOrDefault();
+
+            //if (dealerId == 0)
+            //{
+            //    return RedirectToAction(nameof(DealerController.Create), "Dealers");
+            //}
+
+            //if (!this.UserIsDealer())
+            //{
+            //    return RedirectToAction(nameof(DealerController.Create), "Dealers");
+            //}
+
             var tournamentData = new Tournament
             {
                 Name = tournament.Name,
@@ -47,12 +69,19 @@ namespace TennisTournament.Controllers
                 Rules = tournament.Rules,
                 LastSets = tournament.LastSets,
                 Description = tournament.Description,
-    };
+                //DealerId = dealerId
+            };
 
             this.data.Tournaments.Add(tournamentData);
             this.data.SaveChanges();
 
             return RedirectToAction(nameof(All));
         }
+
+        private bool UserIsDealer()
+            =>!this
+            .data
+            .Dealers
+            .Any(d => d.UserId == this.User.GetId());
     }
 }
