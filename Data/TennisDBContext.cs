@@ -20,24 +20,8 @@ namespace TennisTournament.Data
 
         public DbSet<Player> Players { get; init; }
 
-        public DbSet<Dealer> Dealers { get; init; }
-
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            //builder
-            //   .Entity<Tournament>()
-            //   .HasOne(d => d.Dealer)
-            //   .WithMany(d => d.Tournaments)
-            //   .HasForeignKey(t => t.DealerId)
-            //   .OnDelete(DeleteBehavior.Restrict);
-
-            builder
-                .Entity<Dealer>()
-                .HasOne<IdentityUser>()
-                .WithOne()
-                .HasForeignKey<Dealer>(d => d.UserId)
-                .OnDelete(DeleteBehavior.Restrict);
-
             base.OnModelCreating(builder);
         }
 

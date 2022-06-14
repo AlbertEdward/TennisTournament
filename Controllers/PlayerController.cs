@@ -36,8 +36,13 @@ namespace TennisTournament.Controllers
 
         [HttpPost]
         [Authorize]
-        public IActionResult Add(AddPlayerFormModel player, IFormFile image)
+        public IActionResult Add(AddPlayerFormModel player)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(player);
+            }
+
             var playerData = new Player
             {
                 Name = player.Name,

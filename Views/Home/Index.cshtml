@@ -1,29 +1,106 @@
-﻿
+﻿@model StatisticsResponseModel
+
 @{
     ViewBag.Title = "Home Page";
 }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Analytics and Statistics Card UI Design</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
 
 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-  <ol class="carousel-indicators">
-    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-  </ol>
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img src="/img/wp3088661.jpg" />
+    <ol class="carousel-indicators">
+        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+    </ol>
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img src="/img/wp3088661.jpg" />
+        </div>
+        <div class="carousel-item">
+            <img src="/img/wp2447220.jpg" />
+        </div>
+        <div class="carousel-item">
+            <img src="/img/wp3088727.jpg" />
+        </div>
     </div>
-    <div class="carousel-item">
-      <img src="/img/wp2447220.jpg" />
-    </div>
-    <div class="carousel-item">
-      <img src="/img/wp3088727.jpg" />
-    </div>
-  </div>
-  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-  </a>
-  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-  </a>
+    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    </a>
 </div>
+
+<div class="row-mb-3">
+    <div class="col-12 text-center">
+        <button type="button" class="btn btn-outline-dark" id="statistics-button">Show Statistics</button>
+    </div>
+</div>
+
+<body>
+    <section class="main-content">
+        <div class="container">
+            <div class="row d-none" id="statistics-card">
+                <div class="col-sm-4 offset-sm-2">
+                    <div class="stat-card">
+                        <div class="stat-card__content >
+                            <p class="text-uppercase mb-1 text-muted">Total Tournaments</p>
+                            <h2 id="total-tournaments"><i class="fa fa-dollar"></i></h2>
+                            <div>
+                                <span class="text-success font-weight-bold mr-1"><i class="fa fa-arrow-up"></i> +5%</span>
+                                <span class="text-muted">vs last 8 days</span>
+                            </div>
+                        </div>
+                        <div class="stat-card__icon stat-card__icon--success">
+                            <div class="stat-card__icon-circle">
+                                <i class="fa fa-suitcase"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="stat-card">
+                        <div class="stat-card__content>
+                            <p class="text-uppercase mb-1 text-muted">Total Players</p>
+                            <h2 id="total-players"></h2>
+                            <div>
+                                <span class="text-danger font-weight-bold mr-1"><i class="fa fa-arrow-down"></i> -5%</span>
+                                <span class="text-muted">vs last 28 days</span>
+                            </div>
+                        </div>
+                        <div class="stat-card__icon stat-card__icon--primary">
+                            <div class="stat-card__icon-circle">
+                                <i class="fa fa-users"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
+
+@section Scripts {
+<script>
+    $('#statistics-button').on('click', ev =>{
+        $.get('/api/statistics', (data) => {
+        $('#total-tournaments').text(data.totalTournaments);
+        $('#total-players').text(data.totalPlayers);
+
+        $('#statistics-card').removeClass('d-none');
+        $('#statistics-button').hide();
+    })
+    })
+</script>
+}
+
+

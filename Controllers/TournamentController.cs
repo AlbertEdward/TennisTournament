@@ -43,21 +43,10 @@ namespace TennisTournament.Controllers
         [Authorize]
         public IActionResult Add(AddTournamentFormModel tournament)
         {
-            var dealerId = this.data
-                .Dealers
-                .Where(d => d.UserId == this.User.GetId())
-                .Select(d => d.Id)
-                .FirstOrDefault();
-
-            //if (dealerId == 0)
-            //{
-            //    return RedirectToAction(nameof(DealerController.Create), "Dealers");
-            //}
-
-            //if (!this.UserIsDealer())
-            //{
-            //    return RedirectToAction(nameof(DealerController.Create), "Dealers");
-            //}
+            if (!ModelState.IsValid)
+            {
+                return View(tournament);
+            }
 
             var tournamentData = new Tournament
             {
@@ -69,7 +58,6 @@ namespace TennisTournament.Controllers
                 Rules = tournament.Rules,
                 LastSets = tournament.LastSets,
                 Description = tournament.Description,
-                //DealerId = dealerId
             };
 
             this.data.Tournaments.Add(tournamentData);
@@ -77,11 +65,5 @@ namespace TennisTournament.Controllers
 
             return RedirectToAction(nameof(All));
         }
-
-        private bool UserIsDealer()
-            =>!this
-            .data
-            .Dealers
-            .Any(d => d.UserId == this.User.GetId());
     }
 }

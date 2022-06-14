@@ -6,6 +6,7 @@ namespace TennisTournament.Models.Player
     public class AddPlayerFormModel
     {
         [Required]
+        [StringLength(60, MinimumLength = 3, ErrorMessage = "Name must be in range 3-60 characters!")]
         public string Name { get; set; }
 
         [Required]

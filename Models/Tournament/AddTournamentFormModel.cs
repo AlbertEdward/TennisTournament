@@ -6,6 +6,7 @@ namespace TennisTournament.Models.Tournament
     public class AddTournamentFormModel
     {
         [Required]
+        [StringLength(60, MinimumLength = 3, ErrorMessage = "Name must be in range 3-60 characters!")]
         public string Name { get; init; }
 
         [Required]
@@ -27,6 +28,7 @@ namespace TennisTournament.Models.Tournament
         public LastSet LastSets { get; set; }
 
         [Required]
+        [StringLength(255, MinimumLength = 10, ErrorMessage = "Description must be in range 10-255 characters!")]
         public string Description { get; set; }
     }
 }
