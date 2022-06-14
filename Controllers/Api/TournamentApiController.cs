@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Collections;
 using TennisTournament.Data;
 using TennisTournament.Data.Models;
 using TennisTournament.Models.Tournament;

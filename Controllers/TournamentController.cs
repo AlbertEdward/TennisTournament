@@ -22,10 +22,28 @@ namespace TennisTournament.Controllers
         }
         
 
-        public IActionResult All()
+        public IActionResult All(CourtType courtType,GameType gameType,string searchTerm)
         {
-            var tournaments = this.data
-                .Tournaments
+            var tournamentsQuery = this.data.Tournaments.AsQueryable();
+
+            if (courtType != CourtType.Select)
+            {
+                tournamentsQuery = tournamentsQuery.Where(c => c.CourtType == courtType);
+            }
+
+            if (gameType != GameType.Select)
+            {
+                tournamentsQuery = tournamentsQuery.Where(g => g.GameType == gameType);
+            }
+
+            if (!string.IsNullOrWhiteSpace(searchTerm))
+            {
+                tournamentsQuery = tournamentsQuery.Where(t =>
+                    t.Name.ToLower().Contains(searchTerm.ToLower()) ||
+                    t.Description.ToLower().Contains(searchTerm.ToLower()));
+            }
+
+            var tournaments = tournamentsQuery
                 .OrderByDescending(t => t.Id)
                 .Select(t => new TournamentListingViewModel
                 {
@@ -36,7 +54,13 @@ namespace TennisTournament.Controllers
                 })
                 .ToList();
 
-            return View(tournaments);
+            return View(new AllTournamentsQueryModel
+            {
+                Tournaments = tournaments,
+                CourtTypes = courtType,
+                GameType = gameType,
+                SearchTerm = searchTerm,
+            });
         }
 
         [HttpPost]

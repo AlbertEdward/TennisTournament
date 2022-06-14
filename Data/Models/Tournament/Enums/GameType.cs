@@ -2,7 +2,8 @@
 {
     public enum GameType
     {
-        Singles,
-        Doubles
+        Select = 0,
+        Singles = 1,
+        Doubles =2,
     }
 }

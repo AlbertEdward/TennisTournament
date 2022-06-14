@@ -2,6 +2,7 @@
 {
     public enum CourtType
     {
+        Select,
         Clay,
         Omni,
         Hard,
