@@ -12,8 +12,8 @@ using TennisTournament.Data;
 namespace TennisTournament.Migrations
 {
     [DbContext(typeof(TennisDbContext))]
-    [Migration("20220612193714_AllTables")]
-    partial class AllTables
+    [Migration("20220615214927_Tables")]
+    partial class Tables
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -241,34 +241,6 @@ namespace TennisTournament.Migrations
                     b.ToTable("PlayerTournament");
                 });
 
-            modelBuilder.Entity("TennisTournament.Data.Models.Dealer", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId")
-                        .IsUnique();
-
-                    b.ToTable("Dealers");
-                });
-
             modelBuilder.Entity("TennisTournament.Data.Models.Player", b =>
                 {
                     b.Property<int>("Id")
@@ -323,6 +295,10 @@ namespace TennisTournament.Migrations
 
                     b.Property<int>("CourtType")
                         .HasColumnType("int");
+
+                    b.Property<byte[]>("CoverImage")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -418,15 +394,6 @@ namespace TennisTournament.Migrations
                         .WithMany()
                         .HasForeignKey("TournamentsId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("TennisTournament.Data.Models.Dealer", b =>
-                {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
-                        .WithOne()
-                        .HasForeignKey("TennisTournament.Data.Models.Dealer", "UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 #pragma warning restore 612, 618

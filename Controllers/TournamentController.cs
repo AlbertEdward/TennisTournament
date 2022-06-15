@@ -1,28 +1,35 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 using TennisTournament.Data;
 using TennisTournament.Data.Models;
-using TennisTournament.Infrastructure;
 using TennisTournament.Models.Tournament;
+
 
 namespace TennisTournament.Controllers
 {
     public class TournamentController : Controller
     {
         private readonly TennisDbContext data;
+        private readonly IWebHostEnvironment webHostEnvironment;
 
-        public TournamentController(TennisDbContext data)
-            => this.data = data;
+        public TournamentController(TennisDbContext data, IWebHostEnvironment webHostEnvironment)
+        {
+            this.data = data;
+            this.webHostEnvironment = webHostEnvironment;
+        }
 
         [Authorize]
         public IActionResult Add()
         {
             return View(new AddTournamentFormModel());
         }
-        
 
-        public IActionResult All(CourtType courtType,GameType gameType,string searchTerm)
+        public IActionResult Upload()
+        {
+            return RedirectToAction(nameof(All));
+        }
+
+        public IActionResult All(CourtType courtType, GameType gameType, string searchTerm)
         {
             var tournamentsQuery = this.data.Tournaments.AsQueryable();
 
@@ -65,11 +72,28 @@ namespace TennisTournament.Controllers
 
         [HttpPost]
         [Authorize]
-        public IActionResult Add(AddTournamentFormModel tournament)
+        [RequestFormLimits(MultipartBodyLengthLimit = 5242880)]
+        [RequestSizeLimit(5242880)]
+        public IActionResult Add(AddTournamentFormModel tournament, IFormFile coverImage)
         {
             if (!ModelState.IsValid)
             {
                 return View(tournament);
+            }
+
+            if (coverImage!= null)
+            {
+                if (coverImage.Length > 0)
+                {
+                    byte[] p1 = null;
+                    using (var fs1 = coverImage.OpenReadStream())
+                    using (var ms1 = new MemoryStream())
+                    {
+                        fs1.CopyTo(ms1);
+                        p1 = ms1.ToArray();
+                    }
+                    tournament.CoverImage = p1;
+                }
             }
 
             var tournamentData = new Tournament
@@ -81,7 +105,7 @@ namespace TennisTournament.Controllers
                 Games = tournament.Games,
                 Rules = tournament.Rules,
                 LastSets = tournament.LastSets,
-                Description = tournament.Description,
+                Description = tournament.Description
             };
 
             this.data.Tournaments.Add(tournamentData);

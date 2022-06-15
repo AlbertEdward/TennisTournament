@@ -294,6 +294,10 @@ namespace TennisTournament.Migrations
                     b.Property<int>("CourtType")
                         .HasColumnType("int");
 
+                    b.Property<byte[]>("CoverImage")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");

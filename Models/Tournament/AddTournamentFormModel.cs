@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using TennisTournament.Data.Models;
 
 namespace TennisTournament.Models.Tournament
@@ -30,5 +31,9 @@ namespace TennisTournament.Models.Tournament
         [Required]
         [StringLength(255, MinimumLength = 10, ErrorMessage = "Description must be in range 10-255 characters!")]
         public string Description { get; set; }
+
+        [Display(Name = "Upload File")]
+        [Required(ErrorMessage = "Please choose file to upload.")]
+        public byte[] CoverImage { get; set; }
     }
 }

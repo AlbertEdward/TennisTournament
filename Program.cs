@@ -13,7 +13,7 @@ builder.Services.AddDbContext<TennisDbContext>(options =>
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => 
+builder.Services.AddDefaultIdentity<IdentityUser>(options =>
 {
     options.Password.RequireDigit = false;
     options.Password.RequireUppercase = false;
