@@ -1,12 +1,34 @@
-﻿@model IEnumerable<PlayerListingViewModel>
+﻿@model AllPlayersQueryModel
 
 @{
     ViewBag.Title = "All Players";
 }
+<form method="get">
+    <div class="row">
+        <div class="form-group col-md-3">
+            <label asp-for="SearchTerm" class="form-label"></label>
+            <div>
+                <input asp-for="SearchTerm" type="text" class="form-control" placeholder="Search by text...">
+            </div>
+        </div>
+        <div class="form-group col-md-3">
+            <label asp-for="Gender"></label>
+            <select asp-for="Gender" class="form-control">
+                @foreach (Gender gender in (Gender[])Enum.GetValues(typeof(Gender)))
+                {
+                    <option>@gender</option>
+                }
+            </select>
+        </div>
+        <div class="form-group col-md-3">
+            <input type="submit" class="btn btn-primary d-none" value="Search" />
+        </div>
+    </div>
+</form>
 
 <div class="row">
     <h2 class="text-center mb-4 mt-3">@ViewBag.Title</h2>
-    @foreach (var player in Model)
+    @foreach (var player in Model.Players)
     {
         <div class="col-md-4">
             <div class="card-group">

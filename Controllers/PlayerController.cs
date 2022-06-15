@@ -14,24 +14,44 @@ namespace TennisTournament.Controllers
             => this.data = data;
 
         [Authorize] 
-        public IActionResult Add() => View();
+        public IActionResult Add()
+        {
+            return View(new AddPlayerFormModel());
+        }
 
         [Authorize]
-        public IActionResult All()
+        public IActionResult All(string searchTerm, Gender gender)
         {
-            var players = this.data
-                .Players
+            var playersQuery = this.data.Players.AsQueryable();
+
+            if (gender != Gender.Select)
+            {
+                playersQuery = playersQuery.Where(c => c.Gender == gender);
+            }
+
+            if (!string.IsNullOrWhiteSpace(searchTerm))
+            {
+                playersQuery = playersQuery.Where(p =>
+                    p.Name.ToLower().Contains(searchTerm.ToLower()));
+            }
+
+            var players = playersQuery
                 .OrderByDescending(p => p.Id)
                 .Select(p => new PlayerListingViewModel
                 {
                     Id = p.Id,
                     Name = p.Name,
                     Gender = p.Gender,
-                    Rank = p.Rank
+                    Rank = p.Rank,
                 })
                 .ToList();
 
-            return View(players);
+            return View(new AllPlayersQueryModel
+            {
+                Players = players,
+                Name = searchTerm,
+                Gender = gender
+            });
         }
 
         [HttpPost]
