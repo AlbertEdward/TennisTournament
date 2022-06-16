@@ -32,8 +32,8 @@ namespace TennisTournament.Models.Tournament
         [StringLength(255, MinimumLength = 10, ErrorMessage = "Description must be in range 10-255 characters!")]
         public string Description { get; set; }
 
-        [Display(Name = "Upload File")]
-        [Required(ErrorMessage = "Please choose file to upload.")]
-        public byte[] CoverImage { get; set; }
+        [Required(ErrorMessage = "Please choose photo to upload.")]
+        [Display(Name = "Upload photo")]
+        public IFormFile CoverPhoto { get; set; }
     }
 }

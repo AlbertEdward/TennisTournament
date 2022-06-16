@@ -22,7 +22,7 @@ namespace TennisTournament.Data.Models
 
         public string Description { get; set; }
 
-        public byte[] CoverImage { get; set; }
+        public string CoverPhoto { get; set; }
 
         [ForeignKey("Players")]
         public int PlayerId { get; init; }

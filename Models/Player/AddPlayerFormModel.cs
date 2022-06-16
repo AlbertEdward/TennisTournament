@@ -22,5 +22,9 @@ namespace TennisTournament.Models.Player
         [Required]
         [Display(Name = "Back hand stroke")]
         public BackHandStroke BackHandStroke { get; init; }
+
+        [Required(ErrorMessage = "Please choose photo to upload.")]
+        [Display(Name = "Upload photo")]
+        public IFormFile ProfilePhoto { get; init; }
     }
 }

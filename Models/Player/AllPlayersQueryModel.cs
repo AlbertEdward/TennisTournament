@@ -13,5 +13,8 @@ namespace TennisTournament.Models.Player
 
         [Display(Name = "Search:")]
         public string SearchTerm { get; init; }
+
+        [Display(Name = "Photo:")]
+        public string ProfilePhoto { get; init; }
     }
 }

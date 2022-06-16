@@ -53,7 +53,9 @@
                 </select>
             </div>
 
-            <input class="mt-3" type="file" name="image" />
+            <label class="form-label" asp-for="ProfilePhoto">Add cover photo</label>
+            <input type="file" name="profilePhoto" class="form-control" />
+            <span asp-validation-for="ProfilePhoto" class="text-danger"></span>
 
             <div class="form-group row">
                 <div class="col-sm-10">

@@ -17,5 +17,8 @@ namespace TennisTournament.Models.Tournament
 
         [Display(Name = "Search:")]
         public string SearchTerm { get; init; }
+
+        [Display(Name = "Image:")]
+        public string CoverPhoto { get; init; }
     }
 }

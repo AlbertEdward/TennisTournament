@@ -10,23 +10,16 @@ namespace TennisTournament.Controllers
     public class TournamentController : Controller
     {
         private readonly TennisDbContext data;
-        private readonly IWebHostEnvironment webHostEnvironment;
 
-        public TournamentController(TennisDbContext data, IWebHostEnvironment webHostEnvironment)
+        public TournamentController(TennisDbContext data)
         {
             this.data = data;
-            this.webHostEnvironment = webHostEnvironment;
         }
 
         [Authorize]
         public IActionResult Add()
         {
             return View(new AddTournamentFormModel());
-        }
-
-        public IActionResult Upload()
-        {
-            return RedirectToAction(nameof(All));
         }
 
         public IActionResult All(CourtType courtType, GameType gameType, string searchTerm)
@@ -58,6 +51,7 @@ namespace TennisTournament.Controllers
                     Name = t.Name,
                     GameType = t.GameType,
                     CourtType = t.CourtType,
+                    CoverPhoto = t.CoverPhoto
                 })
                 .ToList();
 
@@ -74,27 +68,20 @@ namespace TennisTournament.Controllers
         [Authorize]
         [RequestFormLimits(MultipartBodyLengthLimit = 5242880)]
         [RequestSizeLimit(5242880)]
-        public IActionResult Add(AddTournamentFormModel tournament, IFormFile coverImage)
+        public IActionResult Add(AddTournamentFormModel tournament)
         {
             if (!ModelState.IsValid)
+            {
+               return View(tournament);
+            }
+
+            // if image is NULL or image name doesn't end to ".jpg" or ".jpeg"
+            if (tournament.CoverPhoto == null || !(tournament.CoverPhoto.FileName.EndsWith(".jpg")))
             {
                 return View(tournament);
             }
 
-            if (coverImage!= null)
-            {
-                if (coverImage.Length > 0)
-                {
-                    byte[] p1 = null;
-                    using (var fs1 = coverImage.OpenReadStream())
-                    using (var ms1 = new MemoryStream())
-                    {
-                        fs1.CopyTo(ms1);
-                        p1 = ms1.ToArray();
-                    }
-                    tournament.CoverImage = p1;
-                }
-            }
+            string coverPhoto = this.UploadFile(tournament.CoverPhoto);
 
             var tournamentData = new Tournament
             {
@@ -105,13 +92,27 @@ namespace TennisTournament.Controllers
                 Games = tournament.Games,
                 Rules = tournament.Rules,
                 LastSets = tournament.LastSets,
-                Description = tournament.Description
+                Description = tournament.Description,
+                CoverPhoto = coverPhoto
             };
 
             this.data.Tournaments.Add(tournamentData);
             this.data.SaveChanges();
 
             return RedirectToAction(nameof(All));
+        }
+
+        private string UploadFile(IFormFile file)
+        {
+            var uploadsFolder = Path.Combine("C:/Users/Albert Khurshudyan/Desktop/TennisTournament/wwwroot/UploadedPhotos/CoverPhotos/");
+            var uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
+            var filePath = Path.Combine(uploadsFolder, uniqueFileName);
+            using (var fileStream = new FileStream(filePath, FileMode.Create))
+            {
+                file.CopyTo(fileStream);
+            }
+
+            return uniqueFileName;
         }
     }
 }

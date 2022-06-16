@@ -13,5 +13,7 @@ namespace TennisTournament.Models.Player
         public Gender Gender { get; init; }
 
         public double Rank { get; init; }
+
+        public string ProfilePhoto { get; set; }
     }
 }

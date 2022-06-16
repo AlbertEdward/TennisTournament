@@ -13,5 +13,7 @@ namespace TennisTournament.Models.Tournament
         public CourtType CourtType { get; set; }
 
         public string Description { get; set; }
+
+        public string CoverPhoto { get; set; }
     }
 }
