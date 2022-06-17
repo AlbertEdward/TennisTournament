@@ -20,6 +20,19 @@ namespace TennisTournament.Controllers
         }
 
         [Authorize]
+        public IActionResult Delete(int id)
+        {
+            var player = this.data.Players.FirstOrDefault(c => c.Id == id);
+
+            data.Players.Remove(player);
+
+            data.SaveChanges();
+
+            return RedirectToAction("Index", "Home");
+        }
+
+
+        [Authorize]
         public IActionResult All(string searchTerm, Gender gender)
         {
             var playersQuery = this.data.Players.AsQueryable();

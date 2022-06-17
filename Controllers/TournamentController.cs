@@ -22,6 +22,36 @@ namespace TennisTournament.Controllers
             return View(new AddTournamentFormModel());
         }
 
+        [Authorize]
+        public IActionResult Delete(int id)
+        {
+            var tournament = this.data.Tournaments.FirstOrDefault(c => c.Id == id);
+
+            data.Tournaments.Remove(tournament);
+
+            data.SaveChanges();
+
+            return RedirectToAction("Index", "Home");
+        }
+
+        [Authorize]
+        public IActionResult Edit(int id)
+        {
+            var tournament = this.data.Tournaments.FirstOrDefault(c => c.Id == id);
+
+            return View(new AddTournamentFormModel
+            {
+                Name = tournament.Name,
+                GameTypes = tournament.GameType,
+                CourtTypes = tournament.CourtType,
+                Sets = tournament.Sets,
+                Games = tournament.Games,
+                Rules = tournament.Rules,
+                LastSets = tournament.LastSets,
+                Description = tournament.Description,
+            });
+        }
+
         public IActionResult All(CourtType courtType, GameType gameType, string searchTerm)
         {
             var tournamentsQuery = this.data.Tournaments.AsQueryable();
@@ -98,6 +128,36 @@ namespace TennisTournament.Controllers
 
             this.data.Tournaments.Add(tournamentData);
             this.data.SaveChanges();
+
+            return RedirectToAction(nameof(All));
+        }
+
+        
+
+        [HttpPost]
+        [Authorize]
+        public IActionResult Edit(int id, AddTournamentFormModel tournament)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(tournament);
+            }
+
+            var tournamentIsEdited = this.carService.Edit(
+                id,
+                tournament.Name,
+                tournament.GameTypes,
+                tournament.CourtTypes,
+                tournament.Sets,
+                tournament.Games,
+                tournament.Rules,
+                tournament.LastSets,
+                tournament.Description);
+
+            if (!tournamentIsEdited)
+            {
+                return BadRequest();
+            }
 
             return RedirectToAction(nameof(All));
         }

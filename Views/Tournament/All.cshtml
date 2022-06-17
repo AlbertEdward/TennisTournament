@@ -50,6 +50,9 @@
                         <h5 class="card-title">@tournament.Name</h5>
                         <h6 class="card-title">@tournament.GameType | @tournament.CourtType</h6>
                         <p class="card-text">@tournament.Description</p>
+                        <a class="btn btn-outline-warning">Add player</a>
+                        <a asp-controller="Tournament" asp-action="Edit" asp-route-id="@tournament.Id" class="btn btn-primary">Edit</a>
+                        <a asp-controller="Tournament" asp-action="Delete" asp-route-id="@tournament.Id" class="btn btn-danger">Delete</a>
                     </div>
                 </div>
             </div>

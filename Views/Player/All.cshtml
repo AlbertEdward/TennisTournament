@@ -37,6 +37,9 @@
                     <div class="card-body">
                         <h5 class="card-title">@player.Name</h5>
                         <p class="card-text">Rank: @player.Rank</p>
+                        <a class="btn btn-outline-warning">Add to tournament</a>
+                        <a asp-controller="Player" asp-action="Edit" asp-route-id="@player.Id" class="btn btn-primary">Edit</a>
+                        <a asp-controller="Player" asp-action="Delete" asp-route-id="@player.Id" class="btn btn-danger">Delete</a>
                     </div>
                 </div>
             </div>
