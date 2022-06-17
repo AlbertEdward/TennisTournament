@@ -104,7 +104,7 @@ namespace TennisTournament.Controllers
 
         private string UploadFile(IFormFile file)
         {
-            var uploadsFolder = Path.Combine("C:/Users/Albert Khurshudyan/Desktop/TennisTournament/wwwroot/UploadedPhotos/CoverPhotos/");
+            var uploadsFolder = Path.Combine("wwwroot/UploadedPhotos/CoverPhotos/");
             var uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
             var filePath = Path.Combine(uploadsFolder, uniqueFileName);
             using (var fileStream = new FileStream(filePath, FileMode.Create))

@@ -91,7 +91,7 @@ namespace TennisTournament.Controllers
         }
         private string UploadProfilePhoto(IFormFile profilePhoto)
         {
-            var uploadsFolder = Path.Combine("C:/Users/Albert Khurshudyan/Desktop/TennisTournament/wwwroot/UploadedPhotos/ProfilePhotos/");
+            var uploadsFolder = Path.Combine("wwwroot/UploadedPhotos/ProfilePhotos/");
             var uniqueFileName = Guid.NewGuid().ToString() + "_" + profilePhoto.FileName;
             var filePath = Path.Combine(uploadsFolder, uniqueFileName);
             using (var fileStream = new FileStream(filePath, FileMode.Create))
