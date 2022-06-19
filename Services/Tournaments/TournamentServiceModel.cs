@@ -1,8 +1,8 @@
 ﻿using TennisTournament.Data.Models;
 
-namespace TennisTournament.Models.Tournament
+namespace TennisTournament.Services.Tournaments
 {
-    public class TournamentListingViewModel
+    public class TournamentServiceModel
     {
         public int Id { get; set; }
 

@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using TennisTournament.Data;
-using TennisTournament.Models.Api.Statistics;
+using TennisTournament.Services.Statistics;
 
 namespace TennisTournament.Controllers.Api
 {
@@ -8,26 +7,13 @@ namespace TennisTournament.Controllers.Api
     [Route("api/statistics")]
     public class StatisticsApiController : ControllerBase
     {
-        private readonly TennisDbContext data;
+        private readonly IStatisticsService statistics;
 
-        public StatisticsApiController(TennisDbContext data)
-        {
-            this.data = data;
-        }
+        public StatisticsApiController(IStatisticsService statistics)
+            => this.statistics = statistics;
 
         [HttpGet]
-        public StatisticsResponseModel GetStatistics()
-        {
-            var totalTournaments = this.data.Tournaments.Count();
-            var totalPlayers = this.data.Players.Count();
-
-            var statistics = new StatisticsResponseModel
-            {
-                TotalTournaments = totalTournaments,
-                TotalPlayers = totalPlayers
-            };
-
-            return statistics;
-        }
+        public StatisticsServiceModel GetStatistics()
+            => this.statistics.Total();
     }
 }

@@ -3,13 +3,14 @@ using Microsoft.EntityFrameworkCore;
 using TennisTournament.Infrastructure;
 using TennisTournament.Data;
 using Microsoft.AspNetCore.Mvc;
+using TennisTournament.Services.Statistics;
+using TennisTournament.Services.Tournaments;
 
 var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = @"Server=.;Database=TennisTournaments;Integrated Security=True;";
 builder.Services.AddDbContext<TennisDbContext>(options =>
     options.UseSqlServer(connectionString));
-
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
@@ -22,10 +23,11 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options =>
 })
     .AddEntityFrameworkStores<TennisDbContext>();
 
-builder.Services.AddControllersWithViews(options =>
-{
-    options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
-});
+builder.Services.AddControllersWithViews(options 
+    => options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>());
+
+builder.Services.AddTransient<IStatisticsService, StatisticsService>();
+builder.Services.AddTransient<ITournamentService, TournamentService>();
 
 var app = builder.Build();
 

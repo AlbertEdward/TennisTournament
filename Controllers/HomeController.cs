@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TennisTournament.Data;
 using TennisTournament.Models.Tournament;
+using TennisTournament.Services.Statistics;
 
 namespace TennisTournament.Controllers
 {
@@ -9,24 +10,12 @@ namespace TennisTournament.Controllers
         private readonly TennisDbContext data;
 
         public HomeController(TennisDbContext data)
-            => this.data = data;
+        {
+            this.data = data;
+        }
 
         public IActionResult Index()
         {
-            //var tournaments = this.data
-            //    .Tournaments
-            //    .OrderByDescending(p => p.Id)
-            //    .Select(t => new TournamentListingViewModel
-            //    {
-            //        Id = t.Id,
-            //        Name = t.Name,
-            //        GameType = t.GameType,
-            //        CourtType = t.CourtType,
-            //        Description = t.Description
-            //    })
-            //    .Take(3)
-            //    .ToList();
-
             return View();
         }
     }

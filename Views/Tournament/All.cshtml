@@ -23,8 +23,8 @@
         </div>
         <div class="form-group col-md-3">
             <div class="form-group">
-                <label asp-for="CourtTypes"></label>
-                <select asp-for="CourtTypes" class="form-control">
+                <label asp-for="CourtType"></label>
+                <select asp-for="CourtType" class="form-control">
                     @foreach (CourtType courtType in (CourtType[])Enum.GetValues(typeof(CourtType)))
                     {
                         <option>@courtType</option>

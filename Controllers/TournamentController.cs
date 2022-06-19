@@ -2,19 +2,23 @@
 using Microsoft.AspNetCore.Mvc;
 using TennisTournament.Data;
 using TennisTournament.Data.Models;
+using TennisTournament.Models.Api;
 using TennisTournament.Models.Tournament;
-
+using TennisTournament.Services.Tournaments;
 
 namespace TennisTournament.Controllers
 {
     public class TournamentController : Controller
     {
+        private readonly ITournamentService tournaments;
         private readonly TennisDbContext data;
 
-        public TournamentController(TennisDbContext data)
+        public TournamentController(ITournamentService tournaments, TennisDbContext data)
         {
             this.data = data;
+            this.tournaments = tournaments;
         }
+
 
         [Authorize]
         public IActionResult Add()
@@ -34,64 +38,18 @@ namespace TennisTournament.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        [Authorize]
-        public IActionResult Edit(int id)
+        public IActionResult All([FromQuery]AllTournamentsQueryModel query)
         {
-            var tournament = this.data.Tournaments.FirstOrDefault(c => c.Id == id);
+            var queryResult = this.tournaments.All(
+                query.Name,
+                query.SearchTerm,
+                query.CourtType,
+                query.GameType);
 
-            return View(new AddTournamentFormModel
-            {
-                Name = tournament.Name,
-                GameTypes = tournament.GameType,
-                CourtTypes = tournament.CourtType,
-                Sets = tournament.Sets,
-                Games = tournament.Games,
-                Rules = tournament.Rules,
-                LastSets = tournament.LastSets,
-                Description = tournament.Description,
-            });
-        }
+            query.TotalTournaments = queryResult.TotalTournaments;
+            query.Tournaments = queryResult.Tournaments;
 
-        public IActionResult All(CourtType courtType, GameType gameType, string searchTerm)
-        {
-            var tournamentsQuery = this.data.Tournaments.AsQueryable();
-
-            if (courtType != CourtType.Select)
-            {
-                tournamentsQuery = tournamentsQuery.Where(c => c.CourtType == courtType);
-            }
-
-            if (gameType != GameType.Select)
-            {
-                tournamentsQuery = tournamentsQuery.Where(g => g.GameType == gameType);
-            }
-
-            if (!string.IsNullOrWhiteSpace(searchTerm))
-            {
-                tournamentsQuery = tournamentsQuery.Where(t =>
-                    t.Name.ToLower().Contains(searchTerm.ToLower()) ||
-                    t.Description.ToLower().Contains(searchTerm.ToLower()));
-            }
-
-            var tournaments = tournamentsQuery
-                .OrderByDescending(t => t.Id)
-                .Select(t => new TournamentListingViewModel
-                {
-                    Id = t.Id,
-                    Name = t.Name,
-                    GameType = t.GameType,
-                    CourtType = t.CourtType,
-                    CoverPhoto = t.CoverPhoto
-                })
-                .ToList();
-
-            return View(new AllTournamentsQueryModel
-            {
-                Tournaments = tournaments,
-                CourtTypes = courtType,
-                GameType = gameType,
-                SearchTerm = searchTerm,
-            });
+            return View(query);
         }
 
         [HttpPost]
@@ -102,10 +60,10 @@ namespace TennisTournament.Controllers
         {
             if (!ModelState.IsValid)
             {
-               return View(tournament);
+                return View(tournament);
             }
 
-            // if image is NULL or image name doesn't end to ".jpg" or ".jpeg"
+            // if image is NULL or image name doesn't end to ".jpg"
             if (tournament.CoverPhoto == null || !(tournament.CoverPhoto.FileName.EndsWith(".jpg")))
             {
                 return View(tournament);
@@ -128,36 +86,6 @@ namespace TennisTournament.Controllers
 
             this.data.Tournaments.Add(tournamentData);
             this.data.SaveChanges();
-
-            return RedirectToAction(nameof(All));
-        }
-
-        
-
-        [HttpPost]
-        [Authorize]
-        public IActionResult Edit(int id, AddTournamentFormModel tournament)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(tournament);
-            }
-
-            var tournamentIsEdited = this.carService.Edit(
-                id,
-                tournament.Name,
-                tournament.GameTypes,
-                tournament.CourtTypes,
-                tournament.Sets,
-                tournament.Games,
-                tournament.Rules,
-                tournament.LastSets,
-                tournament.Description);
-
-            if (!tournamentIsEdited)
-            {
-                return BadRequest();
-            }
 
             return RedirectToAction(nameof(All));
         }

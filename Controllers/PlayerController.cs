@@ -79,7 +79,7 @@ namespace TennisTournament.Controllers
                 return View(player);
             }
 
-            // if image is NULL or image name doesn't end to ".jpg" or ".jpeg"
+            // if image is NULL or image name doesn't end to ".jpg"
             if (player.ProfilePhoto == null || !(player.ProfilePhoto.FileName.EndsWith(".jpg")))
             {
                 return View(player);
