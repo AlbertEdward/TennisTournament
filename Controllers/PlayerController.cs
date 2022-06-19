@@ -3,15 +3,20 @@ using Microsoft.AspNetCore.Mvc;
 using TennisTournament.Data;
 using TennisTournament.Data.Models;
 using TennisTournament.Models.Player;
+using TennisTournament.Services.Players;
 
 namespace TennisTournament.Controllers
 {
     public class PlayerController : Controller
     {
+        private readonly IPlayerService players;
         private readonly TennisDbContext data;
 
-        public PlayerController(TennisDbContext data)
-            => this.data = data;
+        public PlayerController(IPlayerService players, TennisDbContext data)
+        {
+            this.data = data;
+            this.players = players;
+        }
 
         [Authorize] 
         public IActionResult Add()
@@ -31,41 +36,17 @@ namespace TennisTournament.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-
         [Authorize]
-        public IActionResult All(string searchTerm, Gender gender)
+        public IActionResult All([FromQuery]AllPlayersQueryModel query)
         {
-            var playersQuery = this.data.Players.AsQueryable();
+            var queryResult = this.players.All(
+                query.SearchTerm,
+                query.Gender);
 
-            if (gender != Gender.Select)
-            {
-                playersQuery = playersQuery.Where(c => c.Gender == gender);
-            }
+            query.TotalPlayers = queryResult.TotalPlayers;
+            query.Players = queryResult.Players;
 
-            if (!string.IsNullOrWhiteSpace(searchTerm))
-            {
-                playersQuery = playersQuery.Where(p =>
-                    p.Name.ToLower().Contains(searchTerm.ToLower()));
-            }
-
-            var players = playersQuery
-                .OrderByDescending(p => p.Id)
-                .Select(p => new PlayerListingViewModel
-                {
-                    Id = p.Id,
-                    Name = p.Name,
-                    Gender = p.Gender,
-                    Rank = p.Rank,
-                    ProfilePhoto = p.ProfilePhoto
-                })
-                .ToList();
-
-            return View(new AllPlayersQueryModel
-            {
-                Players = players,
-                Name = searchTerm,
-                Gender = gender
-            });
+            return View(query);
         }
 
         [HttpPost]

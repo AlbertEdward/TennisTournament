@@ -9,7 +9,7 @@ namespace TennisTournament.Services.Tournaments
 
         public TournamentService(TennisDbContext data)
         {
-            this.data=data;
+            this.data = data;
         }
 
         public TournamentQueryServiceModel All(
