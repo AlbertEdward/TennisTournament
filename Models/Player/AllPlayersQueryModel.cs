@@ -6,6 +6,8 @@ namespace TennisTournament.Models.Player
 {
     public class AllPlayersQueryModel
     {
+        public int Id { get; set; }
+
         public string Name { get; init; }
 
         public Gender Gender { get; init; }

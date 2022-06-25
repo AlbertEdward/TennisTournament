@@ -52,5 +52,29 @@ namespace TennisTournament.Services.Players
                 Gender = gender
             };
         }
+
+        public PlayerServiceModel Delete(int id)
+        {
+            var player = this.data.Players.FirstOrDefault(c => c.Id == id);
+
+            data.Players.Remove(player);
+
+            data.SaveChanges();
+
+            return new PlayerServiceModel();
+        }
+
+        public string UploadProfilePhoto(IFormFile profilePhoto)
+        {
+            var uploadsFolder = Path.Combine("wwwroot/UploadedPhotos/ProfilePhotos/");
+            var uniqueFileName = Guid.NewGuid().ToString() + "_" + profilePhoto.FileName;
+            var filePath = Path.Combine(uploadsFolder, uniqueFileName);
+            using (var fileStream = new FileStream(filePath, FileMode.Create))
+            {
+                profilePhoto.CopyTo(fileStream);
+            }
+
+            return uniqueFileName;
+        }
     }
 }

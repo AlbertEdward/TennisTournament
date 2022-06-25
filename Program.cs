@@ -10,6 +10,7 @@ using TennisTournament.Services.Players;
 var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = @"Server=.;Database=TennisTournaments;Integrated Security=True;";
+
 builder.Services.AddDbContext<TennisDbContext>(options =>
     options.UseSqlServer(connectionString));
 
@@ -22,9 +23,10 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options =>
     options.Password.RequireNonAlphanumeric = false;
     options.Password.RequireLowercase = false;
 })
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<TennisDbContext>();
 
-builder.Services.AddControllersWithViews(options 
+builder.Services.AddControllersWithViews(options
     => options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>());
 
 builder.Services.AddTransient<IStatisticsService, StatisticsService>();

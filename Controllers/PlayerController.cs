@@ -27,11 +27,7 @@ namespace TennisTournament.Controllers
         [Authorize]
         public IActionResult Delete(int id)
         {
-            var player = this.data.Players.FirstOrDefault(c => c.Id == id);
-
-            data.Players.Remove(player);
-
-            data.SaveChanges();
+            var deleted = this.players.Delete(id);  
 
             return RedirectToAction("Index", "Home");
         }
@@ -60,7 +56,6 @@ namespace TennisTournament.Controllers
                 return View(player);
             }
 
-            // if image is NULL or image name doesn't end to ".jpg"
             if (player.ProfilePhoto == null || !(player.ProfilePhoto.FileName.EndsWith(".jpg")))
             {
                 return View(player);
@@ -85,15 +80,9 @@ namespace TennisTournament.Controllers
         }
         private string UploadProfilePhoto(IFormFile profilePhoto)
         {
-            var uploadsFolder = Path.Combine("wwwroot/UploadedPhotos/ProfilePhotos/");
-            var uniqueFileName = Guid.NewGuid().ToString() + "_" + profilePhoto.FileName;
-            var filePath = Path.Combine(uploadsFolder, uniqueFileName);
-            using (var fileStream = new FileStream(filePath, FileMode.Create))
-            {
-                profilePhoto.CopyTo(fileStream);
-            }
+            var photo = this.players.UploadProfilePhoto(profilePhoto);
 
-            return uniqueFileName;
+            return photo;
         }
     }
 }
