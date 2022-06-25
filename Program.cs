@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using TennisTournament.Services.Statistics;
 using TennisTournament.Services.Tournaments;
 using TennisTournament.Services.Players;
+using TennisTournament.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,6 +33,7 @@ builder.Services.AddControllersWithViews(options
 builder.Services.AddTransient<IStatisticsService, StatisticsService>();
 builder.Services.AddTransient<ITournamentService, TournamentService>();
 builder.Services.AddTransient<IPlayerService, PlayerService>();
+builder.Services.AddTransient<IUploadFileService, UploadFileService>();
 
 var app = builder.Build();
 

@@ -12,6 +12,10 @@ namespace TennisTournament.Services.Players
 
         public Gender Gender { get; init; }
 
+        public StrongHand StrongHand { get; init; }
+
+        public BackHandStroke BackHandStroke { get; init; }
+
         public double Rank { get; init; }
 
         public string ProfilePhoto { get; set; }

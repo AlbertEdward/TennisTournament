@@ -6,19 +6,19 @@ namespace TennisTournament.Data.Models
     {
         public int Id { get; init; }
 
-        public string Name { get; init; }
+        public string Name { get; set; }
 
-        public GameType GameType { get; init; }
+        public GameType GameType { get; set; }
 
-        public CourtType CourtType { get; init; }
+        public CourtType CourtType { get; set; }
 
-        public Set Sets { get; init; }
+        public Set Sets { get; set; }
 
-        public Game Games { get; init; }
+        public Game Games { get; set; }
 
-        public Rule Rules { get; init; }
+        public Rule Rules { get; set; }
 
-        public LastSet LastSets { get; init; }
+        public LastSet LastSets { get; set; }
 
         public string Description { get; set; }
 

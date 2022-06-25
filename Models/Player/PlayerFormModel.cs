@@ -3,7 +3,7 @@ using TennisTournament.Data.Models;
 
 namespace TennisTournament.Models.Player
 {
-    public class AddPlayerFormModel
+    public class PlayerFormModel
     {
         [Required]
         [StringLength(60, MinimumLength = 3, ErrorMessage = "Name must be in range 3-60 characters!")]
@@ -25,6 +25,6 @@ namespace TennisTournament.Models.Player
 
         [Required(ErrorMessage = "Please choose photo to upload.")]
         [Display(Name = "Upload photo")]
-        public IFormFile ProfilePhoto { get; init; }
+        public IFormFile ProfilePhoto { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using TennisTournament.Data.Models;
+using TennisTournament.Services.Tournaments.Models;
 
 namespace TennisTournament.Services.Tournaments
 {
@@ -9,5 +10,18 @@ namespace TennisTournament.Services.Tournaments
             string SearchTerm,
             CourtType courtType,
             GameType gameType);
+
+        bool Edit(
+            int id,
+            string name,
+            CourtType courtType,
+            GameType gameType,
+            Set set,
+            Game game,
+            Rule rule,
+            LastSet lastSet,
+            string description);
+
+        TournamentDetailsServiceModel Details(int id);
     }
 }

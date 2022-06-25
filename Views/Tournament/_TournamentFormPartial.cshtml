@@ -1,0 +1,92 @@
+﻿@model AddTournamentFormModel
+
+<form method="post" enctype="multipart/form-data" asp-controller="Tournament" asp-action="Add">
+    <div class="row">
+        <div class="offset-md-3 col-md-5 col-sm-12">
+            <h2 class="text-center mb-4 mt-3">@ViewBag.Title</h2>
+
+            <div class="form-group row">
+                <label asp-for="Name" class="col-sm-2 col-form-label">Name</label>
+                <div class="col-sm-10">
+                    <input asp-for="Name" type="text" class="form-control" placeholder="Enter name">
+                    <span asp-validation-for="Name" class="small text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="GameTypes"></label>
+                <select asp-for="GameTypes" class="form-control">
+                    <span asp-validation-for="GameTypes" class="small text-danger"></span>
+                    @foreach (GameType gameType in (GameType[])Enum.GetValues(typeof(GameType)))
+                    {
+                        <option>@gameType</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="CourtTypes"></label>
+                <select asp-for="CourtTypes" class="form-control">
+                    <span asp-validation-for="CourtTypes" class="small text-danger"></span>
+                    @foreach (CourtType courtType in (CourtType[])Enum.GetValues(typeof(CourtType)))
+                    {
+                        <option>@courtType</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Sets"></label>
+                <select asp-for="Sets" class="form-control">
+                    <span asp-validation-for="Sets" class="small text-danger"></span>
+                    @foreach (Set set in (Set[])Enum.GetValues(typeof(Set)))
+                    {
+                        <option>@set</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Games"></label>
+                <select asp-for="Games" class="form-control">
+                    <span asp-validation-for="Games" class="small text-danger"></span>
+                    @foreach (Game game in (Game[])Enum.GetValues(typeof(Game)))
+                    {
+                        <option>@game</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Rules"></label>
+                <select asp-for="Rules" class="form-control">
+                    <span asp-validation-for="Rules" class="small text-danger"></span>
+                    @foreach (Rule rule in (Rule[])Enum.GetValues(typeof(Rule)))
+                    {
+                        <option>@rule</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="LastSets"></label>
+                <select asp-for="LastSets" class="form-control">
+                    <span asp-validation-for="LastSets" class="small text-danger"></span>
+                    @foreach (LastSet lastSet in (LastSet[])Enum.GetValues(typeof(LastSet)))
+                    {
+                        <option>@lastSet</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="col-sm-2 col-form-label">Description</label>
+                <textarea asp-for="Description" type="text" class="form-control" placeholder="Enter more info about tournament" rows="3"></textarea>
+                <span asp-validation-for="Description" class="small text-danger"></span>
+            </div>
+
+            <label class="form-label" asp-for="CoverPhoto">Add cover photo</label>
+            <input type="file" name="coverPhoto" class="form-control" />
+            <span asp-validation-for="CoverPhoto" class="text-danger"></span>
+
+            <div class="form-group row">
+                <div class="col-sm-10">
+                    <button type="submit" asp-controller="Tournament" asp-action="@ViewBag.Action" class="btn btn-primary mt-3">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

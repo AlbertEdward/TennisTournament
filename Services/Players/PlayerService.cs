@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Web.Mvc;
 using TennisTournament.Data;
 using TennisTournament.Data.Models;
 using TennisTournament.Models.Player;
+using TennisTournament.Services.Players.Models;
 
 namespace TennisTournament.Services.Players
 {
@@ -63,6 +65,49 @@ namespace TennisTournament.Services.Players
 
             return new PlayerServiceModel();
         }
+
+        public PlayerDetailsServiceModel Details(int id)
+        => this.data
+            .Players
+            .Where(p => p.Id == id)
+            .Select(player => new PlayerDetailsServiceModel
+            {
+                Id = player.Id,
+                Name = player.Name,
+                Age = player.Age,
+                Gender = player.Gender,
+                StrongHand = player.StrongHand,
+                BackHandStroke = player.BackHandStroke
+            })
+            .FirstOrDefault();
+
+        public bool Edit(
+            int id,
+            string name,
+            int age,
+            Gender gender,
+            StrongHand strongHand,
+            BackHandStroke backHandStroke)
+        {
+            var playerData = this.data.Players.Find(id);
+
+            if (playerData == null)
+            {
+                return false;
+            }
+
+            //TODO make pictures editable
+            playerData.Name = name;
+            playerData.Age = age;
+            playerData.Gender = gender;
+            playerData.StrongHand = strongHand;
+            playerData.BackHandStroke = backHandStroke;
+
+            this.data.SaveChanges();
+
+            return true;
+        }
+
 
         public string UploadProfilePhoto(IFormFile profilePhoto)
         {

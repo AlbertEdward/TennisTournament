@@ -4,19 +4,23 @@ using TennisTournament.Data;
 using TennisTournament.Data.Models;
 using TennisTournament.Models.Api;
 using TennisTournament.Models.Tournament;
+using TennisTournament.Services;
 using TennisTournament.Services.Tournaments;
 
 namespace TennisTournament.Controllers
 {
     public class TournamentController : Controller
     {
-        private readonly ITournamentService tournaments;
+        private readonly IUploadFileService uploadFileService;
+        private readonly ITournamentService tournamentService;
         private readonly TennisDbContext data;
 
-        public TournamentController(ITournamentService tournaments, TennisDbContext data)
+        public TournamentController(TennisDbContext data, ITournamentService tournaments, IUploadFileService uploadFileService)
         {
             this.data = data;
-            this.tournaments = tournaments;
+            this.tournamentService = tournaments;
+            this.uploadFileService = uploadFileService;
+            
         }
 
 
@@ -24,6 +28,34 @@ namespace TennisTournament.Controllers
         public IActionResult Add()
         {
             return View(new AddTournamentFormModel());
+        }
+
+        [Authorize]
+        public IActionResult Edit(int id)
+        {
+            var tournament = this.tournamentService.Details(id);
+
+            return View(new AddTournamentFormModel
+            {
+                Name = tournament.Name,
+                GameTypes = tournament.GameType,
+                CourtTypes = tournament.CourtType,
+                Sets = tournament.Set,
+                Games = tournament.Game,
+                Rules = tournament.Rule,
+                LastSets = tournament.LastSet,
+                Description = tournament.Description
+            });
+        }
+
+        public IActionResult Details(int id)
+        {
+            var player = this.tournamentService.Details(id);
+
+            return View(new AddTournamentFormModel
+            {
+                Name = player.Name,
+            });
         }
 
         [Authorize]
@@ -40,7 +72,7 @@ namespace TennisTournament.Controllers
 
         public IActionResult All([FromQuery]AllTournamentsQueryModel query)
         {
-            var queryResult = this.tournaments.All(
+            var queryResult = this.tournamentService.All(
                 query.Name,
                 query.SearchTerm,
                 query.CourtType,
@@ -69,7 +101,7 @@ namespace TennisTournament.Controllers
                 return View(tournament);
             }
 
-            string coverPhoto = this.UploadFile(tournament.CoverPhoto);
+            string coverPhoto = this.UploadCoverPhoto(tournament.CoverPhoto);
 
             var tournamentData = new Tournament
             {
@@ -90,17 +122,11 @@ namespace TennisTournament.Controllers
             return RedirectToAction(nameof(All));
         }
 
-        private string UploadFile(IFormFile file)
+        private string UploadCoverPhoto(IFormFile coverPhoto)
         {
-            var uploadsFolder = Path.Combine("wwwroot/UploadedPhotos/CoverPhotos/");
-            var uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
-            var filePath = Path.Combine(uploadsFolder, uniqueFileName);
-            using (var fileStream = new FileStream(filePath, FileMode.Create))
-            {
-                file.CopyTo(fileStream);
-            }
+            var photo = this.uploadFileService.CoverPhoto(coverPhoto);
 
-            return uniqueFileName;
+            return photo;
         }
     }
 }

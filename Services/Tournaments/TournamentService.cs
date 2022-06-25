@@ -1,5 +1,6 @@
 ﻿using TennisTournament.Data;
 using TennisTournament.Data.Models;
+using TennisTournament.Services.Tournaments.Models;
 
 namespace TennisTournament.Services.Tournaments
 {
@@ -10,6 +11,59 @@ namespace TennisTournament.Services.Tournaments
         public TournamentService(TennisDbContext data)
         {
             this.data = data;
+        }
+
+        public TournamentDetailsServiceModel Details(int id)
+        => this.data
+            .Tournaments
+            .Where(t => t.Id == id)
+            .Select(tournament => new TournamentDetailsServiceModel
+            {
+                Id = tournament.Id,
+                Name = tournament.Name,
+                GameType = tournament.GameType,
+                CourtType = tournament.CourtType,
+                Set = tournament.Sets,
+                Game = tournament.Games,
+                Rule = tournament.Rules,
+                LastSet = tournament.LastSets,
+                Description = tournament.Description
+
+            })
+            .FirstOrDefault();
+
+        public bool Edit(
+            int id,
+            string name,
+            CourtType courtType,
+            GameType gameType,
+            Set set,
+            Game game,
+            Rule rule,
+            LastSet lastSet,
+            string description
+            )
+        {
+            var tournamentData = this.data.Tournaments.Find(id);
+
+            if (tournamentData == null)
+            {
+                return false;
+            }
+
+            //TODO make pictures editable
+            tournamentData.Name = name;
+            tournamentData.CourtType = courtType;
+            tournamentData.GameType = gameType;
+            tournamentData.Sets = set;
+            tournamentData.Games = game;
+            tournamentData.Rules = rule;
+            tournamentData.LastSets = lastSet;
+            tournamentData.Description = description;
+
+            this.data.SaveChanges();
+
+            return true;
         }
 
         public TournamentQueryServiceModel All(
@@ -57,6 +111,11 @@ namespace TennisTournament.Services.Tournaments
                 Tournaments = tournaments,
                 TotalTournaments = totalTournaments
             };
+        }
+
+        public string UploadProfilePhoto(IFormFile profilePhoto)
+        {
+            throw new NotImplementedException();
         }
     }
 }

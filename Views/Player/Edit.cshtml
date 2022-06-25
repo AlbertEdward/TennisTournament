@@ -1,0 +1,76 @@
+﻿@model PlayerFormModel
+
+@{
+    ViewBag.Title = "Edit Player";
+}
+
+<link rel="stylesheet" href="~/css/edit-form.css" asp-append-version="true" />
+
+<div class="container rounded bg-white mt-5 mb-5">
+    <div class="row">
+        <div class="col-md-3 border-right">
+            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="/UploadedPhotos/ProfilePhotos/@Model.ProfilePhoto"><span class="font-weight-bold">@Model.Name</span><span class="text-black-50">Age: @Model.Age</span><span> </span></div>
+        </div>
+        <div class="col-md-5 border-right">
+            <div class="p-3 py-5">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4 class="text-right">@ViewBag.Title</h4>
+                </div>
+                <div class="form-group row mb-3">
+                    <label asp-for="Name" class="col-sm-2 col-form-label">Name</label>
+                    <div class="col-sm-10">
+                        <input asp-for="Name" type="text" class="form-control" placeholder="Enter player name">
+                        <span asp-validation-for="Name" class="small text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row mb-3">
+                    <label asp-for="Age" class="col-sm-2 col-form-label">Age</label>
+                    <div class="col-sm-10">
+                        <input asp-for="Age" type="text" class="form-control" placeholder="Enter age">
+                        <span asp-validation-for="Age" class="small text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group mb-3">
+                    <label asp-for="Gender"></label>
+                    <select asp-for="Gender" class="form-control">
+                        <span asp-validation-for="Gender" class="small text-danger"></span>
+                        @foreach (Gender gender in (Gender[])Enum.GetValues(typeof(Gender)))
+                        {
+                            <option>@gender</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group mb-3">
+                    <label asp-for="StrongHand"></label>
+                    <select asp-for="StrongHand" class="form-control">
+                        <span asp-validation-for="StrongHand" class="small text-danger"></span>
+                        @foreach (StrongHand strongHand in (StrongHand[])Enum.GetValues(typeof(StrongHand)))
+                        {
+                            <option>@strongHand</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group mb-3">
+                    <label asp-for="BackHandStroke"></label>
+                    <select asp-for="BackHandStroke" class="form-control">
+                        <span asp-validation-for="BackHandStroke" class="small text-danger"></span>
+                        @foreach (BackHandStroke backHandStroke in (BackHandStroke[])Enum.GetValues(typeof(BackHandStroke)))
+                        {
+                            <option>@backHandStroke</option>
+                        }
+                    </select>
+                </div>
+
+                <label class="form-label" asp-for="ProfilePhoto">Add cover photo</label>
+                <input type="file" name="profilePhoto" class="form-control" />
+                <span asp-validation-for="ProfilePhoto" class="text-danger"></span>
+
+                <div class="form-group row mb-3">
+                    <div class="col-sm-10">
+                        <input class="btn btn-primary mt-2" type="submit" value="Save" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

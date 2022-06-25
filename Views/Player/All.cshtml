@@ -3,46 +3,30 @@
 @{
     ViewBag.Title = "All Players";
 }
-<form method="get">
-    <div class="row">
-        <div class="form-group col-md-3">
-            <label asp-for="SearchTerm" class="form-label"></label>
-            <div>
-                <input asp-for="SearchTerm" type="text" class="form-control" placeholder="Search by text...">
-            </div>
-        </div>
-        <div class="form-group col-md-3">
-            <label asp-for="Gender"></label>
-            <select asp-for="Gender" class="form-control">
-                @foreach (Gender gender in (Gender[])Enum.GetValues(typeof(Gender)))
-                {
-                    <option>@gender</option>
-                }
-            </select>
-        </div>
-        <div class="form-group col-md-3">
-            <input type="submit" class="btn btn-primary d-none" value="Search" />
-        </div>
-    </div>
-</form>
 
-<div class="row">
-    <h2 class="text-center mb-4 mt-3">@ViewBag.Title</h2>
-    @foreach (var player in Model.Players)
-    {
-        <div class="col-md-4">
-            <div class="card-group">
-                <div class="card">
-                    <img class="card-img-top" src="/UploadedPhotos/ProfilePhotos/@player.ProfilePhoto" />
-                    <div class="card-body">
-                        <h5 class="card-title">@player.Name</h5>
-                        <p class="card-text">Rank: @player.Rank</p>
-                        <a class="btn btn-outline-warning">Add to tournament</a>
-                        <a asp-controller="Player" asp-action="Edit" asp-route-id="@player.Id" class="btn btn-primary">Edit</a>
-                        <a asp-controller="Player" asp-action="Delete" asp-route-id="@player.Id" class="btn btn-danger">Delete</a>
+<link rel="stylesheet" href="~/css/card.css" asp-append-version="true" />
+
+<div class="container">
+    <div class="row">
+        <h2 class="text-center">@ViewBag.Title</h2>
+        <div class="row mt-3 mb-3">
+            @foreach (var player in Model.Players)
+            {
+                <div class="col-lg-3 mt-2">
+                    <div class="card p-0">
+                        <div class="card-image">
+                            <img src="/UploadedPhotos/ProfilePhotos/@player.ProfilePhoto">
+                        </div>
+                        <div class="card-content d-flex flex-column align-items-center">
+                            <h4 class="pt-2">@player.Name</h4>
+                            <h5>Rank: @player.Rank</h5>
+                            <a class="btn btn-outline-warning mb-1 mt-3">Join</a>
+                            <a asp-controller="Player" asp-action="Edit" asp-route-id="@player.Id" class="btn btn-outline-primary mb-1 mt-1">Edit</a>
+                            <a asp-controller="Player" asp-action="Delete" asp-route-id="@player.Id" class="btn btn-outline-danger mb-3 mt-1">Delete</a>
+                        </div>
                     </div>
                 </div>
-            </div>
+            }
         </div>
-    }
+    </div>
 </div>
