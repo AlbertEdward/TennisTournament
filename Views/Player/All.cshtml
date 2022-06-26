@@ -6,27 +6,35 @@
 
 <link rel="stylesheet" href="~/css/card.css" asp-append-version="true" />
 
-<div class="container">
-    <div class="row">
-        <h2 class="text-center">@ViewBag.Title</h2>
-        <div class="row mt-3 mb-3">
-            @foreach (var player in Model.Players)
-            {
-                <div class="col-lg-3 mt-2">
-                    <div class="card p-0">
-                        <div class="card-image">
-                            <img src="/UploadedPhotos/ProfilePhotos/@player.ProfilePhoto">
+<h2 class="text-center mb-4 mt-3">@ViewBag.Title</h2>
+
+@foreach (var player in Model.Players)
+{
+    <div class="column">
+        <div class="profile-card">
+            <a asp-controller="Player" asp-action="Details" asp-route-id="@player.Id" />
+            <img src="/UploadedPhotos/ProfilePhotos/@player.ProfilePhoto" class="img img-responsive">
+            <div class="profile-name">
+                @player.Name
+            </div>
+            <div class="profile-overview">
+                <div class="profile-overview">
+                    <div class="row text-center">
+                        <div class="col">
+                            <h3>@player.Rank</h3>
+                            <p>Rank</p>
                         </div>
-                        <div class="card-content d-flex flex-column align-items-center">
-                            <h4 class="pt-2">@player.Name</h4>
-                            <h5>Rank: @player.Rank</h5>
-                            <a class="btn btn-outline-warning mb-1 mt-3">Join</a>
-                            <a asp-controller="Player" asp-action="Edit" asp-route-id="@player.Id" class="btn btn-outline-primary mb-1 mt-1">Edit</a>
-                            <a asp-controller="Player" asp-action="Delete" asp-route-id="@player.Id" class="btn btn-outline-danger mb-3 mt-1">Delete</a>
+                        <div class="col">
+                            <h3>40</h3>
+                            <p>Wins</p>
+                        </div>
+                        <div class="col">
+                            <h3>35</h3>
+                            <p>Loses</p>
                         </div>
                     </div>
                 </div>
-            }
+            </div>
         </div>
     </div>
-</div>
+}
