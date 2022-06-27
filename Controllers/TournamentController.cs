@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using TennisTournament.Data;
 using TennisTournament.Data.Models;
-using TennisTournament.Models.Api;
 using TennisTournament.Models.Tournament;
 using TennisTournament.Services;
 using TennisTournament.Services.Tournaments;
