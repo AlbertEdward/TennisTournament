@@ -10,12 +10,6 @@ namespace TennisTournament.Services.Players
             string searchTerm,
             Gender gender);
 
-        PlayerServiceModel Delete(
-            int id);
-
-        string UploadProfilePhoto(
-            IFormFile profilePhoto);
-
         bool Edit(
             int id,
             string name,
@@ -25,5 +19,7 @@ namespace TennisTournament.Services.Players
             BackHandStroke backHandStroke);
 
         PlayerDetailsServiceModel Details(int id);
+
+        PlayerServiceModel Delete(int id);
     }
 }

@@ -20,14 +20,12 @@ namespace TennisTournament.Controllers
             this.data = data;
             this.tournamentService = tournaments;
             this.uploadFileService = uploadFileService;
-            
         }
-
 
         [Authorize]
         public IActionResult Add()
         {
-            return View(new AddTournamentFormModel());
+            return View(new TournamentFormModel());
         }
 
         [Authorize]
@@ -35,7 +33,7 @@ namespace TennisTournament.Controllers
         {
             var tournament = this.tournamentService.Details(id);
 
-            return View(new AddTournamentFormModel
+            return View(new TournamentFormModel
             {
                 Name = tournament.Name,
                 GameTypes = tournament.GameType,
@@ -48,26 +46,57 @@ namespace TennisTournament.Controllers
             });
         }
 
+        [HttpPost]
+        [Authorize]
+        public IActionResult Edit(int id, TournamentFormModel tournament)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(tournament);
+            }
+
+            var tournamentIsEdited = this.tournamentService.Edit(
+                id,
+                tournament.Name,
+                tournament.CourtTypes,
+                tournament.GameTypes,
+                tournament.Sets,
+                tournament.Games,
+                tournament.Rules,
+                tournament.LastSets,
+                tournament.Description);
+
+            if (!tournamentIsEdited)
+            {
+                return BadRequest();
+            }
+
+            return RedirectToAction(nameof(All));
+        }
+
         public IActionResult Details(int id)
         {
-            var player = this.tournamentService.Details(id);
+            var tournament = this.tournamentService.Details(id);
 
-            return View(new AddTournamentFormModel
+            return View(new TournamentFormModel
             {
-                Name = player.Name,
+                Id = id,
+                Name = tournament.Name,
+                CourtTypes = tournament.CourtType,
+                GameTypes = tournament.GameType,
+                Games = tournament.Game,
+                Sets = tournament.Set,
+                Rules = tournament.Rule,
+                LastSets = tournament.LastSet,
+                Description = tournament.Description
             });
         }
 
-        [Authorize]
         public IActionResult Delete(int id)
         {
-            var tournament = this.data.Tournaments.FirstOrDefault(c => c.Id == id);
+            var deleted = this.tournamentService.Delete(id);
 
-            data.Tournaments.Remove(tournament);
-
-            data.SaveChanges();
-
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction(nameof(All));
         }
 
         public IActionResult All([FromQuery]AllTournamentsQueryModel query)
@@ -88,7 +117,7 @@ namespace TennisTournament.Controllers
         [Authorize]
         [RequestFormLimits(MultipartBodyLengthLimit = 5242880)]
         [RequestSizeLimit(5242880)]
-        public IActionResult Add(AddTournamentFormModel tournament)
+        public IActionResult Add(TournamentFormModel tournament)
         {
             if (!ModelState.IsValid)
             {

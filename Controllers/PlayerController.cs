@@ -22,9 +22,41 @@ namespace TennisTournament.Controllers
         }
 
         [Authorize]
-        public IActionResult Add()
+        public IActionResult All([FromQuery] AllPlayersQueryModel query)
         {
-            return View(new PlayerFormModel());
+            var queryResult = this.playerService.All(
+                query.SearchTerm,
+                query.Gender);
+
+            query.TotalPlayers = queryResult.TotalPlayers;
+            query.Players = queryResult.Players;
+
+            return View(query);
+        }
+
+        public IActionResult Details(int id)
+        {
+            var player = this.playerService.Details(id);
+
+            
+
+            return View(new PlayerFormModel
+            {
+                Id = id,
+                Name = player.Name,
+                Age = player.Age,
+                Gender = player.Gender,
+                StrongHand = player.StrongHand,
+                BackHandStroke = player.BackHandStroke
+            }) ;
+        }
+
+        [Authorize]
+        public IActionResult Delete(int id)
+        {
+            var deleted = this.playerService.Delete(id);
+
+            return RedirectToAction(nameof(All));
         }
 
         [Authorize]
@@ -40,44 +72,6 @@ namespace TennisTournament.Controllers
                 StrongHand = player.StrongHand,
                 BackHandStroke = player.BackHandStroke
             });
-        }
-
-        public IActionResult Details(int id)
-        {
-            var player = this.playerService.Details(id);
-
-            return View(new PlayerDetailsModel
-            {
-                Id = id,
-                Name = player.Name,
-                Age = player.Age,
-                Gender = player.Gender,
-                StrongHand = player.StrongHand,
-                BackHandStroke = player.BackHandStroke,
-                Rank = player.Rank
-            });
-        }
-
-
-        [Authorize]
-        public IActionResult Delete(int id)
-        {
-            var deleted = this.playerService.Delete(id);
-
-            return RedirectToAction("Index", "Home");
-        }
-
-        [Authorize]
-        public IActionResult All([FromQuery] AllPlayersQueryModel query)
-        {
-            var queryResult = this.playerService.All(
-                query.SearchTerm,
-                query.Gender);
-
-            query.TotalPlayers = queryResult.TotalPlayers;
-            query.Players = queryResult.Players;
-
-            return View(query);
         }
 
         [HttpPost]
@@ -103,6 +97,12 @@ namespace TennisTournament.Controllers
             }
 
             return RedirectToAction(nameof(All));
+        }
+
+        [Authorize]
+        public IActionResult Add()
+        {
+            return View(new PlayerFormModel());
         }
 
         [HttpPost]

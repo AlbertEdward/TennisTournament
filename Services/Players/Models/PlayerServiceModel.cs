@@ -10,13 +10,13 @@ namespace TennisTournament.Services.Players
 
         public int Age { get; set; }
 
-        public Gender Gender { get; init; }
+        public Gender Gender { get; set; }
 
-        public StrongHand StrongHand { get; init; }
+        public StrongHand StrongHand { get; set; }
 
-        public BackHandStroke BackHandStroke { get; init; }
+        public BackHandStroke BackHandStroke { get; set; }
 
-        public double Rank { get; init; }
+        public double Rank { get; set; }
 
         public string ProfilePhoto { get; set; }
     }

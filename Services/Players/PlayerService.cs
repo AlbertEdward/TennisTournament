@@ -66,21 +66,6 @@ namespace TennisTournament.Services.Players
             return new PlayerServiceModel();
         }
 
-        public PlayerDetailsServiceModel Details(int id)
-        => this.data
-            .Players
-            .Where(p => p.Id == id)
-            .Select(player => new PlayerDetailsServiceModel
-            {
-                Id = player.Id,
-                Name = player.Name,
-                Age = player.Age,
-                Gender = player.Gender,
-                StrongHand = player.StrongHand,
-                BackHandStroke = player.BackHandStroke
-            })
-            .FirstOrDefault();
-
         public bool Edit(
             int id,
             string name,
@@ -108,18 +93,20 @@ namespace TennisTournament.Services.Players
             return true;
         }
 
-
-        public string UploadProfilePhoto(IFormFile profilePhoto)
-        {
-            var uploadsFolder = Path.Combine("wwwroot/UploadedPhotos/ProfilePhotos/");
-            var uniqueFileName = Guid.NewGuid().ToString() + "_" + profilePhoto.FileName;
-            var filePath = Path.Combine(uploadsFolder, uniqueFileName);
-            using (var fileStream = new FileStream(filePath, FileMode.Create))
+        public PlayerDetailsServiceModel Details(int id)
+        => this.data
+            .Players
+            .Where(p => p.Id == id)
+            .Select(player => new PlayerDetailsServiceModel
             {
-                profilePhoto.CopyTo(fileStream);
-            }
-
-            return uniqueFileName;
-        }
+                Id = player.Id,
+                Name = player.Name,
+                Age = player.Age,
+                Gender = player.Gender,
+                StrongHand = player.StrongHand,
+                BackHandStroke = player.BackHandStroke,
+                ProfilePhoto = player.ProfilePhoto
+            })
+            .FirstOrDefault();
     }
 }

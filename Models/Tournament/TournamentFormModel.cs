@@ -4,8 +4,10 @@ using TennisTournament.Data.Models;
 
 namespace TennisTournament.Models.Tournament
 {
-    public class AddTournamentFormModel
+    public class TournamentFormModel
     {
+        public int Id { get; set; }
+
         [Required]
         [StringLength(60, MinimumLength = 3, ErrorMessage = "Name must be in range 3-60 characters!")]
         public string Name { get; init; }
