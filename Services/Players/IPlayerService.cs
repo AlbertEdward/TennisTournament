@@ -6,6 +6,8 @@ namespace TennisTournament.Services.Players
 {
     public interface IPlayerService
     {
+        void Join(int playerId, int tournamentId);
+
         PlayerQueryServiceModel All(
             string searchTerm,
             Gender gender);

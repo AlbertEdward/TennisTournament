@@ -21,6 +21,20 @@ namespace TennisTournament.Controllers
             this.uploadFileService = uploadFileService;
         }
 
+        public IActionResult Invite(int id)
+        {
+            var player = this.playerService.Details(id);
+
+            return View(new PlayerFormModel
+            {
+                Name = player.Name,
+                Age = player.Age,
+                Gender = player.Gender,
+                StrongHand = player.StrongHand,
+                BackHandStroke = player.BackHandStroke
+            });
+        }
+
         [Authorize]
         public IActionResult All([FromQuery] AllPlayersQueryModel query)
         {

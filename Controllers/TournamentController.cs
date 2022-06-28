@@ -46,7 +46,7 @@ namespace TennisTournament.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize] 
         public IActionResult Edit(int id, TournamentFormModel tournament)
         {
             if (!ModelState.IsValid)

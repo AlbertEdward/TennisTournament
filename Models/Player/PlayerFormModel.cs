@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using TennisTournament.Data.Models;
+using TennisTournament.Services.Tournaments;
 
 namespace TennisTournament.Models.Player
 {

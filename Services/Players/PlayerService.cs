@@ -1,8 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.Web.Mvc;
-using TennisTournament.Data;
+﻿using TennisTournament.Data;
 using TennisTournament.Data.Models;
-using TennisTournament.Models.Player;
 using TennisTournament.Services.Players.Models;
 
 namespace TennisTournament.Services.Players
@@ -108,5 +105,20 @@ namespace TennisTournament.Services.Players
                 ProfilePhoto = player.ProfilePhoto
             })
             .FirstOrDefault();
+
+        public void Invite(int playerId, int tournamentId)
+        {
+            var player = this.data.Players.Find(playerId);
+            var tournament = this.data.Tournaments.Find(tournamentId);
+
+            tournament.PlayerId = player.Id;
+
+            data.SaveChanges();
+        }
+
+        public void Join(int playerId, int tournamentId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

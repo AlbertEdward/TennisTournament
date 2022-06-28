@@ -7,33 +7,37 @@ using TennisTournament.Services.Statistics;
 using TennisTournament.Services.Tournaments;
 using TennisTournament.Services.Players;
 using TennisTournament.Services;
+using TennisTournament.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var connectionString = @"Server=.;Database=TennisTournaments;Integrated Security=True;";
+var connectionString = builder.Configuration["ConnectionStrings:TennisSqlServer"];
 
 builder.Services.AddDbContext<TennisDbContext>(options =>
     options.UseSqlServer(connectionString));
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options =>
-{
-    options.Password.RequireDigit = false;
-    options.Password.RequireUppercase = false;
-    options.Password.RequireNonAlphanumeric = false;
-    options.Password.RequireLowercase = false;
-})
-    .AddRoles<IdentityRole>()
-    .AddEntityFrameworkStores<TennisDbContext>();
+builder.Services.AddDefaultIdentity<IdentityUser>()
+    .AddEntityFrameworkStores<TennisDbContext>()
+    .AddDefaultTokenProviders();
 
 builder.Services.AddControllersWithViews(options
     => options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>());
 
-builder.Services.AddTransient<IStatisticsService, StatisticsService>();
-builder.Services.AddTransient<ITournamentService, TournamentService>();
-builder.Services.AddTransient<IPlayerService, PlayerService>();
-builder.Services.AddTransient<IUploadFileService, UploadFileService>();
+builder.Services.AddAuthentication()
+    .AddFacebook(facebookOptions =>
+    {
+        facebookOptions.AppId = builder.Configuration["Authentication:Facebook:AppId"];
+        facebookOptions.AppSecret = builder.Configuration["Authentication:Facebook:AppSecret"];
+    });
+
+builder.Services.AddMemoryCache();
+builder.Services.AddServices();
+
+builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection(JwtOptions.Jwt));
+
+builder.Services.AddJwtAuthentication(builder.Configuration);
 
 var app = builder.Build();
 

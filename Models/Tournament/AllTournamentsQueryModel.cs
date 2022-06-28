@@ -23,5 +23,7 @@ namespace TennisTournament.Models.Tournament
         public int TotalTournaments { get; set; }
 
         public IEnumerable<TournamentServiceModel> Tournaments { get; set; }
+
+        public int PlayerId { get; set; }
     }
 }

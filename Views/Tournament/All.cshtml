@@ -52,7 +52,7 @@
                         <p class="card-text">@tournament.Description</p>
                         @if (User.Identity.IsAuthenticated)
                         {
-                            <a class="btn btn-outline-warning">Add player</a>
+                            <a asp-controller="Tournament" asp-action="Invite" asp-route-id="@tournament.Id" class="btn btn-outline-warning">Join</a>
                             <a asp-controller="Tournament" asp-action="Edit" asp-route-id="@tournament.Id" class="btn btn-primary">Edit</a>
                             <a asp-controller="Tournament" asp-action="Delete" asp-route-id="@tournament.Id" class="btn btn-danger">Delete</a>
                         }
