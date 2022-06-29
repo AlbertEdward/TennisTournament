@@ -31,9 +31,9 @@ builder.Services.AddAuthentication()
 builder.Services.AddMemoryCache();
 builder.Services.AddServices();
 
-builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection(JwtOptions.Jwt));
+//builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection(JwtOptions.Jwt));
 
-builder.Services.AddJwtAuthentication(builder.Configuration);
+//builder.Services.AddJwtAuthentication(builder.Configuration);
 
 var app = builder.Build();
 

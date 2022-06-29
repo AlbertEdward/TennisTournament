@@ -14,6 +14,8 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using TennisTournament.Options;
+using Microsoft.Extensions.Options;
 
 namespace TennisTournament.Areas.Identity.Pages.Account
 {
@@ -22,7 +24,10 @@ namespace TennisTournament.Areas.Identity.Pages.Account
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
 
-        public LoginModel(SignInManager<IdentityUser> signInManager, ILogger<LoginModel> logger)
+        public LoginModel(
+            SignInManager<IdentityUser> signInManager,
+            ILogger<LoginModel> logger,
+            IOptions<JwtOptions> jwtOptions)
         {
             _signInManager = signInManager;
             _logger = logger;

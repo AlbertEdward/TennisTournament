@@ -6,19 +6,20 @@ namespace TennisTournament.Models.Tournament
 {
     public class AllTournamentsQueryModel
     {
-        public string Name { get; init; }
+        public int Id { get; set; }
+        public string Name { get; set; }
 
         [Display(Name = "Game type:")]
-        public GameType GameType { get; init; }
+        public GameType GameType { get; set; }
 
         [Display(Name = "Court type:")]
-        public CourtType CourtType { get; init; }
+        public CourtType CourtType { get; set; }
 
         [Display(Name = "Search:")]
-        public string SearchTerm { get; init; }
+        public string SearchTerm { get; set; }
 
         [Display(Name = "Image:")]
-        public string CoverPhoto { get; init; }
+        public string CoverPhoto { get; set; }
 
         public int TotalTournaments { get; set; }
 
