@@ -6,35 +6,60 @@
 
 <link rel="stylesheet" href="~/css/card.css" asp-append-version="true" />
 
-<h2 class="text-center mb-4 mt-3">@ViewBag.Title</h2>
-
-@foreach (var player in Model.Players)
+@if (!Model.Players.Any())
 {
-    <div class="column">
-        <div class="profile-card">
-            <a asp-controller="Player" asp-action="Details" asp-route-id="@player.Id" />
-            <img src="/UploadedPhotos/ProfilePhotos/@player.ProfilePhoto" class="img img-responsive">
-            <div class="profile-name">
-                @player.Name
-            </div>
-            <div class="profile-overview">
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container align-content-center">
+            <h1 class="display-4 align-content-center">There are no players yet</h1>
+            @if (User.IsInRole(Roles.Administrator))
+            {
+                <p class="lead">
+                    To add a player go to
+                    <a asp-controller="Player" asp-action="Add" class="btn btn-outline-warning">Add Player</a>
+                </p>
+            }
+            else
+            {
+                <p class="lead">
+                    Contact the website administrator.
+                </p>
+            }
+        </div>
+    </div>
+}
+else
+{
+    <h2 class="text-center mb-4 mt-3">@ViewBag.Title</h2>
+
+    @foreach (var player in Model.Players)
+    {
+        <div class="column">
+            <div class="profile-card">
+                <a asp-controller="Player" asp-action="Details" asp-route-id="@player.Id" />
+                <img src="/UploadedPhotos/ProfilePhotos/@player.ProfilePhoto" class="img img-responsive">
+                <div class="profile-name">
+                    @player.Name
+                </div>
                 <div class="profile-overview">
-                    <div class="row text-center">
-                        <div class="col">
-                            <h3>@player.Rank</h3>
-                            <p>Rank</p>
-                        </div>
-                        <div class="col">
-                            <h3>40</h3>
-                            <p>Wins</p>
-                        </div>
-                        <div class="col">
-                            <h3>35</h3>
-                            <p>Loses</p>
+                    <div class="profile-overview">
+                        <div class="row text-center">
+                            <div class="col">
+                                <h3>@player.Rank</h3>
+                                <p>Rank</p>
+                            </div>
+                            <div class="col">
+                                <h3>40</h3>
+                                <p>Wins</p>
+                            </div>
+                            <div class="col">
+                                <h3>35</h3>
+                                <p>Loses</p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    }
 }
+

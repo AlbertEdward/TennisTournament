@@ -6,6 +6,11 @@
 
 <h1 class="text-center">@ViewBag.Title</h1>
 
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link rel="stylesheet" href="~/css/details-form.css" asp-append-version="true" />
+
 <div class="container emp-profile">
     <form method="post">
         <div class="row">
@@ -31,9 +36,11 @@
                 </div>
             </div>
             <div class="col-md-2">
-                <a asp-controller="Player" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-dark">Edit Profile</a>
-                <a asp-controller="Player" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-outline-danger mt-3">Delete</a>
-                <a id="invite-button" asp-controller="Player" asp-action="Invite" asp-route-id="@Model.Id" class="btn btn-outline-dark">Invite</a>
+                @if (User.IsInRole(Roles.Administrator))
+                {
+                    <a asp-controller="Tournament" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-dark">Edit</a>
+                    <a asp-controller="Tournament" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-outline-danger mt-3">Delete</a>
+                }
             </div>
         </div>
         <div class="row">

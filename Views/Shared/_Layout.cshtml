@@ -1,6 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Identity
-@inject SignInManager<IdentityUser> SignInManager
-@inject UserManager<IdentityUser> UserManager
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
 
 <!DOCTYPE html>
 <html lang="en">
@@ -25,7 +25,7 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        @if (SignInManager.IsSignedIn(User))
+                        @if (User.IsInRole(Roles.Administrator))
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Tournament" asp-action="Add">Add Tournament</a>
@@ -40,13 +40,15 @@
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Player" asp-action="All">All Players</a>
                             </li>
                         }
-                        else
+                        else if (User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Tournament" asp-action="All">All Tournaments</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Player" asp-action="Details">My Profile</a>
                             </li>
                         }
-
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Tournament" asp-action="All">All Tournaments</a>
+                        </li>
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>

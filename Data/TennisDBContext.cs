@@ -5,7 +5,7 @@ using TennisTournament.Data.Models;
 
 namespace TennisTournament.Data
 {
-    public class TennisDbContext : IdentityDbContext<IdentityUser>
+    public class TennisDbContext : IdentityDbContext<ApplicationUser>
     {
         public TennisDbContext()
         {

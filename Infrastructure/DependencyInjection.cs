@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using TennisTournament.Data;
 using TennisTournament.Options;
 using TennisTournament.Services;
 using TennisTournament.Services.Players;
@@ -41,8 +40,6 @@ namespace TennisTournament.Infrastructure
                 options.Password.RequireLowercase = false;
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireUppercase = false;
-                options.Password.RequiredLength = 4;
-                options.Password.RequiredUniqueChars = 0;
             });
             
             return services;

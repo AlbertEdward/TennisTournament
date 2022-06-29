@@ -4,4 +4,7 @@
     ViewBag.Title = "Add Tournament";
 }
 
-<partial name="_TournamentFormPartial" model="@Model" />
+@if (User.IsInRole(Roles.Administrator))
+{
+    <partial name="_TournamentFormPartial" model="@Model" />
+}

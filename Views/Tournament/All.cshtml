@@ -4,61 +4,81 @@
     ViewBag.Title = "All Tournaments";
 }
 
-<form method="get">
-    <div class="row">
-        <div class="form-group col-md-3">
-            <label asp-for="SearchTerm" class="form-label"></label>
-            <div>
-                <input asp-for="SearchTerm" type="text" class="form-control" placeholder="Enter name...">
+@if (!Model.Tournaments.Any())
+{
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container text-center">
+            <h1 class="display-4 mt-5">There are no tournaments yet</h1>
+            @if (User.IsInRole(Roles.Administrator))
+            {
+                <p class="lead">
+                    To add a tournament go to
+                    <a asp-controller="Tournament" asp-action="Add" class="btn btn-outline-warning">Add Tournament</a>
+                </p>
+            }
+            else
+            {
+                <p class="lead">
+                    Contact the website administrator.
+                </p>
+            }
+        </div>
+    </div>
+}
+else
+{
+    <form method="get">
+        <div class="row">
+            <div class="form-group col-md-3">
+                <label asp-for="SearchTerm" class="form-label"></label>
+                <div>
+                    <input asp-for="SearchTerm" type="text" class="form-control" placeholder="Enter name...">
+                </div>
             </div>
-        </div>
-        <div class="form-group col-md-3">
-            <label asp-for="GameType"></label>
-            <select asp-for="GameType" class="form-control">
-                @foreach (GameType gameType in (GameType[])Enum.GetValues(typeof(GameType)))
-                {
-                    <option>@gameType</option>
-                }
-            </select>
-        </div>
-        <div class="form-group col-md-3">
-            <div class="form-group">
-                <label asp-for="CourtType"></label>
-                <select asp-for="CourtType" class="form-control">
-                    @foreach (CourtType courtType in (CourtType[])Enum.GetValues(typeof(CourtType)))
+            <div class="form-group col-md-3">
+                <label asp-for="GameType"></label>
+                <select asp-for="GameType" class="form-control">
+                    @foreach (GameType gameType in (GameType[])Enum.GetValues(typeof(GameType)))
                     {
-                        <option>@courtType</option>
+                        <option>@gameType</option>
                     }
                 </select>
             </div>
-        </div>
-        <div class="form-group col-md-3">
-            <input type="submit" class="btn btn-primary d-none" value="Search" />
-        </div>
-    </div>
-</form>
-
-<div class="row">
-    <h2 class="text-center mb-4 mt-3">@ViewBag.Title</h2>
-    @foreach (var tournament in Model.Tournaments)
-    {
-        <div class="col-md-4">
-            <div class="card-group">
-                <div class="card">
-                    <img class="card-img-top" src="/UploadedPhotos/CoverPhotos/@tournament.CoverPhoto">
-                    <div class="card-body">
-                        <h5 class="card-title">@tournament.Name</h5>
-                        <h6 class="card-title">@tournament.GameType | @tournament.CourtType</h6>
-                        <p class="card-text">@tournament.Description</p>
-                        @if (User.Identity.IsAuthenticated)
+            <div class="form-group col-md-3">
+                <div class="form-group">
+                    <label asp-for="CourtType"></label>
+                    <select asp-for="CourtType" class="form-control">
+                        @foreach (CourtType courtType in (CourtType[])Enum.GetValues(typeof(CourtType)))
                         {
-                            <a asp-controller="Tournament" asp-action="Invite" asp-route-id="@tournament.Id" class="btn btn-outline-warning">Join</a>
-                            <a asp-controller="Tournament" asp-action="Edit" asp-route-id="@tournament.Id" class="btn btn-primary">Edit</a>
-                            <a asp-controller="Tournament" asp-action="Delete" asp-route-id="@tournament.Id" class="btn btn-danger">Delete</a>
+                            <option>@courtType</option>
                         }
+                    </select>
+                </div>
+            </div>
+            <div class="form-group col-md-3">
+                <input type="submit" class="btn btn-primary d-none" value="Search" />
+            </div>
+        </div>
+    </form>
+
+    <div class="row">
+        <h2 class="text-center mb-4 mt-3">@ViewBag.Title</h2>
+        @foreach (var tournament in Model.Tournaments)
+        {
+            <div class="col-md-4">
+                <div class="card-group">
+                    <div class="card">
+                        <img class="card-img-top" src="/UploadedPhotos/CoverPhotos/@tournament.CoverPhoto">
+                        <div class="card-body">
+                            <h5 class="card-title">@tournament.Name</h5>
+                            <h6 class="card-title">@tournament.GameType | @tournament.CourtType</h6>
+                            <p class="card-text">@tournament.Description</p>
+                            <a asp-controller="Tournament" asp-action="Invite" asp-route-id="@tournament.Id" class="btn btn-outline-warning">Join</a>
+                            <a asp-controller="Tournament" asp-action="Details" asp-route-id="@tournament.Id" class="btn btn-outline-dark">Details</a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    }
-</div>
+        }
+    </div>
+}

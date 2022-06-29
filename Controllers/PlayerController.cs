@@ -52,8 +52,6 @@ namespace TennisTournament.Controllers
         {
             var player = this.playerService.Details(id);
 
-            
-
             return View(new PlayerFormModel
             {
                 Id = id,

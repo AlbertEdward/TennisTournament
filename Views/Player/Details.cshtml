@@ -1,7 +1,7 @@
 ﻿@model PlayerFormModel
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Profile";
 }
 
 <h1 class="text-center">@ViewBag.Title</h1>
@@ -37,8 +37,11 @@
             </div>
             <div class="col-md-2">
                 <a asp-controller="Player" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-dark">Edit Profile</a>
-                <a asp-controller="Player" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-outline-danger mt-3">Delete</a>
-                <a id="invite-button" asp-controller="Player" asp-action="Invite" asp-route-id="@Model.Id" class="btn btn-outline-dark">Invite</a>
+                @if (User.IsInRole(Roles.Administrator))
+                {
+                    <a asp-controller="Player" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-outline-danger mt-3">Delete</a>
+                    <a id="invite-button" asp-controller="Player" asp-action="Invite" asp-route-id="@Model.Id" class="btn btn-outline-dark">Invite</a>
+                }
             </div>
         </div>
         <div class="row">
@@ -91,17 +94,3 @@
         </div>
     </form>
 </div>
-
-@section Scripts {
-<script>
-    $('#invite-button').on('click', ev =>{
-        $.get('/api/statistics', (data) => {
-        $('#total-tournaments').text(data.totalTournaments);
-        $('#total-players').text(data.totalPlayers);
-
-        $('#statistics-card').removeClass('d-none');
-        $('#statistics-button').hide();
-    })
-    })
-</script>
-}

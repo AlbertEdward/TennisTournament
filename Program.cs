@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TennisTournament.Data;
+using TennisTournament.Data.Models;
 using TennisTournament.Infrastructure;
 using TennisTournament.Options;
 
@@ -14,7 +15,8 @@ builder.Services.AddDbContext<TennisDbContext>(options =>
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddDefaultIdentity<IdentityUser>()
+builder.Services.AddDefaultIdentity<ApplicationUser>()
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<TennisDbContext>()
     .AddDefaultTokenProviders();
 
@@ -37,7 +39,7 @@ builder.Services.AddServices();
 
 var app = builder.Build();
 
-app.PrepareDatabase();
+app.PreparedDatabase();
 
 if (app.Environment.IsDevelopment())
 {
@@ -60,5 +62,6 @@ app
         endpoints.MapDefaultControllerRoute();
         endpoints.MapRazorPages();
     });
+app.UseAuthentication();;
 
 app.Run();
