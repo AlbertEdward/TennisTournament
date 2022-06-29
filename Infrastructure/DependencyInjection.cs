@@ -35,7 +35,7 @@ namespace TennisTournament.Infrastructure
                 };
             });
 
-            services.AddDefaultIdentity<IdentityUser>(options =>
+            services.Configure<IdentityOptions>(options =>
             {
                 options.Password.RequireDigit = false;
                 options.Password.RequireLowercase = false;

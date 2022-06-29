@@ -1,12 +1,8 @@
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using TennisTournament.Infrastructure;
-using TennisTournament.Data;
 using Microsoft.AspNetCore.Mvc;
-using TennisTournament.Services.Statistics;
-using TennisTournament.Services.Tournaments;
-using TennisTournament.Services.Players;
-using TennisTournament.Services;
+using Microsoft.EntityFrameworkCore;
+using TennisTournament.Data;
+using TennisTournament.Infrastructure;
 using TennisTournament.Options;
 
 var builder = WebApplication.CreateBuilder(args);
