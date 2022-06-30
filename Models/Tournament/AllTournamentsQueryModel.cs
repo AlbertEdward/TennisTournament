@@ -21,6 +21,9 @@ namespace TennisTournament.Models.Tournament
         [Display(Name = "Image:")]
         public string CoverPhoto { get; set; }
 
+        [Display(Name = "Description:")]
+        public string Description { get; set; }
+
         public int TotalTournaments { get; set; }
 
         public IEnumerable<TournamentServiceModel> Tournaments { get; set; }

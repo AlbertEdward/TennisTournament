@@ -22,7 +22,7 @@
     </ol>
     <div class="carousel-inner">
         <div class="carousel-item active">
-            <img src="/img/ofLEm3.png" />
+            <img src="/img/Tennis Woman.jpg" />
         </div>
         <div class="carousel-item">
             <img src="/img/wp2447220.jpg" />
@@ -90,17 +90,17 @@
 </html>
 
 @section Scripts {
-<script>
-    $('#statistics-button').on('click', ev =>{
-        $.get('/api/statistics', (data) => {
-        $('#total-tournaments').text(data.totalTournaments);
-        $('#total-players').text(data.totalPlayers);
+    <script>
+        $('#statistics-button').on('click', ev => {
+            $.get('/api/statistics', (data) => {
+                $('#total-tournaments').text(data.totalTournaments);
+                $('#total-players').text(data.totalPlayers);
 
-        $('#statistics-card').removeClass('d-none');
-        $('#statistics-button').hide();
-    })
-    })
-</script>
+                $('#statistics-card').removeClass('d-none');
+                $('#statistics-button').hide();
+            })
+        })
+    </script>
 }
 
 
