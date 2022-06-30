@@ -9,8 +9,8 @@
 @if (!Model.Players.Any())
 {
     <div class="jumbotron jumbotron-fluid">
-        <div class="container align-content-center">
-            <h1 class="display-4 align-content-center">There are no players yet</h1>
+        <div class="container text-center">
+            <h1 class="display-4 mt-5">There are no players yet</h1>
             @if (User.IsInRole(Roles.Administrator))
             {
                 <p class="lead">

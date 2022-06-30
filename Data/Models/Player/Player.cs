@@ -26,8 +26,8 @@ namespace TennisTournament.Data.Models
 
         public string ProfilePhoto { get; set; }
 
-        [ForeignKey("Tournament")]
-        public int TournamentId { get; init; }
-        public IEnumerable<Tournament> Tournaments { get; set; }
+        public string UserId { get; set; }
+
+        public IEnumerable<Tournament> Tournaments { get; init; } = new List<Tournament>();
     }
 }

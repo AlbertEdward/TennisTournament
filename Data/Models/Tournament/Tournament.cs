@@ -24,8 +24,8 @@ namespace TennisTournament.Data.Models
 
         public string CoverPhoto { get; set; }
 
-        [ForeignKey("Players")]
-        public int PlayerId { get; set; }
-        public IEnumerable<Player>? Players { get; set; }
+        public int PlayerId { get; init; }
+
+        public Player Player { get; init; }
     }
 }

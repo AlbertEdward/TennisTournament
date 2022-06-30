@@ -22,6 +22,13 @@ namespace TennisTournament.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder
+                .Entity<Player>()
+                .HasOne<ApplicationUser>()
+                .WithOne()
+                .HasForeignKey<Player>(p => p.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
+
             base.OnModelCreating(builder);
         }
 

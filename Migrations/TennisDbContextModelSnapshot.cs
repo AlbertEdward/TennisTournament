@@ -159,21 +159,6 @@ namespace TennisTournament.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("PlayerTournament", b =>
-                {
-                    b.Property<int>("PlayersId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TournamentsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("PlayersId", "TournamentsId");
-
-                    b.HasIndex("TournamentsId");
-
-                    b.ToTable("PlayerTournament");
-                });
-
             modelBuilder.Entity("TennisTournament.Data.Models.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
@@ -280,13 +265,17 @@ namespace TennisTournament.Migrations
                     b.Property<int>("TotalMatches")
                         .HasColumnType("int");
 
-                    b.Property<int>("TournamentId")
-                        .HasColumnType("int");
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("Wons")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
 
                     b.ToTable("Players");
                 });
@@ -333,6 +322,8 @@ namespace TennisTournament.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("PlayerId");
 
                     b.ToTable("Tournaments");
                 });
@@ -388,19 +379,29 @@ namespace TennisTournament.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("PlayerTournament", b =>
+            modelBuilder.Entity("TennisTournament.Data.Models.Player", b =>
                 {
-                    b.HasOne("TennisTournament.Data.Models.Player", null)
-                        .WithMany()
-                        .HasForeignKey("PlayersId")
+                    b.HasOne("TennisTournament.Data.Models.ApplicationUser", null)
+                        .WithOne()
+                        .HasForeignKey("TennisTournament.Data.Models.Player", "UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("TennisTournament.Data.Models.Tournament", b =>
+                {
+                    b.HasOne("TennisTournament.Data.Models.Player", "Player")
+                        .WithMany("Tournaments")
+                        .HasForeignKey("PlayerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("TennisTournament.Data.Models.Tournament", null)
-                        .WithMany()
-                        .HasForeignKey("TournamentsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("Player");
+                });
+
+            modelBuilder.Entity("TennisTournament.Data.Models.Player", b =>
+                {
+                    b.Navigation("Tournaments");
                 });
 #pragma warning restore 612, 618
         }

@@ -106,16 +106,6 @@ namespace TennisTournament.Services.Players
             })
             .FirstOrDefault();
 
-        public void Invite(int playerId, int tournamentId)
-        {
-            var player = this.data.Players.Find(playerId);
-            var tournament = this.data.Tournaments.Find(tournamentId);
-
-            tournament.PlayerId = player.Id;
-
-            data.SaveChanges();
-        }
-
         public void Join(int playerId, int tournamentId)
         {
             throw new NotImplementedException();
