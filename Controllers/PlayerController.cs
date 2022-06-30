@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using TennisTournament.Data;
 using TennisTournament.Data.Models;
+using TennisTournament.Infrastructure;
 using TennisTournament.Models.Player;
 using TennisTournament.Services;
 using TennisTournament.Services.Players;
@@ -114,6 +115,15 @@ namespace TennisTournament.Controllers
         [Authorize]
         public IActionResult Add()
         {
+            if (!this.UserIsCompetitor())
+            {
+                return RedirectToAction(nameof(CompetitorController.Create));
+            }
+
+            var userIsCompetitor = this.data
+                .Players
+                .Any(p => p.UserId == User.GetId());
+
             return View(new PlayerFormModel());
         }
 
@@ -123,6 +133,11 @@ namespace TennisTournament.Controllers
         [RequestSizeLimit(5242880)]
         public IActionResult Add(PlayerFormModel player)
         {
+            if (!this.UserIsCompetitor())
+            {
+                return RedirectToAction(nameof(CompetitorController.Create));
+            }
+
             if (!ModelState.IsValid)
             {
                 return View(player);
@@ -150,6 +165,9 @@ namespace TennisTournament.Controllers
 
             return RedirectToAction(nameof(All));
         }
+
+        private bool UserIsCompetitor()
+            => !this.data.Players.Any(p => p.UserId == this.User.GetId());
 
         private string UploadProfilePhoto(IFormFile profilePhoto)
         {

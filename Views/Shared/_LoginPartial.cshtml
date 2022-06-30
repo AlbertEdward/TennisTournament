@@ -5,11 +5,15 @@
 <ul class="navbar-nav">
     @if (SignInManager.IsSignedIn(User))
     {
+        @if (User.IsInRole(Roles.Administrator))
+        {
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Admin">Admin Panel</a>
+            </li>
+        }
+
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="Player" asp-action="Become">Become a Player</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Admin">Admin Panel</a>
+            <a class="nav-link text-dark" asp-area="" asp-controller="Competitor" asp-action="Create">Become a Competitor</a>
         </li>
         <li class="nav-item">
             <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Account</a>
