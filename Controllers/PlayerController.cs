@@ -53,14 +53,15 @@ namespace TennisTournament.Controllers
         {
             var player = this.playerService.Details(id);
 
-            return View(new PlayerFormModel
+            return View(new AllPlayersQueryModel
             {
                 Id = id,
                 Name = player.Name,
                 Age = player.Age,
                 Gender = player.Gender,
                 StrongHand = player.StrongHand,
-                BackHandStroke = player.BackHandStroke
+                BackHandStroke = player.BackHandStroke,
+                ProfilePhoto = player.ProfilePhoto
             }) ;
         }
 

@@ -10,7 +10,13 @@ namespace TennisTournament.Models.Player
 
         public string Name { get; init; }
 
+        public int Age { get; set; }
+
         public Gender Gender { get; init; }
+
+        public StrongHand StrongHand { get; init; }
+
+        public BackHandStroke BackHandStroke { get; init; }
 
         [Display(Name = "Search:")]
         public string SearchTerm { get; init; }
