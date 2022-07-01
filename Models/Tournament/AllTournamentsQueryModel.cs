@@ -15,6 +15,16 @@ namespace TennisTournament.Models.Tournament
         [Display(Name = "Court type:")]
         public CourtType CourtType { get; set; }
 
+        public Set Set { get; set; }
+
+        public Game Game { get; set; }
+
+        public Rule Rule { get; set; }
+
+        public LastSet LastSet { get; set; }
+
+        public int MyProperty { get; set; }
+
         [Display(Name = "Search:")]
         public string SearchTerm { get; set; }
 

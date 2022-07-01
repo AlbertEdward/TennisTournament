@@ -1,4 +1,4 @@
-﻿@model TournamentFormModel
+﻿@model AllTournamentsQueryModel
 
 @{
     ViewBag.Title = "Details";
@@ -17,10 +17,6 @@
             <div class="col-md-4">
                 <div class="profile-img">
                     <img src="/UploadedPhotos/CoverPhotos/@Model.CoverPhoto" class="img img-responsive">
-                    <div class="file btn btn-lg btn-primary">
-                        Change Photo
-                        <input type="file" name="file" />
-                    </div>
                 </div>
             </div>
             <div class="col-md-6">
@@ -68,7 +64,7 @@
                                 <label>Age</label>
                             </div>
                             <div class="col-md-6">
-                                <p>@Model.CourtTypes</p>
+                                <p>@Model.CourtType</p>
                             </div>
                         </div>
                         <div class="row">
@@ -76,7 +72,7 @@
                                 <label>Strong Hand</label>
                             </div>
                             <div class="col-md-6">
-                                <p>@Model.GameTypes</p>
+                                <p>@Model.GameType</p>
                             </div>
                         </div>
                         <div class="row">

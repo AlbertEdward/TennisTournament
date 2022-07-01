@@ -77,17 +77,19 @@ namespace TennisTournament.Controllers
         {
             var tournament = this.tournamentService.Details(id);
 
-            return View(new TournamentFormModel
+            return View(new AllTournamentsQueryModel
             {
                 Id = id,
                 Name = tournament.Name,
-                CourtTypes = tournament.CourtType,
-                GameTypes = tournament.GameType,
-                Games = tournament.Game,
-                Sets = tournament.Set,
-                Rules = tournament.Rule,
-                LastSets = tournament.LastSet,
-                Description = tournament.Description
+                CourtType = tournament.CourtType,
+                GameType = tournament.GameType,
+                Game = tournament.Game,
+                Set = tournament.Set,
+                Rule = tournament.Rule,
+                LastSet = tournament.LastSet,
+                Description = tournament.Description,
+                CoverPhoto = tournament.CoverPhoto
+
             });
         }
 

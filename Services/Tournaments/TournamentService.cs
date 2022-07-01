@@ -119,7 +119,8 @@ namespace TennisTournament.Services.Tournaments
                 Game = tournament.Games,
                 Rule = tournament.Rules,
                 LastSet = tournament.LastSets,
-                Description = tournament.Description
+                Description = tournament.Description,
+                CoverPhoto = tournament.CoverPhoto
 
             })
             .FirstOrDefault();
