@@ -26,6 +26,6 @@ namespace TennisTournament.Data.Models
 
         public int PlayerId { get; init; }
 
-        public Player Player { get; init; }
+        public IEnumerable<Player> Player { get; init; }
     }
 }

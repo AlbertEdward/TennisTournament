@@ -116,16 +116,13 @@ namespace TennisTournament.Controllers
         [Authorize]
         public IActionResult Add()
         {
-            if (!this.UserIsCompetitor())
+            if (this.UserIsPlayer())
             {
-                return RedirectToAction(nameof(CompetitorController.Create));
+                //TODO
+                return BadRequest();
             }
 
-            var userIsCompetitor = this.data
-                .Players
-                .Any(p => p.UserId == User.GetId());
-
-            return View(new PlayerFormModel());
+            return View();
         }
 
         [HttpPost]
@@ -134,9 +131,10 @@ namespace TennisTournament.Controllers
         [RequestSizeLimit(5242880)]
         public IActionResult Add(PlayerFormModel player)
         {
-            if (!this.UserIsCompetitor())
+            if (this.UserIsPlayer())
             {
-                return RedirectToAction(nameof(CompetitorController.Create));
+                //TODO
+                return BadRequest();
             }
 
             if (!ModelState.IsValid)
@@ -149,6 +147,12 @@ namespace TennisTournament.Controllers
                 return View(player);
             }
 
+            var userId = this.User.GetId();
+
+            var userIsAlreadyCompetitor = this.data
+                .Players
+                .Any(p => p.UserId == userId);
+
             string profilePhoto = this.UploadProfilePhoto(player.ProfilePhoto);
 
             var playerData = new Player
@@ -158,7 +162,8 @@ namespace TennisTournament.Controllers
                 Gender = player.Gender,
                 StrongHand = player.StrongHand,
                 BackHandStroke = player.BackHandStroke,
-                ProfilePhoto = profilePhoto
+                ProfilePhoto = profilePhoto,
+                UserId = userId
             };
 
             this.data.Players.Add(playerData);
@@ -167,8 +172,8 @@ namespace TennisTournament.Controllers
             return RedirectToAction(nameof(All));
         }
 
-        private bool UserIsCompetitor()
-            => !this.data.Players.Any(p => p.UserId == this.User.GetId());
+        private bool UserIsPlayer()
+            => this.data.Players.Any(p => p.UserId == this.User.GetId());
 
         private string UploadProfilePhoto(IFormFile profilePhoto)
         {
