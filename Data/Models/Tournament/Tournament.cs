@@ -24,7 +24,7 @@ namespace TennisTournament.Data.Models
 
         public string CoverPhoto { get; set; }
 
-        public int PlayerId { get; init; }
+        public string? PlayerId { get; init; }
 
         public IEnumerable<Player> Player { get; init; }
     }

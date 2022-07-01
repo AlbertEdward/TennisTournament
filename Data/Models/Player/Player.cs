@@ -29,7 +29,7 @@ namespace TennisTournament.Data.Models
         public string UserId { get; set; }
 
         [ForeignKey("Tournaments")]
-        public int TournamentId { get; set; }
+        public string? TournamentId { get; set; }
 
         public IEnumerable<Tournament> Tournaments { get; set; } = new List<Tournament>();
     }

@@ -12,8 +12,8 @@ using TennisTournament.Data;
 namespace TennisTournament.Migrations
 {
     [DbContext(typeof(TennisDbContext))]
-    [Migration("20220701202046_Players")]
-    partial class Players
+    [Migration("20220701210829_PlayersAndTournaments")]
+    partial class PlayersAndTournaments
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -282,8 +282,8 @@ namespace TennisTournament.Migrations
                     b.Property<int>("TotalMatches")
                         .HasColumnType("int");
 
-                    b.Property<int>("TournamentId")
-                        .HasColumnType("int");
+                    b.Property<string>("TournamentId")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
                         .IsRequired()
@@ -332,8 +332,9 @@ namespace TennisTournament.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("PlayerId")
-                        .HasColumnType("int");
+                    b.Property<string>("PlayerId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Rules")
                         .HasColumnType("int");
