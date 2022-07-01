@@ -23,5 +23,7 @@ namespace TennisTournament.Models.Player
         public IFormFile ProfilePhoto { get; set; }
 
         public double Rank { get; set; } = 0.00;
+
+        public int MyProperty { get; set; }
     }
 }

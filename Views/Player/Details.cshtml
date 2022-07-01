@@ -17,10 +17,6 @@
             <div class="col-md-4">
                 <div class="profile-img">
                     <img src="/UploadedPhotos/ProfilePhotos/@Model.ProfilePhoto" class="img img-responsive">
-                    <div class="file btn btn-lg btn-primary">
-                        Change Photo
-                        <input type="file" name="file" />
-                    </div>
                 </div>
             </div>
             <div class="col-md-6">
@@ -31,7 +27,12 @@
                     <h6>
                         Professional tennis player
                     </h6>
-                    <p class="proile-rating">Rank : <span></span></p>
+                    <p class="proile-rating">
+                        Rank: @Model.Rank<br />
+                        Wins: @Model.Wins<br />
+                        Losses: @Model.Losses<br />
+                        <span></span>
+                    </p>
                     <ul class="nav nav-tabs" id="myTab" role="tablist" />
                 </div>
             </div>
