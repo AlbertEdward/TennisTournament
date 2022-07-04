@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using TennisTournament.Data;
 using TennisTournament.Data.Models;
 using TennisTournament.Infrastructure;
+using TennisTournament.Infrastructure.Seeder;
 using TennisTournament.Models.Player;
 using TennisTournament.Services;
 using TennisTournament.Services.Players;
@@ -116,10 +117,12 @@ namespace TennisTournament.Controllers
         [Authorize]
         public IActionResult Add()
         {
-            if (this.UserIsPlayer())
+            if (!User.IsInRole(Roles.Administrator))
             {
-                //TODO
-                return BadRequest();
+                if (this.UserIsPlayer())
+                {
+                    return BadRequest();
+                }
             }
 
             return View();
@@ -131,9 +134,8 @@ namespace TennisTournament.Controllers
         [RequestSizeLimit(5242880)]
         public IActionResult Add(PlayerFormModel player)
         {
-            if (this.UserIsPlayer())
+            if (this.UserIsPlayer() && User.IsInRole(Roles.User))
             {
-                //TODO
                 return BadRequest();
             }
 

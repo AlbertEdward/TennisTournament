@@ -12,9 +12,13 @@
             </li>
         }
 
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="Player" asp-action="Add">Become a Player</a>
-        </li>
+        if (User.IsInRole(Roles.User))
+        {
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Player" asp-action="Add">Become a Player</a>
+            </li>
+        }
+
         <li class="nav-item">
             <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Account</a>
         </li>
