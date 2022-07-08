@@ -1,4 +1,5 @@
-﻿using TennisTournament.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using TennisTournament.Data;
 using TennisTournament.Data.Models;
 using TennisTournament.Services.Players.Models;
 
@@ -13,21 +14,21 @@ namespace TennisTournament.Services.Players
             this.data = data;
         }
 
-        public PlayerQueryServiceModel All(
+        public async Task<PlayerQueryServiceModel> All(
             string searchTerm,
             Gender gender)
         {
-            var playersQuery = this.data.Players.AsQueryable();
+            var playersQuery = await this.data.Players.ToListAsync();
 
             if (gender != Gender.Select)
             {
-                playersQuery = playersQuery.Where(c => c.Gender == gender);
+                playersQuery = playersQuery.Where(c => c.Gender == gender).ToList();
             }
 
             if (!string.IsNullOrWhiteSpace(searchTerm))
             {
                 playersQuery = playersQuery.Where(p =>
-                    p.Name.ToLower().Contains(searchTerm.ToLower()));
+                    p.Name.ToLower().Contains(searchTerm.ToLower())).ToList();
             }
 
             var totalPlayers = playersQuery.Count();
@@ -105,10 +106,5 @@ namespace TennisTournament.Services.Players
                 ProfilePhoto = player.ProfilePhoto
             })
             .FirstOrDefault();
-
-        public void Join(int playerId, int tournamentId)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

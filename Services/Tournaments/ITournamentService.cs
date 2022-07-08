@@ -22,7 +22,7 @@ namespace TennisTournament.Services.Tournaments
             LastSet lastSet,
             string description);
 
-        TournamentServiceModel Delete(int id);
+        Task<TournamentServiceModel> Delete(int id);
 
         TournamentDetailsServiceModel Details(int id);
     }

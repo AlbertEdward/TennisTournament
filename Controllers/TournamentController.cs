@@ -22,13 +22,13 @@ namespace TennisTournament.Controllers
         }
 
         [Authorize]
-        public IActionResult Add()
+        public async Task<IActionResult> Add()
         {
             return View(new TournamentFormModel());
         }
 
         [Authorize]
-        public IActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
             var tournament = this.tournamentService.Details(id);
 
@@ -100,7 +100,7 @@ namespace TennisTournament.Controllers
             return RedirectToAction(nameof(All));
         }
 
-        public IActionResult All([FromQuery]AllTournamentsQueryModel query)
+        public async Task<IActionResult> All([FromQuery]AllTournamentsQueryModel query)
         {
             var queryResult = this.tournamentService.All(
                 query.Name,
@@ -118,7 +118,7 @@ namespace TennisTournament.Controllers
         [Authorize]
         [RequestFormLimits(MultipartBodyLengthLimit = 5242880)]
         [RequestSizeLimit(5242880)]
-        public IActionResult Add(TournamentFormModel tournament)
+        public async Task<IActionResult> Add(TournamentFormModel tournament)
         {
             if (!ModelState.IsValid)
             {
@@ -147,7 +147,7 @@ namespace TennisTournament.Controllers
             };
 
             this.data.Tournaments.Add(tournamentData);
-            this.data.SaveChanges();
+            this.data.SaveChangesAsync();
 
             return RedirectToAction(nameof(All));
         }

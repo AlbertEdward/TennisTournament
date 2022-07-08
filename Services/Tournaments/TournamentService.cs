@@ -60,13 +60,13 @@ namespace TennisTournament.Services.Tournaments
             };
         }
 
-        public TournamentServiceModel Delete(int id)
+        public async Task<TournamentServiceModel> Delete(int id)
         {
             var tournament = this.data.Tournaments.FirstOrDefault(t => t.Id == id);
 
             data.Tournaments.Remove(tournament);
 
-            data.SaveChanges();
+            data.SaveChangesAsync();
 
             return new TournamentServiceModel();
         }

@@ -23,24 +23,10 @@ namespace TennisTournament.Controllers
             this.uploadFileService = uploadFileService;
         }
 
-        public IActionResult Invite(int id)
-        {
-            var player = this.playerService.Details(id);
-
-            return View(new PlayerFormModel
-            {
-                Name = player.Name,
-                Age = player.Age,
-                Gender = player.Gender,
-                StrongHand = player.StrongHand,
-                BackHandStroke = player.BackHandStroke
-            });
-        }
-
         [Authorize]
-        public IActionResult All([FromQuery] AllPlayersQueryModel query)
+        public async Task<IActionResult> All([FromQuery] AllPlayersQueryModel query)
         {
-            var queryResult = this.playerService.All(
+            var queryResult = await this.playerService.All(
                 query.SearchTerm,
                 query.Gender);
 
@@ -67,7 +53,7 @@ namespace TennisTournament.Controllers
         }
 
         [Authorize]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             var deleted = this.playerService.Delete(id);
 
@@ -75,7 +61,7 @@ namespace TennisTournament.Controllers
         }
 
         [Authorize]
-        public IActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
             var player = this.playerService.Details(id);
 
@@ -91,7 +77,7 @@ namespace TennisTournament.Controllers
 
         [HttpPost]
         [Authorize]
-        public IActionResult Edit(int id, PlayerFormModel player)
+        public async Task<IActionResult> Edit(int id, PlayerFormModel player)
         {
             if (!ModelState.IsValid)
             {
@@ -115,7 +101,7 @@ namespace TennisTournament.Controllers
         }
 
         [Authorize]
-        public IActionResult Add()
+        public async Task<IActionResult> Add()
         {
             if (!User.IsInRole(Roles.Administrator))
             {
@@ -132,7 +118,7 @@ namespace TennisTournament.Controllers
         [Authorize]
         [RequestFormLimits(MultipartBodyLengthLimit = 5242880)]
         [RequestSizeLimit(5242880)]
-        public IActionResult Add(PlayerFormModel player)
+        public async Task<IActionResult> Add(PlayerFormModel player)
         {
             if (this.UserIsPlayer() && User.IsInRole(Roles.User))
             {
@@ -169,7 +155,7 @@ namespace TennisTournament.Controllers
             };
 
             this.data.Players.Add(playerData);
-            this.data.SaveChanges();
+            this.data.SaveChangesAsync();
 
             return RedirectToAction(nameof(All));
         }
