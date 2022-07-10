@@ -49,7 +49,7 @@ namespace TennisTournament.Controllers
                 StrongHand = player.StrongHand,
                 BackHandStroke = player.BackHandStroke,
                 ProfilePhoto = player.ProfilePhoto
-            }) ;
+            });
         }
 
         [Authorize]
@@ -101,14 +101,11 @@ namespace TennisTournament.Controllers
         }
 
         [Authorize]
-        public async Task<IActionResult> Add()
+        public async Task<IActionResult> AddAsync()
         {
-            if (!User.IsInRole(Roles.Administrator))
+            if (!User.IsInRole(Roles.Administrator) && this.UserIsPlayer())
             {
-                if (this.UserIsPlayer())
-                {
-                    return BadRequest();
-                }
+                return BadRequest();
             }
 
             return View();
@@ -118,7 +115,7 @@ namespace TennisTournament.Controllers
         [Authorize]
         [RequestFormLimits(MultipartBodyLengthLimit = 5242880)]
         [RequestSizeLimit(5242880)]
-        public async Task<IActionResult> Add(PlayerFormModel player)
+        public async Task<IActionResult> AddAsync(PlayerFormModel player)
         {
             if (this.UserIsPlayer() && User.IsInRole(Roles.User))
             {
