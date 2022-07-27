@@ -124,5 +124,25 @@ namespace TennisTournament.Services.Tournaments
 
             })
             .FirstOrDefault();
+
+        public void AddPlayerToTournament(string userId, int tournamentId)
+        {
+            var player = data.Players.FirstOrDefault(p => p.UserId == userId);
+            var tournament = data.Tournaments.FirstOrDefault(t => t.Id == tournamentId);
+
+            tournament.Player.Add(player);
+
+            this.data.SaveChanges();
+        }
+
+        public void RemovePlayerFromTournament(string userId, int tournamentId)
+        {
+            var player = data.Players.FirstOrDefault(p => p.UserId == userId);
+            var tournament = data.Tournaments.FirstOrDefault(t => t.Id == tournamentId);
+
+            var test = tournament.Player.Remove(player);
+
+            this.data.SaveChanges();
+        }
     }
 }

@@ -12,7 +12,7 @@
             </li>
         }
 
-        if (User.IsInRole(Roles.User))
+        if (!User.IsInRole(Roles.User) && !User.IsInRole(Roles.Administrator))
         {
             <li class="nav-item">
                 <a class="nav-link text-dark" asp-area="" asp-controller="Player" asp-action="Add">Become a Player</a>

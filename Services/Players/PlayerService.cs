@@ -103,7 +103,8 @@ namespace TennisTournament.Services.Players
                 Gender = player.Gender,
                 StrongHand = player.StrongHand,
                 BackHandStroke = player.BackHandStroke,
-                ProfilePhoto = player.ProfilePhoto
+                ProfilePhoto = player.ProfilePhoto,
+                Tournaments = player.Tournaments
             })
             .FirstOrDefault();
     }

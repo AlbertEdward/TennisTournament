@@ -25,5 +25,9 @@ namespace TennisTournament.Services.Tournaments
         Task<TournamentServiceModel> Delete(int id);
 
         TournamentDetailsServiceModel Details(int id);
+
+        void AddPlayerToTournament(string playerId, int tournamentId);
+
+        void RemovePlayerFromTournament(string playerId, int tournamentId);
     }
 }

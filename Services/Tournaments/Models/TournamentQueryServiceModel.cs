@@ -6,6 +6,6 @@ namespace TennisTournament.Services.Tournaments
     public class TournamentQueryServiceModel
     {
         public int TotalTournaments { get; init; }
-        public IEnumerable<TournamentServiceModel> Tournaments { get; init; }
+        public ICollection<TournamentServiceModel> Tournaments { get; init; }
     }
 }

@@ -8,6 +8,6 @@ namespace TennisTournament.Services.Players
 
         public Gender Gender { get; init; }
 
-        public IEnumerable<PlayerServiceModel> Players { get; init; }
+        public ICollection<PlayerServiceModel> Players { get; init; }
     }
 }

@@ -2,8 +2,10 @@
 using Microsoft.AspNetCore.Mvc;
 using TennisTournament.Data;
 using TennisTournament.Data.Models;
+using TennisTournament.Infrastructure;
 using TennisTournament.Models.Tournament;
 using TennisTournament.Services;
+using TennisTournament.Services.Players;
 using TennisTournament.Services.Tournaments;
 
 namespace TennisTournament.Controllers
@@ -12,13 +14,33 @@ namespace TennisTournament.Controllers
     {
         private readonly IUploadFileService uploadFileService;
         private readonly ITournamentService tournamentService;
+        private readonly IPlayerService playerService;
         private readonly TennisDbContext data;
 
-        public TournamentController(TennisDbContext data, ITournamentService tournaments, IUploadFileService uploadFileService)
+        public TournamentController(TennisDbContext data, ITournamentService tournaments, IPlayerService playerService, IUploadFileService uploadFileService)
         {
             this.data = data;
             this.tournamentService = tournaments;
+            this.playerService = playerService;
             this.uploadFileService = uploadFileService;
+        }
+
+        [HttpGet]
+        public IActionResult AddPlayerToTournament(int tournamentId)
+        {
+            this.tournamentService.AddPlayerToTournament(this.User.GetId(), tournamentId);
+
+            return RedirectToAction(nameof(All));
+
+        }
+
+        [HttpGet]
+        public IActionResult RemovePlayerFromTournament(int tournamentId)
+        {
+            this.tournamentService.RemovePlayerFromTournament(this.User.GetId(), tournamentId);
+
+            return RedirectToAction(nameof(All));
+
         }
 
         [Authorize]

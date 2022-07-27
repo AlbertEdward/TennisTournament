@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TennisTournament.Data.Models
 {
@@ -24,8 +25,6 @@ namespace TennisTournament.Data.Models
 
         public string CoverPhoto { get; set; }
 
-        public string? PlayerId { get; init; }
-
-        public IEnumerable<Player> Player { get; init; }
+        public ICollection<Player> Player { get; init; } = new List<Player>();
     }
 }

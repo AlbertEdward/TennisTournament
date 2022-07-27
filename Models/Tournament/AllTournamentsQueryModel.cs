@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using TennisTournament.Data.Models;
+using TennisTournament.Services.Players;
 using TennisTournament.Services.Tournaments;
 
 namespace TennisTournament.Models.Tournament
@@ -36,7 +37,7 @@ namespace TennisTournament.Models.Tournament
 
         public int TotalTournaments { get; set; }
 
-        public IEnumerable<TournamentServiceModel> Tournaments { get; set; }
+        public ICollection<TournamentServiceModel> Tournaments { get; set; }
 
         public int PlayerId { get; set; }
     }

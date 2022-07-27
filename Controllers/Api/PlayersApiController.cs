@@ -19,7 +19,7 @@ namespace TennisTournament.Controllers.Api
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Player>> GetPlayers()
+        public ActionResult<ICollection<Player>> GetPlayers()
         {
             return this.data.Players.ToList();
         }
