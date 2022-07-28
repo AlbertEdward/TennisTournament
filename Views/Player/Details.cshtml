@@ -37,7 +37,11 @@
                 </div>
             </div>
             <div class="col-md-2">
-                <a asp-controller="Player" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-dark">Edit Profile</a>
+                @if (User. == Model.UserId)
+                {
+                    <a asp-controller="Player" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-dark">Edit Profile</a>
+                }
+               
                 @if (User.IsInRole(Roles.Administrator))
                 {
                     <a asp-controller="Player" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-outline-danger mt-3">Delete</a>

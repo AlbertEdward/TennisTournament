@@ -40,6 +40,8 @@ namespace TennisTournament.Controllers
         {
             var player = this.playerService.Details(id);
 
+            var userId = this.User.GetId();
+
             return View(new PlayerServiceModel
             {
                 Id = id,
@@ -49,7 +51,8 @@ namespace TennisTournament.Controllers
                 StrongHand = player.StrongHand,
                 BackHandStroke = player.BackHandStroke,
                 ProfilePhoto = player.ProfilePhoto,
-                Tournaments = player.Tournaments
+                Tournaments = player.Tournaments,
+                UserId = userId
             });
         }
 

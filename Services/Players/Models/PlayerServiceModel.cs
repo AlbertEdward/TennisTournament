@@ -24,6 +24,8 @@ namespace TennisTournament.Services.Players
 
         public string ProfilePhoto { get; set; }
 
+        public string UserId { get; set; }
+
         public ICollection<Tournament> Tournaments { get; set; }
     }
 }
