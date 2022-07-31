@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using TennisTournament.Data.Models;
+using TennisTournament.Data.Models.PlayerTournament;
 
 namespace TennisTournament.Data
 {

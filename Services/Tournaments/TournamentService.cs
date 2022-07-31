@@ -1,4 +1,5 @@
-﻿using TennisTournament.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using TennisTournament.Data;
 using TennisTournament.Data.Models;
 using TennisTournament.Services.Tournaments.Models;
 
@@ -133,14 +134,15 @@ namespace TennisTournament.Services.Tournaments
             tournament.Player.Add(player);
 
             this.data.SaveChanges();
+
         }
 
         public void RemovePlayerFromTournament(string userId, int tournamentId)
         {
-            var player = data.Players.FirstOrDefault(p => p.UserId == userId);
+            var player = data.Players.Include(p => p.Tournaments).FirstOrDefault(p => p.UserId == userId);
             var tournament = data.Tournaments.FirstOrDefault(t => t.Id == tournamentId);
 
-            var test = tournament.Player.Remove(player);
+            player.Tournaments.Remove(tournament);
 
             this.data.SaveChanges();
         }

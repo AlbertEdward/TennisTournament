@@ -39,7 +39,6 @@ namespace TennisTournament.Controllers
         public IActionResult Details(int id)
         {
             var player = this.playerService.Details(id);
-
             var userId = this.User.GetId();
 
             return View(new PlayerServiceModel
@@ -51,8 +50,7 @@ namespace TennisTournament.Controllers
                 StrongHand = player.StrongHand,
                 BackHandStroke = player.BackHandStroke,
                 ProfilePhoto = player.ProfilePhoto,
-                Tournaments = player.Tournaments,
-                UserId = userId
+                Tournaments = player.Tournaments
             });
         }
 
@@ -65,7 +63,7 @@ namespace TennisTournament.Controllers
         }
 
         [Authorize]
-        public async Task<IActionResult> Edit(int id)
+        public async Task<IActionResult> EditAsync(int id)
         {
             var player = this.playerService.Details(id);
 
@@ -81,7 +79,7 @@ namespace TennisTournament.Controllers
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> Edit(int id, PlayerFormModel player)
+        public async Task<IActionResult> EditAsync(int id, PlayerFormModel player)
         {
             if (!ModelState.IsValid)
             {
@@ -123,7 +121,7 @@ namespace TennisTournament.Controllers
         {
             if (this.UserIsPlayer() && User.IsInRole(Roles.User))
             {
-                return BadRequest();
+                return View(player);
             }
 
             if (!ModelState.IsValid)
@@ -138,7 +136,7 @@ namespace TennisTournament.Controllers
 
             var userId = this.User.GetId();
 
-            var userIsAlreadyCompetitor = this.data
+            var userIsAlreadyPlayer = this.data
                 .Players
                 .Any(p => p.UserId == userId);
 
@@ -161,7 +159,7 @@ namespace TennisTournament.Controllers
             return RedirectToAction(nameof(All));
         }
 
-        private bool UserIsPlayer()
+        public bool UserIsPlayer()
             => this.data.Players.Any(p => p.UserId == this.User.GetId());
 
         private string UploadProfilePhoto(IFormFile profilePhoto)

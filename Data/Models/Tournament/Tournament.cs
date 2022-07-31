@@ -25,6 +25,6 @@ namespace TennisTournament.Data.Models
 
         public string CoverPhoto { get; set; }
 
-        public ICollection<Player> Player { get; init; } = new List<Player>();
+        public ICollection<Player> Player { get; set; } = new List<Player>();
     }
 }

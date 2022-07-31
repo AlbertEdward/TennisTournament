@@ -30,8 +30,7 @@ namespace TennisTournament.Controllers
         {
             this.tournamentService.AddPlayerToTournament(this.User.GetId(), tournamentId);
 
-            return RedirectToAction(nameof(All));
-
+            return RedirectToAction("All", "Player");
         }
 
         [HttpGet]
@@ -39,7 +38,7 @@ namespace TennisTournament.Controllers
         {
             this.tournamentService.RemovePlayerFromTournament(this.User.GetId(), tournamentId);
 
-            return RedirectToAction(nameof(All));
+            return RedirectToAction("All", "Player");
 
         }
 
