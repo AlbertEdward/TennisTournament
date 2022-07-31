@@ -12,17 +12,21 @@ namespace TennisTournament.Controllers
 {
     public class TournamentController : Controller
     {
-        private readonly IUploadFileService uploadFileService;
+        private readonly TennisDbContext data;
         private readonly ITournamentService tournamentService;
         private readonly IPlayerService playerService;
-        private readonly TennisDbContext data;
+        private readonly IUploadFileService uploadFileService;
 
-        public TournamentController(TennisDbContext data, ITournamentService tournaments, IPlayerService playerService, IUploadFileService uploadFileService)
+        public TournamentController(
+            TennisDbContext data,
+            ITournamentService tournaments,
+            IPlayerService playerService,
+            IUploadFileService uploadFile)
         {
             this.data = data;
             this.tournamentService = tournaments;
             this.playerService = playerService;
-            this.uploadFileService = uploadFileService;
+            this.uploadFileService = uploadFile;
         }
 
         [HttpGet]
@@ -40,12 +44,6 @@ namespace TennisTournament.Controllers
 
             return RedirectToAction("All", "Player");
 
-        }
-
-        [Authorize]
-        public async Task<IActionResult> Add()
-        {
-            return View(new TournamentFormModel());
         }
 
         [Authorize]
@@ -135,11 +133,17 @@ namespace TennisTournament.Controllers
             return View(query);
         }
 
+        [Authorize]
+        public async Task<IActionResult> AddTournament()
+        {
+            return View(new TournamentFormModel());
+        }
+
         [HttpPost]
         [Authorize]
         [RequestFormLimits(MultipartBodyLengthLimit = 5242880)]
         [RequestSizeLimit(5242880)]
-        public async Task<IActionResult> Add(TournamentFormModel tournament)
+        public async Task<IActionResult> AddTournament(TournamentFormModel tournament)
         {
             if (!ModelState.IsValid)
             {

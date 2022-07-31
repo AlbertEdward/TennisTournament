@@ -4,6 +4,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using TennisTournament.Options;
 using TennisTournament.Services;
+using TennisTournament.Services.Challenges;
 using TennisTournament.Services.Players;
 using TennisTournament.Services.Statistics;
 using TennisTournament.Services.Tournaments;
@@ -48,8 +49,9 @@ namespace TennisTournament.Infrastructure
         public static IServiceCollection AddServices(this IServiceCollection services)
         {
             services.AddScoped<IPlayerService, PlayerService>();
-            services.AddScoped<IStatisticsService, StatisticsService>();
             services.AddScoped<ITournamentService, TournamentService>();
+            services.AddScoped<IChallengeService, ChallengeService>();
+            services.AddScoped<IStatisticsService, StatisticsService>();
             services.AddScoped<IUploadFileService, UploadFileService>();
 
             return services;

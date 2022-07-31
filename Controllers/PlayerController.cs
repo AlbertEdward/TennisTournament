@@ -12,35 +12,18 @@ namespace TennisTournament.Controllers
 {
     public class PlayerController : Controller
     {
-        private readonly IUploadFileService uploadFileService;
-        private readonly IPlayerService playerService;
         private readonly TennisDbContext data;
+        private readonly IPlayerService playerService;
+        private readonly IUploadFileService uploadFileService;
 
         public PlayerController(
-            IUploadFileService uploadFileService,
+            TennisDbContext data,
             IPlayerService players,
-            TennisDbContext data)
+            IUploadFileService uploadFile)
         {
-            this.uploadFileService = uploadFileService;
-            this.playerService = players;
             this.data = data;
-        }
-
-        [HttpGet]
-        public IActionResult AddPlayerToChallenge(int challengeId)
-        {
-            this.playerService.AddPlayerToChallenge(this.User.GetId(), challengeId);
-
-            return RedirectToAction("All", "Player");
-        }
-
-        [HttpGet]
-        public IActionResult RemovePlayerFromChallenge(int challengeId)
-        {
-            this.playerService.RemovePlayerFromChallenge(this.User.GetId(), challengeId);
-
-            return RedirectToAction("All", "Player");
-
+            this.playerService = players;
+            this.uploadFileService = uploadFile;
         }
 
         [Authorize]
@@ -124,7 +107,7 @@ namespace TennisTournament.Controllers
         }
 
         [Authorize]
-        public async Task<IActionResult> AddAsync()
+        public async Task<IActionResult> AddPlayerAsync()
         {
             if (!User.IsInRole(Roles.Administrator) && this.UserIsPlayer())
             {
@@ -138,7 +121,7 @@ namespace TennisTournament.Controllers
         [Authorize]
         [RequestFormLimits(MultipartBodyLengthLimit = 5242880)]
         [RequestSizeLimit(5242880)]
-        public async Task<IActionResult> AddAsync(PlayerFormModel player)
+        public async Task<IActionResult> AddPlayerAsync(PlayerFormModel player)
         {
             if (this.UserIsPlayer() && User.IsInRole(Roles.User))
             {

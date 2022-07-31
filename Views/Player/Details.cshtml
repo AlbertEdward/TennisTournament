@@ -38,7 +38,8 @@
             </div>
             <div class="col-md-2">
                 <a asp-controller="Player" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-dark">Edit Profile</a>
-                <a asp-controller="Player" asp-action="AddPlayerToChallenge" class="btn btn-outline-dark">Challenge</a>
+                <a asp-controller="Challenge" asp-action="AddChallenge" class="btn btn-outline-dark">Create Challenge</a>
+                <a asp-controller="Challenge" asp-action="AddPlayerToChallenge" class="btn btn-outline-dark">Challenge</a>
 
                 @if (User.IsInRole(Roles.Administrator))
                 {
@@ -117,10 +118,10 @@
                     <div class="col-sm-6">
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title">@challenge.Id</h5>
-                                <p class="card-text"></p>
-                                <a asp-controller="Tournament" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-outline-dark">Details</a>
-                                <a asp-controller="Tournament" asp-action="RemovePlayerFromTournament" asp-route-tournamentId="@Model.Id" class="btn btn-outline-danger">Leave</a>
+                                <h5 class="card-title">@challenge.Name</h5>
+                                <p class="card-text">@challenge.Description</p>
+                                <a asp-controller="Challenge" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-outline-dark">Details</a>
+                                <a asp-controller="Challenge" asp-action="RemovePlayerFromChallenge" asp-route-tournamentId="@Model.Id" class="btn btn-outline-danger">Leave</a>
                             </div>
                         </div>
                     </div>
