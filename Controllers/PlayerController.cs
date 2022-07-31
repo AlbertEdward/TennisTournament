@@ -16,11 +16,31 @@ namespace TennisTournament.Controllers
         private readonly IPlayerService playerService;
         private readonly TennisDbContext data;
 
-        public PlayerController(TennisDbContext data, IPlayerService players, IUploadFileService uploadFileService)
+        public PlayerController(
+            IUploadFileService uploadFileService,
+            IPlayerService players,
+            TennisDbContext data)
         {
-            this.data = data;
-            this.playerService = players;
             this.uploadFileService = uploadFileService;
+            this.playerService = players;
+            this.data = data;
+        }
+
+        [HttpGet]
+        public IActionResult AddPlayerToChallenge(int challengeId)
+        {
+            this.playerService.AddPlayerToChallenge(this.User.GetId(), challengeId);
+
+            return RedirectToAction("All", "Player");
+        }
+
+        [HttpGet]
+        public IActionResult RemovePlayerFromChallenge(int challengeId)
+        {
+            this.playerService.RemovePlayerFromChallenge(this.User.GetId(), challengeId);
+
+            return RedirectToAction("All", "Player");
+
         }
 
         [Authorize]
@@ -50,7 +70,8 @@ namespace TennisTournament.Controllers
                 StrongHand = player.StrongHand,
                 BackHandStroke = player.BackHandStroke,
                 ProfilePhoto = player.ProfilePhoto,
-                Tournaments = player.Tournaments
+                Tournaments = player.Tournaments,
+                Challenges = player.Challenges
             });
         }
 

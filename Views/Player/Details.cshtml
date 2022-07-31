@@ -38,6 +38,7 @@
             </div>
             <div class="col-md-2">
                 <a asp-controller="Player" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-dark">Edit Profile</a>
+                <a asp-controller="Player" asp-action="AddPlayerToChallenge" class="btn btn-outline-dark">Challenge</a>
 
                 @if (User.IsInRole(Roles.Administrator))
                 {
@@ -110,18 +111,21 @@
                 </div>
             }
             <h3 class="text-center">Challenges</h3>
+            @foreach (var challenge in Model.Challenges)
+            {
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title">@Model.Name</h5>
-                                <p class="card-text">@Model.Age</p>
+                                <h5 class="card-title">@challenge.Id</h5>
+                                <p class="card-text"></p>
                                 <a asp-controller="Tournament" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-outline-dark">Details</a>
                                 <a asp-controller="Tournament" asp-action="RemovePlayerFromTournament" asp-route-tournamentId="@Model.Id" class="btn btn-outline-danger">Leave</a>
                             </div>
                         </div>
                     </div>
                 </div>
+            }
         </div>
     </form>
 </div>

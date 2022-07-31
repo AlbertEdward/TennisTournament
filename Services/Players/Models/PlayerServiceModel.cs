@@ -26,6 +26,8 @@ namespace TennisTournament.Services.Players
 
         public string UserId { get; set; }
 
+        public ICollection<Challenge> Challenges { get; set; }
+
         public ICollection<Tournament> Tournaments { get; set; }
     }
 }

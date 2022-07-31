@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using TennisTournament.Data.Models;
-using TennisTournament.Data.Models.PlayerTournament;
 
 namespace TennisTournament.Data
 {
@@ -18,6 +17,8 @@ namespace TennisTournament.Data
         }
 
         public DbSet<Tournament> Tournaments { get; init; }
+
+        public DbSet<Challenge> Challenges { get; init; }
 
         public DbSet<Player> Players { get; init; }
 

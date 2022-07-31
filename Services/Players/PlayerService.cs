@@ -104,8 +104,29 @@ namespace TennisTournament.Services.Players
                 StrongHand = player.StrongHand,
                 BackHandStroke = player.BackHandStroke,
                 ProfilePhoto = player.ProfilePhoto,
-                Tournaments = player.Tournaments
+                Tournaments = player.Tournaments,
+                Challenges = player.Challenges
             })
             .FirstOrDefault();
+
+        public void AddPlayerToChallenge(string userId, int challengeId)
+        {
+            var player = data.Players.FirstOrDefault(p => p.UserId == userId);
+            var challenge = data.Challenges.FirstOrDefault(t => t.Id == challengeId);
+
+            challenge.Player.Add(player);
+
+            this.data.SaveChanges();
+        }
+
+        public void RemovePlayerFromChallenge(string userId, int challengeId)
+        {
+            var player = data.Players.Include(p => p.Challenges).FirstOrDefault(p => p.UserId == userId);
+            var challenge = data.Challenges.FirstOrDefault(t => t.Id == challengeId);
+
+            player.Challenges.Remove(challenge);
+
+            this.data.SaveChanges();
+        }
     }
 }

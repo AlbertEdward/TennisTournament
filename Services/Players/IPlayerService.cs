@@ -21,5 +21,8 @@ namespace TennisTournament.Services.Players
         PlayerDetailsServiceModel Details(int id);
 
         PlayerServiceModel Delete(int id);
+
+        void AddPlayerToChallenge(string userId, int challengeId);
+        void RemovePlayerFromChallenge(string userId, int challengeId);
     }
 }

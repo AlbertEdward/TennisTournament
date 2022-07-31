@@ -41,7 +41,7 @@ namespace TennisTournament.Infrastructure
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireUppercase = false;
             });
-            
+
             return services;
         }
 
@@ -50,7 +50,6 @@ namespace TennisTournament.Infrastructure
             services.AddScoped<IPlayerService, PlayerService>();
             services.AddScoped<IStatisticsService, StatisticsService>();
             services.AddScoped<ITournamentService, TournamentService>();
-            services.AddScoped<IPlayerService, PlayerService>();
             services.AddScoped<IUploadFileService, UploadFileService>();
 
             return services;
