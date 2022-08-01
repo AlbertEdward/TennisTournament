@@ -24,8 +24,6 @@ namespace TennisTournament.Models.Tournament
 
         public LastSet LastSet { get; set; }
 
-        public int MyProperty { get; set; }
-
         [Display(Name = "Search:")]
         public string SearchTerm { get; set; }
 

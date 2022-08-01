@@ -1,5 +1,4 @@
 ﻿using TennisTournament.Data.Models;
-using TennisTournament.Services.Tournaments.Models;
 
 namespace TennisTournament.Services.Tournaments
 {
@@ -24,7 +23,7 @@ namespace TennisTournament.Services.Tournaments
 
         Task<TournamentServiceModel> Delete(int id);
 
-        TournamentDetailsServiceModel Details(int id);
+        TournamentServiceModel Details(int id);
 
         void AddPlayerToTournament(string playerId, int tournamentId);
 

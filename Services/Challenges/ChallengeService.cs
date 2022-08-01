@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TennisTournament.Data;
+using TennisTournament.Models.Challenge;
 
 namespace TennisTournament.Services.Challenges
 {
@@ -11,6 +12,7 @@ namespace TennisTournament.Services.Challenges
         {
             this.data = data;
         }
+
         public void AddPlayerToChallenge(string playerHostId, int playerGuestId)
         {
             var playerHost = data.Players.FirstOrDefault(p => p.UserId == playerHostId);
@@ -18,8 +20,11 @@ namespace TennisTournament.Services.Challenges
 
             var challenge = data.Challenges.FirstOrDefault(c => c.PlayerHostId == playerHost.UserId);
 
-            challenge.Player.Add(playerHost);
-            challenge.Player.Add(playerGuest);
+            if (challenge == null)
+            {
+                challenge.Player.Add(playerHost);
+                challenge.Player.Add(playerGuest);
+            }
 
             this.data.SaveChanges();
         }
@@ -35,5 +40,22 @@ namespace TennisTournament.Services.Challenges
 
             this.data.SaveChanges();
         }
+
+        public AllChallengesQueryModel Details(int Id)
+        => this.data
+            .Challenges
+            .Where(c => c.Id == Id)
+            .Select(challenges => new AllChallengesQueryModel
+            {
+                Id = challenges.Id,
+                Name = challenges.Name,
+                CourtTypes = challenges.CourtType,
+                Sets = challenges.Sets,
+                Games = challenges.Games,
+                Rules = challenges.Rules,
+                LastSets = challenges.LastSets,
+                Description = challenges.Description
+            })
+            .FirstOrDefault();
     }
 }

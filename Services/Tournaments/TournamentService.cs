@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TennisTournament.Data;
 using TennisTournament.Data.Models;
-using TennisTournament.Services.Tournaments.Models;
 
 namespace TennisTournament.Services.Tournaments
 {
@@ -106,11 +105,11 @@ namespace TennisTournament.Services.Tournaments
             return true;
         }
 
-        public TournamentDetailsServiceModel Details(int id)
+        public TournamentServiceModel Details(int id)
         => this.data
             .Tournaments
             .Where(t => t.Id == id)
-            .Select(tournament => new TournamentDetailsServiceModel
+            .Select(tournament => new TournamentServiceModel
             {
                 Id = tournament.Id,
                 Name = tournament.Name,

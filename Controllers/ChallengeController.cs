@@ -86,5 +86,21 @@ namespace TennisTournament.Controllers
 
             return RedirectToAction("All", "Player");
         }
+        public IActionResult Details(int id)
+        {
+            var challenge = this.challengeService.Details(id);
+
+            return View(new AllChallengesQueryModel
+            {
+                Id = challenge.Id,
+                Name = challenge.Name,
+                CourtTypes = challenge.CourtTypes,
+                Games = challenge.Games,
+                Sets = challenge.Sets,
+                Rules = challenge.Rules,
+                LastSets = challenge.LastSets,
+                Description = challenge.Description
+            });
+        }
     }
 }

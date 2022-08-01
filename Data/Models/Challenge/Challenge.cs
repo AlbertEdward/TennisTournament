@@ -21,5 +21,7 @@
         public ICollection<Player> Player { get; set; } = new List<Player>();
 
         public string PlayerHostId { get; set; }
+
+        public string PlayerGuestId { get; set; }
     }
 }

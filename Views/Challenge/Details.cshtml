@@ -1,0 +1,38 @@
+﻿@model AllChallengesQueryModel
+
+@{
+    ViewBag.Title = "Challenge details";
+}
+
+<h1 class="text-center">@ViewBag.Title</h1>
+
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link rel="stylesheet" href="~/css/details-form.css" asp-append-version="true" />
+
+<div class="container emp-profile">
+    <form method="post">
+        @foreach (var player in Model.Players)
+        {
+            <div class="card-group">
+                <div class="card">
+                    <img src="@player.ProfilePhoto" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">@player.Name</h5>
+                        <p class="card-text">@player.Age</p>
+                        <p class="card-text"><small class="text-muted">@player.Rank</small></p>
+                    </div>
+                </div>
+            </div>
+        }
+        <div class="col-md-2">
+            @if (User.IsInRole(Roles.Administrator))
+            {
+                <a asp-controller="Tournament" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-dark">Edit</a>
+                <a asp-controller="Tournament" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-outline-danger mt-3">Delete</a>
+            }
+        </div>
+    </form>
+</div>
+
