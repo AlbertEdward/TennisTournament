@@ -130,7 +130,10 @@ namespace TennisTournament.Services.Tournaments
             var player = data.Players.FirstOrDefault(p => p.UserId == userId);
             var tournament = data.Tournaments.FirstOrDefault(t => t.Id == tournamentId);
 
-            tournament.Player.Add(player);
+            if (!tournament.Player.Any())
+            {
+                tournament.Player.Add(player);
+            }
 
             this.data.SaveChanges();
 

@@ -47,7 +47,6 @@ namespace TennisTournament.Controllers
             this.challengeService.RemovePlayerFromChallenge(this.User.GetId(), challengeId);
 
             return RedirectToAction("All", "Player");
-
         }
 
         [Authorize]
@@ -86,6 +85,7 @@ namespace TennisTournament.Controllers
 
             return RedirectToAction("All", "Player");
         }
+
         public IActionResult Details(int id)
         {
             var challenge = this.challengeService.Details(id);

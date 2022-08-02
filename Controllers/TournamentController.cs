@@ -32,6 +32,7 @@ namespace TennisTournament.Controllers
         [HttpGet]
         public IActionResult AddPlayerToTournament(int tournamentId)
         {
+            //TODO Error message if try to join second time
             this.tournamentService.AddPlayerToTournament(this.User.GetId(), tournamentId);
 
             return RedirectToAction("All", "Player");
@@ -40,6 +41,7 @@ namespace TennisTournament.Controllers
         [HttpGet]
         public IActionResult RemovePlayerFromTournament(int tournamentId)
         {
+            //TODO Error message if try to remove second time
             this.tournamentService.RemovePlayerFromTournament(this.User.GetId(), tournamentId);
 
             return RedirectToAction("All", "Player");

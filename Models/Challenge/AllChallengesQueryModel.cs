@@ -22,7 +22,7 @@ namespace TennisTournament.Models.Challenge
 
         public string Description { get; set; }
 
-        public ICollection<Player> Players { get; set; }
+        public ICollection<ChallengeFormModel> Players { get; set; }
 
     }
 }
