@@ -1,6 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TennisTournament.Data;
+using TennisTournament.Data.Models;
 using TennisTournament.Models.Challenge;
+using TennisTournament.Infrastructure;
+using System.Security.Claims;
 
 namespace TennisTournament.Services.Challenges
 {
@@ -61,5 +64,25 @@ namespace TennisTournament.Services.Challenges
                 Description = challenges.Description
             })
             .FirstOrDefault();
+
+        public void CreateChallenge(ChallengeFormModel challenge, int id)
+        {
+            var hostUserId = this.User.GetId();//TODO
+
+            var challengeData = new Challenge
+            {
+                Name = challenge.Name,
+                CourtType = challenge.CourtTypes,
+                Sets = challenge.Sets,
+                Games = challenge.Games,
+                Rules = challenge.Rules,
+                LastSets = challenge.LastSets,
+                Description = challenge.Description,
+                PlayerGuestId = id
+            };
+
+            this.data.Challenges.Add(challengeData);
+            this.data.SaveChanges();
+        }
     }
 }

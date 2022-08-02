@@ -38,7 +38,7 @@
             </div>
             <div class="col-md-2">
                 <a asp-controller="Player" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-dark">Edit Profile</a>
-                <a asp-controller="Challenge" asp-action="AddChallenge" asp-route-id="@Model.Id" class="btn btn-outline-dark">Create Challenge</a>
+                <a asp-controller="Challenge" asp-action="CreateChallenge" asp-route-id="@Model.Id" class="btn btn-outline-dark">Create Challenge</a>
                 <a asp-controller="Challenge" asp-action="AddPlayerToChallenge" asp-route-id="@Model.Id" class="btn btn-outline-dark">Challenge</a>
 
                 @if (User.IsInRole(Roles.Administrator))

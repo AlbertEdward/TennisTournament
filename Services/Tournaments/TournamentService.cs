@@ -136,7 +136,6 @@ namespace TennisTournament.Services.Tournaments
             }
 
             this.data.SaveChanges();
-
         }
 
         public void RemovePlayerFromTournament(string userId, int tournamentId)

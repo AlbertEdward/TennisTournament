@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using TennisTournament.Data;
 using TennisTournament.Data.Models;
 using TennisTournament.Infrastructure;
 using TennisTournament.Models.Challenge;
@@ -13,24 +12,11 @@ namespace TennisTournament.Controllers
 {
     public class ChallengeController : Controller
     {
-        private readonly TennisDbContext data;
         private readonly IChallengeService challengeService;
-        private readonly ITournamentService tournamentService;
-        private readonly IPlayerService playerService;
-        private readonly IUploadFileService uploadFileService;
 
-        public ChallengeController(
-            TennisDbContext data,
-            IChallengeService challenge,
-            ITournamentService tournaments,
-            IPlayerService playerService,
-            IUploadFileService uploadFile)
+        public ChallengeController(IChallengeService challenge)
         {
-            this.data = data;
             this.challengeService = challenge;
-            this.tournamentService = tournaments;
-            this.playerService = playerService;
-            this.uploadFileService = uploadFile;
         }
 
         [HttpGet]
@@ -65,7 +51,6 @@ namespace TennisTournament.Controllers
             }
 
             var hostUserId = this.User.GetId();
-            var guestId = id;
 
             var challengeData = new Challenge
             {
@@ -77,11 +62,10 @@ namespace TennisTournament.Controllers
                 LastSets = challenge.LastSets,
                 Description = challenge.Description,
                 PlayerHostUserId = hostUserId,
-                PlayerGuestId = guestId
+                PlayerGuestId = id
             };
 
-            this.data.Challenges.Add(challengeData);
-            this.data.SaveChanges();
+            this.challengeService.CreateChallenge(challenge, id);
 
             return RedirectToAction("All", "Player");
         }
