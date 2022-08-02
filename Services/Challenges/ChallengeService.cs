@@ -13,30 +13,34 @@ namespace TennisTournament.Services.Challenges
             this.data = data;
         }
 
-        public void AddPlayerToChallenge(string playerHostId, int playerGuestId)
+        public void AddPlayerToChallenge(string playerHostUserId, int id)
         {
-            var playerHost = data.Players.FirstOrDefault(p => p.UserId == playerHostId);
-            var playerGuest = data.Players.FirstOrDefault(p => p.Id == 1);
+            var playerHost = data.Players.FirstOrDefault(p => p.UserId == playerHostUserId);
+            var playerGuest = data.Players.FirstOrDefault(p => p.Id == id);
 
-            var challenge = data.Challenges.FirstOrDefault(c => c.PlayerHostId == playerHost.UserId);
+            var challenge = data.Challenges
+                .FirstOrDefault(c => c.PlayerHostUserId == playerHostUserId || c.PlayerGuestId == id);
 
             if (challenge == null)
             {
-                challenge.Player.Add(playerHost);
-                challenge.Player.Add(playerGuest);
+            }
+
+            if (challenge.Players.Count == 0)
+            {
+                challenge.Players.Add(playerHost);
+                challenge.Players.Add(playerGuest);
             }
 
             this.data.SaveChanges();
         }
 
-        public void RemovePlayerFromChallenge(string playerHostId, int playerGuestId)
+        public void RemovePlayerFromChallenge(string playerHostUserId, int id)
         {
-            var playerHost = data.Players.Include(p => p.Challenges).FirstOrDefault(p => p.UserId == playerHostId);
-            var playerGuest = data.Players.Include(p => p.Challenges).FirstOrDefault(p => p.Id == 1);//TODO
+            var challenge = data.Challenges
+                .Include(c => c.Players)
+                .FirstOrDefault(c => c.PlayerHostUserId == playerHostUserId || c.PlayerGuestId == id);
 
-            var challenge = data.Challenges.FirstOrDefault(c => c.PlayerHostId == playerHost.UserId);
-
-            challenge.Player.Clear();
+            challenge.Players.Clear();
 
             this.data.SaveChanges();
         }

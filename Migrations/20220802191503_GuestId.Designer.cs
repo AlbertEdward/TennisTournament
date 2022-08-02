@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TennisTournament.Data;
 
@@ -11,9 +12,10 @@ using TennisTournament.Data;
 namespace TennisTournament.Migrations
 {
     [DbContext(typeof(TennisDbContext))]
-    partial class TennisDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220802191503_GuestId")]
+    partial class GuestId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -27,12 +29,12 @@ namespace TennisTournament.Migrations
                     b.Property<int>("ChallengesId")
                         .HasColumnType("int");
 
-                    b.Property<int>("PlayersId")
+                    b.Property<int>("PlayerId")
                         .HasColumnType("int");
 
-                    b.HasKey("ChallengesId", "PlayersId");
+                    b.HasKey("ChallengesId", "PlayerId");
 
-                    b.HasIndex("PlayersId");
+                    b.HasIndex("PlayerId");
 
                     b.ToTable("ChallengePlayer");
                 });
@@ -406,7 +408,7 @@ namespace TennisTournament.Migrations
 
                     b.HasOne("TennisTournament.Data.Models.Player", null)
                         .WithMany()
-                        .HasForeignKey("PlayersId")
+                        .HasForeignKey("PlayerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

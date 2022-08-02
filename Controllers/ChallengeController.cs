@@ -34,39 +34,38 @@ namespace TennisTournament.Controllers
         }
 
         [HttpGet]
-        public IActionResult AddPlayerToChallenge(int challengeId)
+        public IActionResult AddPlayerToChallenge(int id)
         {
-            this.challengeService.AddPlayerToChallenge(this.User.GetId(), challengeId);
+            this.challengeService.AddPlayerToChallenge(this.User.GetId(), id);
 
             return RedirectToAction("All", "Player");
         }
 
         [HttpGet]
-        public IActionResult RemovePlayerFromChallenge(int challengeId)
+        public IActionResult RemovePlayerFromChallenge(int id)
         {
-            this.challengeService.RemovePlayerFromChallenge(this.User.GetId(), challengeId);
+            this.challengeService.RemovePlayerFromChallenge(this.User.GetId(), id);
 
             return RedirectToAction("All", "Player");
         }
 
         [Authorize]
-        public async Task<IActionResult> AddChallenge()
+        public async Task<IActionResult> CreateChallenge()
         {
             return View(new ChallengeFormModel());
         }
 
         [HttpPost]
         [Authorize]
-        [RequestFormLimits(MultipartBodyLengthLimit = 5242880)]
-        [RequestSizeLimit(5242880)]
-        public async Task<IActionResult> AddChallenge(ChallengeFormModel challenge)
+        public IActionResult CreateChallenge(ChallengeFormModel challenge, int id)
         {
             if (!ModelState.IsValid)
             {
                 return View(challenge);
             }
 
-            var userId = this.User.GetId();
+            var hostUserId = this.User.GetId();
+            var guestId = id;
 
             var challengeData = new Challenge
             {
@@ -77,11 +76,12 @@ namespace TennisTournament.Controllers
                 Rules = challenge.Rules,
                 LastSets = challenge.LastSets,
                 Description = challenge.Description,
-                PlayerHostId = userId
+                PlayerHostUserId = hostUserId,
+                PlayerGuestId = guestId
             };
 
             this.data.Challenges.Add(challengeData);
-            this.data.SaveChangesAsync();
+            this.data.SaveChanges();
 
             return RedirectToAction("All", "Player");
         }

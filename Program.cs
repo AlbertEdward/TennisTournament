@@ -4,7 +4,6 @@ using Microsoft.EntityFrameworkCore;
 using TennisTournament.Data;
 using TennisTournament.Data.Models;
 using TennisTournament.Infrastructure;
-using TennisTournament.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 

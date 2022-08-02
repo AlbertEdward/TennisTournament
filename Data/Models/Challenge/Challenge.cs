@@ -18,10 +18,10 @@
 
         public string Description { get; set; }
 
-        public ICollection<Player> Player { get; set; } = new List<Player>();
+        public ICollection<Player> Players { get; set; } = new List<Player>();
 
-        public string PlayerHostId { get; set; }
+        public string PlayerHostUserId { get; set; }
 
-        public string PlayerGuestId { get; set; }
+        public int PlayerGuestId { get; set; }
     }
 }
