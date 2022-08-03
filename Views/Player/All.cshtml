@@ -5,36 +5,6 @@
 }
 
 <link rel="stylesheet" href="~/css/card.css" asp-append-version="true" />
-<link rel="stylesheet" href="~/css/profile-card.css" asp-append-version="true" />
-
-<div class="card-container">
-    <span class="pro">PRO</span>
-    <img src="img/rahul.jpg" alt="user"/>
-    <h3>Rahul Yaduvanshi</h3>
-    <h6>Nodia, U.P.</h6>
-    <p>User interface designer and <br/> front-end developer</p>
-    <div class="buttons">
-        <button class="primary">
-            Message
-        </button>
-        <button class="primary ghost">
-            Following
-        </button>
-    </div>
-    <div class="skills">
-        <h6>Skills</h6>
-        <ul>
-            <li>UI / UX</li>
-            <li>Front End Development</li>
-            <li>HTML</li>
-            <li>CSS</li>
-            <li>JavaScript</li>
-            <li>React</li>
-            <li>Node</li>
-        </ul>
-    </div>
-</div>
-
 
 @if (!Model.Players.Any())
 {
@@ -59,7 +29,7 @@
 }
 else
 {
-    <h2 class="text-center mb-4 mt-3">@ViewBag.Title</h2>
+    <h2 class="title text-center mb-4 mt-3">@ViewBag.Title</h2>
 
     @foreach (var player in Model.Players)
     {

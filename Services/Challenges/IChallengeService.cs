@@ -10,6 +10,6 @@ namespace TennisTournament.Services.Challenges
 
         void RemovePlayerFromChallenge(string userId, int challengeId);
 
-        void CreateChallenge(ChallengeFormModel challenge, int id);
+        void CreateChallenge(ChallengeFormModel challenge, int id, string hostId);
     }
 }

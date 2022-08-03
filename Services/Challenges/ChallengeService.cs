@@ -65,10 +65,8 @@ namespace TennisTournament.Services.Challenges
             })
             .FirstOrDefault();
 
-        public void CreateChallenge(ChallengeFormModel challenge, int id)
+        public void CreateChallenge(ChallengeFormModel challenge, int id, string hostId)
         {
-            var hostUserId = this.User.GetId();//TODO
-
             var challengeData = new Challenge
             {
                 Name = challenge.Name,
@@ -78,7 +76,8 @@ namespace TennisTournament.Services.Challenges
                 Rules = challenge.Rules,
                 LastSets = challenge.LastSets,
                 Description = challenge.Description,
-                PlayerGuestId = id
+                PlayerGuestId = id,
+                PlayerHostUserId = hostId
             };
 
             this.data.Challenges.Add(challengeData);

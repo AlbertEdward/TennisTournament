@@ -65,7 +65,7 @@ namespace TennisTournament.Controllers
                 PlayerGuestId = id
             };
 
-            this.challengeService.CreateChallenge(challenge, id);
+            this.challengeService.CreateChallenge(challenge, id, hostUserId);
 
             return RedirectToAction("All", "Player");
         }
