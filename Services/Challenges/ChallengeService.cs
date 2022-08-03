@@ -45,6 +45,8 @@ namespace TennisTournament.Services.Challenges
 
             challenge.Players.Clear();
 
+            this.data.Remove(challenge);
+
             this.data.SaveChanges();
         }
 
