@@ -56,7 +56,7 @@ namespace TennisTournament.Controllers.Api
         [Route("{id}")]
         public ActionResult<Player> DeletePlayer(int id)
         {
-            var player = this.playerService.Delete(id);
+            var player = this.playerService.DeleteAsync(id);
 
             if (player == null)
             {

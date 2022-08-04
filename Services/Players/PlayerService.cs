@@ -15,9 +15,7 @@ namespace TennisTournament.Services.Players
             this.data = data;
         }
 
-        public async Task<PlayerQueryServiceModel> All(
-            string searchTerm,
-            Gender gender)
+        public async Task<PlayerQueryServiceModel> AllAsync(string searchTerm, Gender gender)
         {
             var playersQuery = await this.data.Players.ToListAsync();
 
@@ -54,18 +52,17 @@ namespace TennisTournament.Services.Players
             };
         }
 
-        public PlayerServiceModel Delete(int id)
+        public async Task<PlayerServiceModel> DeleteAsync(int id)
         {
-            var player = this.data.Players.FirstOrDefault(c => c.Id == id);
+            var player = await this.data.Players.FirstOrDefaultAsync(c => c.Id == id);
 
             data.Players.Remove(player);
-
-            data.SaveChanges();
+            data.SaveChangesAsync();
 
             return new PlayerServiceModel();
         }
 
-        public bool Edit(
+        public async Task<bool> EditAsync(
             int id,
             string name,
             int age,
@@ -73,14 +70,13 @@ namespace TennisTournament.Services.Players
             StrongHand strongHand,
             BackHandStroke backHandStroke)
         {
-            var playerData = this.data.Players.Find(id);
+            var playerData = await this.data.Players.FindAsync(id);
 
             if (playerData == null)
             {
                 return false;
             }
 
-            //TODO make pictures editable
             playerData.Name = name;
             playerData.Age = age;
             playerData.Gender = gender;
@@ -92,8 +88,8 @@ namespace TennisTournament.Services.Players
             return true;
         }
 
-        public PlayerDetailsServiceModel Details(int id)
-        => this.data
+        public async Task<PlayerDetailsServiceModel> DetailsAsync(int id)
+        => await this.data
             .Players
             .Where(p => p.Id == id)
             .Select(player => new PlayerDetailsServiceModel
@@ -108,7 +104,7 @@ namespace TennisTournament.Services.Players
                 Tournaments = player.Tournaments,
                 Challenges = player.Challenges
             })
-            .FirstOrDefault();
+            .FirstOrDefaultAsync();
 
         public void AddPlayer(PlayerFormModel player, string userId, string profilePhoto)
         {
@@ -130,6 +126,7 @@ namespace TennisTournament.Services.Players
             this.data.Players.Add(playerData);
             this.data.SaveChanges();
         }
+
         public bool UserIsPlayer(string userId)
         {
             var user = this.data.Players.Any(p => p.UserId == userId);

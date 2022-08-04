@@ -5,13 +5,13 @@ namespace TennisTournament.Services.Tournaments
 {
     public interface ITournamentService
     {
-        TournamentQueryServiceModel All(
+        Task<TournamentQueryServiceModel> AllAsync(
             string Name,
             string SearchTerm,
             CourtType courtType,
             GameType gameType);
 
-        bool Edit(
+        Task<bool> EditAsync(
             int id,
             string name,
             CourtType courtType,
@@ -22,14 +22,14 @@ namespace TennisTournament.Services.Tournaments
             LastSet lastSet,
             string description);
 
-        Task<TournamentServiceModel> Delete(int id);
+        Task<TournamentServiceModel> DeleteAsync(int id);
 
-        TournamentServiceModel Details(int id);
+        Task<TournamentServiceModel> DetailsAsync(int id);
 
         void AddPlayerToTournament(string playerId, int tournamentId);
 
         void RemovePlayerFromTournament(string playerId, int tournamentId);
 
-        void AddTournament(TournamentFormModel tournament, string coverPhoto);
+        void CreateTournament(TournamentFormModel tournament, string coverPhoto);
     }
 }

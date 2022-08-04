@@ -24,7 +24,7 @@ namespace TennisTournament.Controllers
         {
             this.challengeService.AddPlayerToChallenge(this.User.GetId(), id);
 
-            return RedirectToAction("All", "Player");
+            return RedirectToAction("AllAsync", "Player");
         }
 
         [HttpGet]
@@ -32,7 +32,7 @@ namespace TennisTournament.Controllers
         {
             this.challengeService.RemovePlayerFromChallenge(this.User.GetId(), id);
 
-            return RedirectToAction("All", "Player");
+            return RedirectToAction("AllAsync", "Player");
         }
 
         [Authorize]
@@ -67,7 +67,7 @@ namespace TennisTournament.Controllers
 
             this.challengeService.CreateChallenge(challenge, id, hostUserId);
 
-            return RedirectToAction("All", "Player");
+            return RedirectToAction("AllAsync", "Player");
         }
 
         public IActionResult Details(int id)

@@ -32,7 +32,7 @@ namespace TennisTournament.Controllers
             //TODO Error message if try to join second time
             this.tournamentService.AddPlayerToTournament(this.User.GetId(), tournamentId);
 
-            return RedirectToAction("All", "Player");
+            return RedirectToAction("AllAsync", "Player");
         }
 
         [HttpGet]
@@ -41,14 +41,14 @@ namespace TennisTournament.Controllers
             //TODO Error message if try to remove second time
             this.tournamentService.RemovePlayerFromTournament(this.User.GetId(), tournamentId);
 
-            return RedirectToAction("All", "Player");
+            return RedirectToAction("AllAsync", "Player");
 
         }
 
         [Authorize]
-        public async Task<IActionResult> Edit(int id)
+        public async Task<IActionResult> EditAsync(int id)
         {
-            var tournament = this.tournamentService.Details(id);
+            var tournament = await this.tournamentService.DetailsAsync(id);
 
             return View(new TournamentFormModel
             {
@@ -65,14 +65,14 @@ namespace TennisTournament.Controllers
 
         [HttpPost]
         [Authorize] 
-        public IActionResult Edit(int id, TournamentFormModel tournament)
+        public async Task<IActionResult> EditAsync(int id, TournamentFormModel tournament)
         {
             if (!ModelState.IsValid)
             {
                 return View(tournament);
             }
 
-            var tournamentIsEdited = this.tournamentService.Edit(
+            var tournamentIsEdited = await this.tournamentService.EditAsync(
                 id,
                 tournament.Name,
                 tournament.CourtTypes,
@@ -88,12 +88,12 @@ namespace TennisTournament.Controllers
                 return BadRequest();
             }
 
-            return RedirectToAction(nameof(All));
+            return RedirectToAction(nameof(AllAsync));
         }
 
-        public IActionResult Details(int id)
+        public async Task<IActionResult> Details(int id)
         {
-            var tournament = this.tournamentService.Details(id);
+            var tournament = await this.tournamentService.DetailsAsync(id);
 
             return View(new AllTournamentsQueryModel
             {
@@ -111,16 +111,16 @@ namespace TennisTournament.Controllers
             });
         }
 
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var deleted = this.tournamentService.Delete(id);
+            var deleted = this.tournamentService.DeleteAsync(id);
 
-            return RedirectToAction(nameof(All));
+            return RedirectToAction(nameof(AllAsync));
         }
 
-        public async Task<IActionResult> All([FromQuery]AllTournamentsQueryModel query)
+        public async Task<IActionResult> AllAsync([FromQuery]AllTournamentsQueryModel query)
         {
-            var queryResult = this.tournamentService.All(
+            var queryResult = await this.tournamentService.AllAsync(
                 query.Name,
                 query.SearchTerm,
                 query.CourtType,
@@ -169,9 +169,9 @@ namespace TennisTournament.Controllers
                 CoverPhoto = coverPhoto
             };
 
-            this.tournamentService.AddTournament(tournament, coverPhoto);
+            this.tournamentService.CreateTournament(tournament, coverPhoto);
 
-            return RedirectToAction(nameof(All));
+            return RedirectToAction(nameof(AllAsync));
         }
 
         private string UploadCoverPhoto(IFormFile coverPhoto)

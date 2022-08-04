@@ -14,12 +14,11 @@ namespace TennisTournament.Services.Tournaments
             this.data = data;
         }
 
-        public TournamentQueryServiceModel All(
+        public async Task<TournamentQueryServiceModel> AllAsync(
             string name,
             string searchTerm,
             CourtType courtType,
-            GameType gameType
-            )
+            GameType gameType)
         {
             var tournamentsQuery = this.data.Tournaments.AsQueryable();
 
@@ -40,7 +39,7 @@ namespace TennisTournament.Services.Tournaments
                     t.Description.ToLower().Contains(searchTerm.ToLower()));
             }
 
-            var totalTournaments = tournamentsQuery.Count();
+            var totalTournaments = await tournamentsQuery.CountAsync();
 
             var tournaments = tournamentsQuery
                 .OrderByDescending(t => t.Id)
@@ -61,9 +60,9 @@ namespace TennisTournament.Services.Tournaments
             };
         }
 
-        public async Task<TournamentServiceModel> Delete(int id)
+        public async Task<TournamentServiceModel> DeleteAsync(int id)
         {
-            var tournament = this.data.Tournaments.FirstOrDefault(t => t.Id == id);
+            var tournament = await this.data.Tournaments.FirstOrDefaultAsync(t => t.Id == id);
 
             data.Tournaments.Remove(tournament);
 
@@ -72,7 +71,7 @@ namespace TennisTournament.Services.Tournaments
             return new TournamentServiceModel();
         }
 
-        public bool Edit(
+        public async Task<bool> EditAsync(
             int id,
             string name,
             CourtType courtType,
@@ -81,10 +80,9 @@ namespace TennisTournament.Services.Tournaments
             Game game,
             Rule rule,
             LastSet lastSet,
-            string description
-            )
+            string description)
         {
-            var tournamentData = this.data.Tournaments.Find(id);
+            var tournamentData = await this.data.Tournaments.FindAsync(id);
 
             if (tournamentData == null)
             {
@@ -101,13 +99,13 @@ namespace TennisTournament.Services.Tournaments
             tournamentData.LastSets = lastSet;
             tournamentData.Description = description;
 
-            this.data.SaveChanges();
+            this.data.SaveChangesAsync();
 
             return true;
         }
 
-        public TournamentServiceModel Details(int id)
-        => this.data
+        public async Task<TournamentServiceModel> DetailsAsync(int id)
+        => await this.data
             .Tournaments
             .Where(t => t.Id == id)
             .Select(tournament => new TournamentServiceModel
@@ -124,7 +122,7 @@ namespace TennisTournament.Services.Tournaments
                 CoverPhoto = tournament.CoverPhoto
 
             })
-            .FirstOrDefault();
+            .FirstOrDefaultAsync();
 
         public void AddPlayerToTournament(string userId, int tournamentId)
         {
@@ -149,7 +147,7 @@ namespace TennisTournament.Services.Tournaments
             this.data.SaveChanges();
         }
 
-        public void AddTournament(TournamentFormModel tournament, string coverPhoto)
+        public void CreateTournament(TournamentFormModel tournament, string coverPhoto)
         {
             var tournamentData = new Tournament
             {

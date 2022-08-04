@@ -22,9 +22,9 @@ namespace TennisTournament.Controllers
         }
 
         [Authorize]
-        public async Task<IActionResult> All([FromQuery] AllPlayersQueryModel query)
+        public async Task<IActionResult> AllAsync([FromQuery] AllPlayersQueryModel query)
         {
-            var queryResult = await this.playerService.All(
+            var queryResult = await this.playerService.AllAsync(
                 query.SearchTerm,
                 query.Gender);
 
@@ -34,9 +34,9 @@ namespace TennisTournament.Controllers
             return View(query);
         }
 
-        public IActionResult Details(int id)
+        public async Task<IActionResult> DetailsAsync(int id)
         {
-            var player = this.playerService.Details(id);
+            var player = await this.playerService.DetailsAsync(id);
             var userId = this.User.GetId();
 
             return View(new PlayerServiceModel
@@ -56,15 +56,15 @@ namespace TennisTournament.Controllers
         [Authorize]
         public async Task<IActionResult> Delete(int id)
         {
-            var deleted = this.playerService.Delete(id);
+            var deleted = await this.playerService.DeleteAsync(id);
 
-            return RedirectToAction(nameof(All));
+            return RedirectToAction(nameof(AllAsync));
         }
 
         [Authorize]
-        public async Task<IActionResult> EditAsync(int id)
+        public async Task<IActionResult> Edit(int id)
         {
-            var player = this.playerService.Details(id);
+            var player = await this.playerService.DetailsAsync(id);
 
             return View(new PlayerFormModel
             {
@@ -85,7 +85,7 @@ namespace TennisTournament.Controllers
                 return View(player);
             }
 
-            var playerIsEdited = this.playerService.Edit(
+            var playerIsEdited = await this.playerService.EditAsync(
                 id,
                 player.Name,
                 player.Age,
@@ -98,7 +98,7 @@ namespace TennisTournament.Controllers
                 return BadRequest();
             }
 
-            return RedirectToAction(nameof(All));
+            return RedirectToAction(nameof(AllAsync));
         }
 
         [Authorize]
@@ -150,7 +150,7 @@ namespace TennisTournament.Controllers
 
             this.playerService.AddPlayer(player, userId, profilePhoto);
 
-            return RedirectToAction(nameof(All));
+            return RedirectToAction(nameof(AllAsync));
         }
 
         public bool UserIsPlayer()
