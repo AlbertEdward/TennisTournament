@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TennisTournament.Data;
 using TennisTournament.Data.Models;
+using TennisTournament.Models.Player;
 using TennisTournament.Services.Players.Models;
 
 namespace TennisTournament.Services.Players
@@ -108,5 +109,32 @@ namespace TennisTournament.Services.Players
                 Challenges = player.Challenges
             })
             .FirstOrDefault();
+
+        public void AddPlayer(PlayerFormModel player, string userId, string profilePhoto)
+        {
+            var userIsAlreadyPlayer = this.data
+                .Players
+                .Any(p => p.UserId == userId);
+
+            var playerData = new Player
+            {
+                Name = player.Name,
+                Age = player.Age,
+                Gender = player.Gender,
+                StrongHand = player.StrongHand,
+                BackHandStroke = player.BackHandStroke,
+                ProfilePhoto = profilePhoto,
+                UserId = userId
+            };
+
+            this.data.Players.Add(playerData);
+            this.data.SaveChanges();
+        }
+        public bool UserIsPlayer(string userId)
+        {
+            var user = this.data.Players.Any(p => p.UserId == userId);
+
+            return user;
+        }
     }
 }

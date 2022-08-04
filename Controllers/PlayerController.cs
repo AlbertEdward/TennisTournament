@@ -12,16 +12,11 @@ namespace TennisTournament.Controllers
 {
     public class PlayerController : Controller
     {
-        private readonly TennisDbContext data;
         private readonly IPlayerService playerService;
         private readonly IUploadFileService uploadFileService;
 
-        public PlayerController(
-            TennisDbContext data,
-            IPlayerService players,
-            IUploadFileService uploadFile)
+        public PlayerController(IPlayerService players, IUploadFileService uploadFile)
         {
-            this.data = data;
             this.playerService = players;
             this.uploadFileService = uploadFile;
         }
@@ -107,7 +102,7 @@ namespace TennisTournament.Controllers
         }
 
         [Authorize]
-        public async Task<IActionResult> AddPlayerAsync()
+        public IActionResult AddPlayer()
         {
             if (!User.IsInRole(Roles.Administrator) && this.UserIsPlayer())
             {
@@ -121,7 +116,7 @@ namespace TennisTournament.Controllers
         [Authorize]
         [RequestFormLimits(MultipartBodyLengthLimit = 5242880)]
         [RequestSizeLimit(5242880)]
-        public async Task<IActionResult> AddPlayerAsync(PlayerFormModel player)
+        public IActionResult AddPlayer(PlayerFormModel player)
         {
             if (this.UserIsPlayer() && User.IsInRole(Roles.User))
             {
@@ -140,10 +135,6 @@ namespace TennisTournament.Controllers
 
             var userId = this.User.GetId();
 
-            var userIsAlreadyPlayer = this.data
-                .Players
-                .Any(p => p.UserId == userId);
-
             string profilePhoto = this.UploadProfilePhoto(player.ProfilePhoto);
 
             var playerData = new Player
@@ -157,14 +148,17 @@ namespace TennisTournament.Controllers
                 UserId = userId
             };
 
-            this.data.Players.Add(playerData);
-            this.data.SaveChangesAsync();
+            this.playerService.AddPlayer(player, userId, profilePhoto);
 
             return RedirectToAction(nameof(All));
         }
 
         public bool UserIsPlayer()
-            => this.data.Players.Any(p => p.UserId == this.User.GetId());
+        {
+            var userId = this.User.GetId();
+
+            return this.playerService.UserIsPlayer(userId);
+        }
 
         private string UploadProfilePhoto(IFormFile profilePhoto)
         {

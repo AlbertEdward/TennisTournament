@@ -1,4 +1,5 @@
 ﻿using TennisTournament.Data.Models;
+using TennisTournament.Models.Tournament;
 
 namespace TennisTournament.Services.Tournaments
 {
@@ -28,5 +29,7 @@ namespace TennisTournament.Services.Tournaments
         void AddPlayerToTournament(string playerId, int tournamentId);
 
         void RemovePlayerFromTournament(string playerId, int tournamentId);
+
+        void AddTournament(TournamentFormModel tournament, string coverPhoto);
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TennisTournament.Data;
 using TennisTournament.Data.Models;
+using TennisTournament.Models.Tournament;
 
 namespace TennisTournament.Services.Tournaments
 {
@@ -145,6 +146,25 @@ namespace TennisTournament.Services.Tournaments
 
             player.Tournaments.Remove(tournament);
 
+            this.data.SaveChanges();
+        }
+
+        public void AddTournament(TournamentFormModel tournament, string coverPhoto)
+        {
+            var tournamentData = new Tournament
+            {
+                Name = tournament.Name,
+                GameType = tournament.GameTypes,
+                CourtType = tournament.CourtTypes,
+                Sets = tournament.Sets,
+                Games = tournament.Games,
+                Rules = tournament.Rules,
+                LastSets = tournament.LastSets,
+                Description = tournament.Description,
+                CoverPhoto = coverPhoto
+            };
+
+            this.data.Tournaments.Add(tournamentData);
             this.data.SaveChanges();
         }
     }

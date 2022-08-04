@@ -6,9 +6,7 @@ namespace TennisTournament.Services.Players
 {
     public interface IPlayerService
     {
-        Task<PlayerQueryServiceModel> All(
-            string searchTerm,
-            Gender gender);
+        Task<PlayerQueryServiceModel> All(string searchTerm, Gender gender);
 
         bool Edit(
             int id,
@@ -21,5 +19,9 @@ namespace TennisTournament.Services.Players
         PlayerDetailsServiceModel Details(int id);
 
         PlayerServiceModel Delete(int id);
+
+        void AddPlayer(PlayerFormModel player, string userId, string profilePhoto);
+
+        bool UserIsPlayer(string userId);
     }
 }

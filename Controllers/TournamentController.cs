@@ -12,18 +12,15 @@ namespace TennisTournament.Controllers
 {
     public class TournamentController : Controller
     {
-        private readonly TennisDbContext data;
         private readonly ITournamentService tournamentService;
         private readonly IPlayerService playerService;
         private readonly IUploadFileService uploadFileService;
 
         public TournamentController(
-            TennisDbContext data,
             ITournamentService tournaments,
             IPlayerService playerService,
             IUploadFileService uploadFile)
         {
-            this.data = data;
             this.tournamentService = tournaments;
             this.playerService = playerService;
             this.uploadFileService = uploadFile;
@@ -145,14 +142,13 @@ namespace TennisTournament.Controllers
         [Authorize]
         [RequestFormLimits(MultipartBodyLengthLimit = 5242880)]
         [RequestSizeLimit(5242880)]
-        public async Task<IActionResult> AddTournament(TournamentFormModel tournament)
+        public IActionResult AddTournament(TournamentFormModel tournament)
         {
             if (!ModelState.IsValid)
             {
                 return View(tournament);
             }
 
-            // if image is NULL or image name doesn't end to ".jpg"
             if (tournament.CoverPhoto == null || !(tournament.CoverPhoto.FileName.EndsWith(".jpg")))
             {
                 return View(tournament);
@@ -173,8 +169,7 @@ namespace TennisTournament.Controllers
                 CoverPhoto = coverPhoto
             };
 
-            this.data.Tournaments.Add(tournamentData);
-            this.data.SaveChangesAsync();
+            this.tournamentService.AddTournament(tournament, coverPhoto);
 
             return RedirectToAction(nameof(All));
         }
