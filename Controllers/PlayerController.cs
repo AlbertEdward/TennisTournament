@@ -22,7 +22,7 @@ namespace TennisTournament.Controllers
         }
 
         [Authorize]
-        public async Task<IActionResult> AllAsync([FromQuery] AllPlayersQueryModel query)
+        public async Task<IActionResult> All([FromQuery] AllPlayersQueryModel query)
         {
             var queryResult = await this.playerService.AllAsync(
                 query.SearchTerm,
@@ -58,7 +58,7 @@ namespace TennisTournament.Controllers
         {
             var deleted = await this.playerService.DeleteAsync(id);
 
-            return RedirectToAction(nameof(AllAsync));
+            return RedirectToAction(nameof(All));
         }
 
         [Authorize]
@@ -98,7 +98,7 @@ namespace TennisTournament.Controllers
                 return BadRequest();
             }
 
-            return RedirectToAction(nameof(AllAsync));
+            return RedirectToAction(nameof(All));
         }
 
         [Authorize]
@@ -135,6 +135,10 @@ namespace TennisTournament.Controllers
 
             var userId = this.User.GetId();
 
+            ViewBag.UserId = "alo";
+            ViewBag.Title = "alo";
+
+
             string profilePhoto = this.UploadProfilePhoto(player.ProfilePhoto);
 
             var playerData = new Player
@@ -150,7 +154,7 @@ namespace TennisTournament.Controllers
 
             this.playerService.AddPlayer(player, userId, profilePhoto);
 
-            return RedirectToAction(nameof(AllAsync));
+            return RedirectToAction(nameof(All));
         }
 
         public bool UserIsPlayer()

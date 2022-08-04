@@ -32,7 +32,7 @@ namespace TennisTournament.Controllers
             //TODO Error message if try to join second time
             this.tournamentService.AddPlayerToTournament(this.User.GetId(), tournamentId);
 
-            return RedirectToAction("AllAsync", "Player");
+            return RedirectToAction("All", "Player");
         }
 
         [HttpGet]
@@ -41,7 +41,7 @@ namespace TennisTournament.Controllers
             //TODO Error message if try to remove second time
             this.tournamentService.RemovePlayerFromTournament(this.User.GetId(), tournamentId);
 
-            return RedirectToAction("AllAsync", "Player");
+            return RedirectToAction("All", "Player");
 
         }
 
