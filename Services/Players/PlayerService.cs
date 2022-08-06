@@ -57,7 +57,7 @@ namespace TennisTournament.Services.Players
             var player = await this.data.Players.FirstOrDefaultAsync(c => c.Id == id);
 
             data.Players.Remove(player);
-            data.SaveChangesAsync();
+            await data.SaveChangesAsync();
 
             return new PlayerServiceModel();
         }
@@ -83,7 +83,7 @@ namespace TennisTournament.Services.Players
             playerData.StrongHand = strongHand;
             playerData.BackHandStroke = backHandStroke;
 
-            this.data.SaveChanges();
+            await this.data.SaveChangesAsync();
 
             return true;
         }

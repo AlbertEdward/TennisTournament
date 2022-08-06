@@ -84,8 +84,6 @@ namespace TennisTournament.Services.Challenges
             var challengeId = challengeData.Id;
 
             AddPlayerToChallenge(hostUserId, guestId, challengeId);
-
-            this.data.SaveChanges();
         }
     }
 }

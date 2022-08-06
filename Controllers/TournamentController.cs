@@ -112,7 +112,7 @@ namespace TennisTournament.Controllers
 
         public async Task<IActionResult> Delete(int id)
         {
-            var deleted = this.tournamentService.DeleteAsync(id);
+            var deleted = await this.tournamentService.DeleteAsync(id);
 
             return RedirectToAction(nameof(All));
         }
@@ -132,7 +132,7 @@ namespace TennisTournament.Controllers
         }
 
         [Authorize]
-        public async Task<IActionResult> AddTournament()
+        public IActionResult AddTournament()
         {
             return View(new TournamentFormModel());
         }

@@ -36,7 +36,7 @@ namespace TennisTournament.Controllers
         }
 
         [Authorize]
-        public async Task<IActionResult> CreateChallenge()
+        public IActionResult CreateChallenge()
         {
             if (!UserIsPlayer())
             {

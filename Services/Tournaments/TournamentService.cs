@@ -13,7 +13,6 @@ namespace TennisTournament.Services.Tournaments
         {
             this.data = data;
         }
-
         public async Task<TournamentQueryServiceModel> AllAsync(
             string name,
             string searchTerm,
@@ -59,7 +58,6 @@ namespace TennisTournament.Services.Tournaments
                 TotalTournaments = totalTournaments
             };
         }
-
         public async Task<TournamentServiceModel> DeleteAsync(int id)
         {
             var tournament = await this.data.Tournaments.FirstOrDefaultAsync(t => t.Id == id);
@@ -70,7 +68,6 @@ namespace TennisTournament.Services.Tournaments
 
             return new TournamentServiceModel();
         }
-
         public async Task<bool> EditAsync(
             int id,
             string name,
@@ -103,7 +100,6 @@ namespace TennisTournament.Services.Tournaments
 
             return true;
         }
-
         public async Task<TournamentServiceModel> DetailsAsync(int id)
         => await this.data
             .Tournaments
@@ -143,10 +139,8 @@ namespace TennisTournament.Services.Tournaments
             var tournament = data.Tournaments.FirstOrDefault(t => t.Id == tournamentId);
 
             player.Tournaments.Remove(tournament);
-
             this.data.SaveChanges();
         }
-
         public void CreateTournament(TournamentFormModel tournament, string coverPhoto)
         {
             var tournamentData = new Tournament
