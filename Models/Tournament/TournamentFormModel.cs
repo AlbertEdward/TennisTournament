@@ -11,6 +11,8 @@ namespace TennisTournament.Models.Tournament
         [StringLength(60, MinimumLength = 3, ErrorMessage = "Name must be in range 3-60 characters!")]
         public string Name { get; init; }
 
+        public double? MinRank { get; set; }
+
         [Required]
         public GameType GameTypes { get; set; }
 

@@ -8,6 +8,8 @@ namespace TennisTournament.Services.Tournaments
 
         public string Name { get; set; }
 
+        public double? MinRank { get; set; }
+
         public GameType GameType { get; set; }
 
         public CourtType CourtType { get; set; }

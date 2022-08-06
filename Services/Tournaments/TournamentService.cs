@@ -46,9 +46,11 @@ namespace TennisTournament.Services.Tournaments
                 {
                     Id = t.Id,
                     Name = t.Name,
+                    MinRank = t.MinRank,
                     GameType = t.GameType,
                     CourtType = t.CourtType,
-                    CoverPhoto = t.CoverPhoto
+                    CoverPhoto = t.CoverPhoto,
+                    Description = t.Description,
                 })
                 .ToList();
 
@@ -71,13 +73,15 @@ namespace TennisTournament.Services.Tournaments
         public async Task<bool> EditAsync(
             int id,
             string name,
+            double? minRank,
             CourtType courtType,
             GameType gameType,
             Set set,
             Game game,
             Rule rule,
             LastSet lastSet,
-            string description)
+            string description,
+            string coverPhoto)
         {
             var tournamentData = await this.data.Tournaments.FindAsync(id);
 
@@ -88,6 +92,7 @@ namespace TennisTournament.Services.Tournaments
 
             //TODO make pictures editable
             tournamentData.Name = name;
+            tournamentData.MinRank = minRank;
             tournamentData.CourtType = courtType;
             tournamentData.GameType = gameType;
             tournamentData.Sets = set;
@@ -95,6 +100,7 @@ namespace TennisTournament.Services.Tournaments
             tournamentData.Rules = rule;
             tournamentData.LastSets = lastSet;
             tournamentData.Description = description;
+            tournamentData.CoverPhoto = coverPhoto;
 
             this.data.SaveChangesAsync();
 
@@ -108,6 +114,7 @@ namespace TennisTournament.Services.Tournaments
             {
                 Id = tournament.Id,
                 Name = tournament.Name,
+                MinRank = tournament.MinRank,
                 GameType = tournament.GameType,
                 CourtType = tournament.CourtType,
                 Set = tournament.Sets,
@@ -146,6 +153,7 @@ namespace TennisTournament.Services.Tournaments
             var tournamentData = new Tournament
             {
                 Name = tournament.Name,
+                MinRank = tournament.MinRank,
                 GameType = tournament.GameTypes,
                 CourtType = tournament.CourtTypes,
                 Sets = tournament.Sets,

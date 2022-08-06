@@ -14,13 +14,15 @@ namespace TennisTournament.Services.Tournaments
         Task<bool> EditAsync(
             int id,
             string name,
+            double? minRank,
             CourtType courtType,
             GameType gameType,
             Set set,
             Game game,
             Rule rule,
             LastSet lastSet,
-            string description);
+            string description,
+            string coverPhoto);
 
         Task<TournamentServiceModel> DeleteAsync(int id);
 

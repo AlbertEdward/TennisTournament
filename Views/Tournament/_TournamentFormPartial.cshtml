@@ -6,14 +6,21 @@
             <h2 class="text-color-green text-center mb-4 mt-3">@ViewBag.Title</h2>
 
             <div class="form-group row">
-                <label asp-for="Name" class="col-sm-2 col-form-label">Name</label>
+                <label asp-for="Name" class="text-color-white col-sm-2 col-form-label">Name</label>
                 <div class="col-sm-10">
                     <input asp-for="Name" type="text" class="form-control" placeholder="Enter name">
                     <span asp-validation-for="Name" class="small text-danger"></span>
                 </div>
             </div>
+            <div class="form-group row">
+                <label asp-for="MinRank" class="text-color-white col-sm-2 col-form-label">Min Rank</label>
+                <div class="col-sm-10">
+                    <input asp-for="MinRank" type="number" class="form-control" placeholder="Enter minimum rank">
+                    <span asp-validation-for="MinRank" class="small text-danger"></span>
+                </div>
+            </div>
             <div class="form-group">
-                <label asp-for="GameTypes"></label>
+                <label asp-for="GameTypes" class="text-color-white">Game type</label>
                 <select asp-for="GameTypes" class="form-control">
                     <span asp-validation-for="GameTypes" class="small text-danger"></span>
                     @foreach (GameType gameType in (GameType[])Enum.GetValues(typeof(GameType)))
@@ -23,7 +30,7 @@
                 </select>
             </div>
             <div class="form-group">
-                <label asp-for="CourtTypes"></label>
+                <label asp-for="CourtTypes" class="text-color-white">Court type</label>
                 <select asp-for="CourtTypes" class="form-control">
                     <span asp-validation-for="CourtTypes" class="small text-danger"></span>
                     @foreach (CourtType courtType in (CourtType[])Enum.GetValues(typeof(CourtType)))
@@ -33,7 +40,7 @@
                 </select>
             </div>
             <div class="form-group">
-                <label asp-for="Sets"></label>
+                <label asp-for="Sets" class="text-color-white">Sets</label>
                 <select asp-for="Sets" class="form-control">
                     <span asp-validation-for="Sets" class="small text-danger"></span>
                     @foreach (Set set in (Set[])Enum.GetValues(typeof(Set)))
@@ -43,7 +50,7 @@
                 </select>
             </div>
             <div class="form-group">
-                <label asp-for="Games"></label>
+                <label asp-for="Games" class="text-color-white">Games</label>
                 <select asp-for="Games" class="form-control">
                     <span asp-validation-for="Games" class="small text-danger"></span>
                     @foreach (Game game in (Game[])Enum.GetValues(typeof(Game)))
@@ -53,7 +60,7 @@
                 </select>
             </div>
             <div class="form-group">
-                <label asp-for="Rules"></label>
+                <label asp-for="Rules" class="text-color-white">Rule</label>
                 <select asp-for="Rules" class="form-control">
                     <span asp-validation-for="Rules" class="small text-danger"></span>
                     @foreach (Rule rule in (Rule[])Enum.GetValues(typeof(Rule)))
@@ -63,7 +70,7 @@
                 </select>
             </div>
             <div class="form-group">
-                <label asp-for="LastSets"></label>
+                <label asp-for="LastSets" class="text-color-white">Last set</label>
                 <select asp-for="LastSets" class="form-control">
                     <span asp-validation-for="LastSets" class="small text-danger"></span>
                     @foreach (LastSet lastSet in (LastSet[])Enum.GetValues(typeof(LastSet)))
@@ -73,18 +80,18 @@
                 </select>
             </div>
             <div class="form-group">
-                <label asp-for="Description" class="col-sm-2 col-form-label">Description</label>
+                <label asp-for="Description" class="text-color-white col-sm-2 col-form-label">Description</label>
                 <textarea asp-for="Description" type="text" class="form-control" placeholder="Enter more info about tournament" rows="3"></textarea>
                 <span asp-validation-for="Description" class="small text-danger"></span>
             </div>
 
-            <label class="form-label" asp-for="CoverPhoto">Add cover photo</label>
+            <label class="text-color-white form-label" asp-for="CoverPhoto">Add cover photo</label>
             <input type="file" name="coverPhoto" class="form-control" />
             <span asp-validation-for="CoverPhoto" class="text-danger"></span>
 
             <div class="form-group row">
                 <div class="col-sm-10">
-                    <input class="btn btn-primary mt-2" type="submit" value="Save"/>
+                    <input class="btn btn-success mt-2" type="submit" value="Save"/>
                 </div>
             </div>
         </div>

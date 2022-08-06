@@ -49,16 +49,21 @@ namespace TennisTournament.Controllers
         {
             var tournament = await this.tournamentService.DetailsAsync(id);
 
+
+            string coverPhoto = this.UploadCoverPhoto(tournament.CoverPhoto);
+
             return View(new TournamentFormModel
             {
                 Name = tournament.Name,
+                MinRank = tournament.MinRank,
                 GameTypes = tournament.GameType,
                 CourtTypes = tournament.CourtType,
                 Sets = tournament.Set,
                 Games = tournament.Game,
                 Rules = tournament.Rule,
                 LastSets = tournament.LastSet,
-                Description = tournament.Description
+                Description = tournament.Description,
+                CoverPhoto = tournament.CoverPhoto
             });
         }
 
@@ -71,16 +76,21 @@ namespace TennisTournament.Controllers
                 return View(tournament);
             }
 
+
+            string coverPhoto = this.UploadCoverPhoto(tournament.CoverPhoto);
+
             var tournamentIsEdited = await this.tournamentService.EditAsync(
                 id,
                 tournament.Name,
+                tournament.MinRank,
                 tournament.CourtTypes,
                 tournament.GameTypes,
                 tournament.Sets,
                 tournament.Games,
                 tournament.Rules,
                 tournament.LastSets,
-                tournament.Description);
+                tournament.Description,
+                coverPhoto);
 
             if (!tournamentIsEdited)
             {
@@ -98,6 +108,7 @@ namespace TennisTournament.Controllers
             {
                 Id = id,
                 Name = tournament.Name,
+                MinRank = tournament.MinRank,
                 CourtType = tournament.CourtType,
                 GameType = tournament.GameType,
                 Game = tournament.Game,
@@ -158,6 +169,7 @@ namespace TennisTournament.Controllers
             var tournamentData = new Tournament
             {
                 Name = tournament.Name,
+                MinRank = tournament.MinRank,
                 GameType = tournament.GameTypes,
                 CourtType = tournament.CourtTypes,
                 Sets = tournament.Sets,

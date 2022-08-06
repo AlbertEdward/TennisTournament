@@ -32,11 +32,13 @@
                 </div>
             </div>
             <div class="col-md-2">
-                @if (User.IsInRole(Roles.Administrator))
-                {
-                    <a asp-controller="Tournament" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-dark">Edit</a>
-                    <a asp-controller="Tournament" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-outline-danger mt-3">Delete</a>
-                }
+                <div class="row mb-2">
+                    @if (User.IsInRole(Roles.Administrator))
+                    {
+                        <a asp-controller="Tournament" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
+                        <a asp-controller="Tournament" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger mt-3">Delete</a>
+                    }
+                </div>
             </div>
         </div>
         <div class="row">

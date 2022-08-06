@@ -10,6 +10,8 @@ namespace TennisTournament.Models.Tournament
         public int Id { get; set; }
         public string Name { get; set; }
 
+        public double? MinRank { get; set; }
+
         [Display(Name = "Game type:")]
         public GameType GameType { get; set; }
 
