@@ -28,9 +28,9 @@ namespace TennisTournament.Controllers
         }
 
         [HttpGet]
-        public IActionResult RemovePlayerFromChallenge(int challengeId)
+        public IActionResult DeleteChallenge(int id)
         {
-            this.challengeService.RemovePlayerFromChallenge(challengeId);
+            this.challengeService.DeleteChallenge(id);
 
             return RedirectToAction("All", "Player");
         }
@@ -48,23 +48,18 @@ namespace TennisTournament.Controllers
 
         [HttpPost]
         [Authorize]
-        public IActionResult CreateChallenge(ChallengeFormModel challenge, int guestId)
+        public IActionResult CreateChallenge(ChallengeFormModel challenge, int id)
         {
             if (!ModelState.IsValid)
             {
                 return View(challenge);
             }
 
-            if (!UserIsPlayer())
-            {
-                return RedirectToAction("Add", "Player");
-            }
-
+            var guestId = id;
             var hostUserId = this.User.GetId();
 
             var challengeData = new Challenge
             {
-                Id = challenge.Id,
                 Name = challenge.Name,
                 CourtType = challenge.CourtTypes,
                 Sets = challenge.Sets,
@@ -76,10 +71,7 @@ namespace TennisTournament.Controllers
                 PlayerGuestId = guestId
             };
 
-            var challengeId = challenge.Id;
-
             this.challengeService.CreateChallenge(challenge, guestId, hostUserId);
-            this.challengeService.AddPlayerToChallenge(hostUserId, guestId, challengeId);
 
             return RedirectToAction("All", "Player");
         }

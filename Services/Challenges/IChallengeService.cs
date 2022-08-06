@@ -8,7 +8,7 @@ namespace TennisTournament.Services.Challenges
 
         void AddPlayerToChallenge(string playerHostUserId, int id, int challengeId);
 
-        void RemovePlayerFromChallenge(int challengeId);
+        void DeleteChallenge(int id);
 
         void CreateChallenge(ChallengeFormModel challenge, int id, string hostId);
     }

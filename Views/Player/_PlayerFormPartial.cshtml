@@ -9,24 +9,24 @@
             }
             else
             {
-                <h2 class="text-color-green text-center mb-4 mt-3">@ViewBag.USerTitle</h2>
+                <h2 class="text-color-green text-center mb-4 mt-3">@ViewBag.UserTitle</h2>
             }
             <div class="form-group row">
-                <label asp-for="Name" class="col-sm-2 col-form-label">Name</label>
+                <label asp-for="Name" class="text-color-white col-sm-2 col-form-label">Name</label>
                 <div class="col-sm-10">
                     <input asp-for="Name" type="text" class="form-control" placeholder="Enter player name">
                     <span asp-validation-for="Name" class="small text-danger"></span>
                 </div>
             </div>
             <div class="form-group row">
-                <label asp-for="Age" class="col-sm-2 col-form-label">Age</label>
+                <label asp-for="Age" class="text-color-white col-sm-2 col-form-label">Age</label>
                 <div class="col-sm-10">
                     <input asp-for="Age" type="text" class="form-control" placeholder="Enter age">
                     <span asp-validation-for="Age" class="small text-danger"></span>
                 </div>
             </div>
             <div class="form-group">
-                <label asp-for="Gender"></label>
+                <label asp-for="Gender" class="text-color-white">Gender</label>
                 <select asp-for="Gender" class="form-control">
                     <span asp-validation-for="Gender" class="small text-danger"></span>
                     @foreach (Gender gender in (Gender[])Enum.GetValues(typeof(Gender)))
@@ -36,7 +36,7 @@
                 </select>
             </div>
             <div class="form-group">
-                <label asp-for="StrongHand"></label>
+                <label asp-for="StrongHand" class="text-color-white">Strong hand</label>
                 <select asp-for="StrongHand" class="form-control">
                     <span asp-validation-for="StrongHand" class="small text-danger"></span>
                     @foreach (StrongHand strongHand in (StrongHand[])Enum.GetValues(typeof(StrongHand)))
@@ -46,7 +46,7 @@
                 </select>
             </div>
             <div class="form-group">
-                <label asp-for="BackHandStroke"></label>
+                <label asp-for="BackHandStroke" class="text-color-white">Back hand stroke</label>
                 <select asp-for="BackHandStroke" class="form-control">
                     <span asp-validation-for="BackHandStroke" class="small text-danger"></span>
                     @foreach (BackHandStroke backHandStroke in (BackHandStroke[])Enum.GetValues(typeof(BackHandStroke)))
@@ -56,13 +56,13 @@
                 </select>
             </div>
 
-            <label class="form-label" asp-for="ProfilePhoto">Add cover photo</label>
+            <label class="text-color-white form-label" asp-for="ProfilePhoto">Add cover photo</label>
             <input type="file" name="profilePhoto" class="form-control" />
             <span asp-validation-for="ProfilePhoto" class="text-danger"></span>
 
             <div class="form-group row">
                 <div class="col-sm-10">
-                    <input class="btn btn-primary mt-2" type="submit" value="Save" />
+                    <input class="btn btn-success mt-2" type="submit" value="Save" />
                 </div>
             </div>
         </div>

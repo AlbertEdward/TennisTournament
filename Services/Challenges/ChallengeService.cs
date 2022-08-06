@@ -32,11 +32,11 @@ namespace TennisTournament.Services.Challenges
             this.data.SaveChanges();
         }
 
-        public void RemovePlayerFromChallenge(int challengeId)
+        public void DeleteChallenge(int id)
         {
             var challenge = data.Challenges
                 .Include(c => c.Players)
-                .FirstOrDefault(c => c.Id == challengeId);
+                .FirstOrDefault(c => c.Id == id);
 
             challenge.Players.Clear();
 
@@ -62,11 +62,10 @@ namespace TennisTournament.Services.Challenges
             })
             .FirstOrDefault();
 
-        public void CreateChallenge(ChallengeFormModel challenge, int guestId, string hostId)
+        public void CreateChallenge(ChallengeFormModel challenge, int guestId, string hostUserId)
         {
             var challengeData = new Challenge
             {
-                Id = challenge.Id,
                 Name = challenge.Name,
                 CourtType = challenge.CourtTypes,
                 Sets = challenge.Sets,
@@ -74,11 +73,18 @@ namespace TennisTournament.Services.Challenges
                 Rules = challenge.Rules,
                 LastSets = challenge.LastSets,
                 Description = challenge.Description,
-                PlayerGuestId = 2,
-                PlayerHostUserId = hostId
+                PlayerGuestId = guestId,
+                PlayerHostUserId = hostUserId
             };
 
             this.data.Challenges.Add(challengeData);
+            this.data.SaveChanges();
+
+
+            var challengeId = challengeData.Id;
+
+            AddPlayerToChallenge(hostUserId, guestId, challengeId);
+
             this.data.SaveChanges();
         }
     }

@@ -97,34 +97,32 @@
                     </div>
                 </div>
             </div>
+
             <h3 class="text-color-green-dark text-center">Tournaments</h3>
             @foreach (var tournament in Model.Tournaments)
             {
-                <div class="row">
-                    <div class="col-sm-6">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">@tournament.Name</h5>
-                                <p class="card-text">@tournament.Description</p>
-                                <a asp-controller="Tournament" asp-action="Details" asp-route-id="@tournament.Id" class="btn btn-outline-dark">Details</a>
-                                <a asp-controller="Tournament" asp-action="RemovePlayerFromTournament" asp-route-tournamentId="@tournament.Id" class="btn btn-outline-danger">Leave</a>
-                            </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title text-center">@tournament.Name</h5>
+                            <p class="card-text text-center">@tournament.Description</p>
+                            <a asp-controller="Tournament" asp-action="Details" asp-route-id="@tournament.Id" class="btn btn-outline-dark">Details</a>
+                            <a asp-controller="Tournament" asp-action="RemovePlayerFromTournament" asp-route-tournamentId="@tournament.Id" class="btn btn-outline-danger">Leave</a>
                         </div>
                     </div>
                 </div>
             }
+
             <h3 class="text-color-green-dark text-center">Challenges</h3>
             @foreach (var challenge in Model.Challenges)
             {
-                <div class="row">
-                    <div class="col-sm-6">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">@challenge.Name</h5>
-                                <p class="card-text">@challenge.Description</p>
-                                <a asp-controller="Challenge" asp-action="Details" asp-route-id="@challenge.Id" class="btn btn-outline-dark">Details</a>
-                                <a asp-controller="Challenge" asp-action="RemovePlayerFromChallenge" asp-route-id="@Model.Id" class="btn btn-outline-danger">Leave</a>
-                            </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title text-center">@challenge.Name</h5>
+                            <p class="card-text text-center">@challenge.Description</p>
+                            <a asp-controller="Challenge" asp-action="Details" asp-route-id="@challenge.Id" class="btn btn-outline-dark">Details</a>
+                            <a asp-controller="Challenge" asp-action="DeleteChallenge" asp-route-id="@challenge.Id" class="btn btn-outline-danger">Leave</a>
                         </div>
                     </div>
                 </div>

@@ -4,6 +4,9 @@
     ViewBag.Title = "Tournaments";
 }
 
+
+<h2 class="text-color-green text-center mb-4 mt-3">@ViewBag.Title</h2>
+
 @if (!Model.Tournaments.Any())
 {
     <div class="jumbotron jumbotron-fluid">
@@ -28,7 +31,7 @@
 else
 {
     <form method="get">
-        <div class="row">
+        <div class="row mb-4 mt-3">
             <div class="form-group col-md-3">
                 <label asp-for="SearchTerm" class="text-color-white form-label">Search:</label>
                 <div>
@@ -62,7 +65,6 @@ else
     </form>
 
     <div class="row">
-        <h2 class="text-color-green text-center mb-4 mt-3">@ViewBag.Title</h2>
         @foreach (var tournament in Model.Tournaments)
         {
             <div class="col-md-4">
