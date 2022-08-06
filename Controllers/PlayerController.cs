@@ -135,10 +135,6 @@ namespace TennisTournament.Controllers
 
             var userId = this.User.GetId();
 
-            ViewBag.UserId = "alo";
-            ViewBag.Title = "alo";
-
-
             string profilePhoto = this.UploadProfilePhoto(player.ProfilePhoto);
 
             var playerData = new Player

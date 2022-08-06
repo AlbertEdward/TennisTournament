@@ -6,9 +6,9 @@ namespace TennisTournament.Services.Challenges
     {
         AllChallengesQueryModel Details(int id);
 
-        void AddPlayerToChallenge(string userId, int challengeId);
+        void AddPlayerToChallenge(string playerHostUserId, int id, int challengeId);
 
-        void RemovePlayerFromChallenge(string userId, int challengeId);
+        void RemovePlayerFromChallenge(int challengeId);
 
         void CreateChallenge(ChallengeFormModel challenge, int id, string hostId);
     }

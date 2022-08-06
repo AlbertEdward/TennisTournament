@@ -1,7 +1,7 @@
 ﻿@model AllTournamentsQueryModel
 
 @{
-    ViewBag.Title = "All Tournaments";
+    ViewBag.Title = "Tournaments";
 }
 
 @if (!Model.Tournaments.Any())
@@ -30,13 +30,13 @@ else
     <form method="get">
         <div class="row">
             <div class="form-group col-md-3">
-                <label asp-for="SearchTerm" class="form-label"></label>
+                <label asp-for="SearchTerm" class="text-color-white form-label">Search:</label>
                 <div>
                     <input asp-for="SearchTerm" type="text" class="form-control" placeholder="Enter name...">
                 </div>
             </div>
             <div class="form-group col-md-3">
-                <label asp-for="GameType"></label>
+                <label asp-for="GameType" class="text-color-white form-label">Game type:</label>
                 <select asp-for="GameType" class="form-control">
                     @foreach (GameType gameType in (GameType[])Enum.GetValues(typeof(GameType)))
                     {
@@ -46,7 +46,7 @@ else
             </div>
             <div class="form-group col-md-3">
                 <div class="form-group">
-                    <label asp-for="CourtType"></label>
+                    <label asp-for="CourtType" class="text-color-white form-label">Court type:</label>
                     <select asp-for="CourtType" class="form-control">
                         @foreach (CourtType courtType in (CourtType[])Enum.GetValues(typeof(CourtType)))
                         {
@@ -62,7 +62,7 @@ else
     </form>
 
     <div class="row">
-        <h2 class="title text-center mb-4 mt-3">@ViewBag.Title</h2>
+        <h2 class="text-color-green text-center mb-4 mt-3">@ViewBag.Title</h2>
         @foreach (var tournament in Model.Tournaments)
         {
             <div class="col-md-4">

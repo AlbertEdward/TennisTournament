@@ -10,7 +10,6 @@
     <title>@ViewBag.Title - TennisTournament</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-
     <link rel="stylesheet" href="~/css/style.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/TennisTournament.styles.css" asp-append-version="true" />
 </head>
@@ -36,10 +35,10 @@
                         }
 
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Tournament" asp-action="All">All Tournaments</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Tournament" asp-action="All">Tournaments</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Player" asp-action="All">All Players</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Player" asp-action="All">Players</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Player" asp-action="Details" asp-route-id="">My Profile</a>
@@ -58,7 +57,9 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; @DateTime.UtcNow.Year - TennisTournament
+            <label class="text-color-green">
+                &copy; @DateTime.UtcNow.Year - Tennis Tournament
+            </label>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

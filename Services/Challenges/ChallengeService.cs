@@ -16,17 +16,12 @@ namespace TennisTournament.Services.Challenges
             this.data = data;
         }
 
-        public void AddPlayerToChallenge(string playerHostUserId, int id)
+        public void AddPlayerToChallenge(string hostUserId, int guestId, int challengeId)
         {
-            var playerHost = data.Players.FirstOrDefault(p => p.UserId == playerHostUserId);
-            var playerGuest = data.Players.FirstOrDefault(p => p.Id == id);
+            var playerHost = data.Players.FirstOrDefault(p => p.UserId == hostUserId);
+            var playerGuest = data.Players.FirstOrDefault(p => p.Id == guestId);
 
-            var challenge = data.Challenges
-                .FirstOrDefault(c => c.PlayerHostUserId == playerHostUserId || c.PlayerGuestId == id);
-
-            if (challenge == null)
-            {
-            }
+            var challenge = data.Challenges.FirstOrDefault(c => c.Id == challengeId);
 
             if (challenge.Players.Count == 0)
             {
@@ -37,11 +32,11 @@ namespace TennisTournament.Services.Challenges
             this.data.SaveChanges();
         }
 
-        public void RemovePlayerFromChallenge(string playerHostUserId, int id)
+        public void RemovePlayerFromChallenge(int challengeId)
         {
             var challenge = data.Challenges
                 .Include(c => c.Players)
-                .FirstOrDefault(c => c.PlayerHostUserId == playerHostUserId || c.PlayerGuestId == id);
+                .FirstOrDefault(c => c.Id == challengeId);
 
             challenge.Players.Clear();
 
@@ -67,10 +62,11 @@ namespace TennisTournament.Services.Challenges
             })
             .FirstOrDefault();
 
-        public void CreateChallenge(ChallengeFormModel challenge, int id, string hostId)
+        public void CreateChallenge(ChallengeFormModel challenge, int guestId, string hostId)
         {
             var challengeData = new Challenge
             {
+                Id = challenge.Id,
                 Name = challenge.Name,
                 CourtType = challenge.CourtTypes,
                 Sets = challenge.Sets,
@@ -78,7 +74,7 @@ namespace TennisTournament.Services.Challenges
                 Rules = challenge.Rules,
                 LastSets = challenge.LastSets,
                 Description = challenge.Description,
-                PlayerGuestId = id,
+                PlayerGuestId = 2,
                 PlayerHostUserId = hostId
             };
 

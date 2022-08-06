@@ -3,34 +3,34 @@ using Microsoft.AspNetCore.Mvc;
 using TennisTournament.Data.Models;
 using TennisTournament.Infrastructure;
 using TennisTournament.Models.Challenge;
-using TennisTournament.Services;
 using TennisTournament.Services.Challenges;
 using TennisTournament.Services.Players;
-using TennisTournament.Services.Tournaments;
 
 namespace TennisTournament.Controllers
 {
     public class ChallengeController : Controller
     {
         private readonly IChallengeService challengeService;
+        private readonly IPlayerService playerService;
 
-        public ChallengeController(IChallengeService challenge)
+        public ChallengeController(IChallengeService challenge, IPlayerService player)
         {
             this.challengeService = challenge;
+            this.playerService = player;
         }
 
         [HttpGet]
-        public IActionResult AddPlayerToChallenge(int id)
+        public IActionResult AddPlayerToChallenge(int id, int challengeId)
         {
-            this.challengeService.AddPlayerToChallenge(this.User.GetId(), id);
+            this.challengeService.AddPlayerToChallenge(this.User.GetId(), id, challengeId);
 
             return RedirectToAction("All", "Player");
         }
 
         [HttpGet]
-        public IActionResult RemovePlayerFromChallenge(int id)
+        public IActionResult RemovePlayerFromChallenge(int challengeId)
         {
-            this.challengeService.RemovePlayerFromChallenge(this.User.GetId(), id);
+            this.challengeService.RemovePlayerFromChallenge(challengeId);
 
             return RedirectToAction("All", "Player");
         }
@@ -38,22 +38,33 @@ namespace TennisTournament.Controllers
         [Authorize]
         public async Task<IActionResult> CreateChallenge()
         {
+            if (!UserIsPlayer())
+            {
+                return RedirectToAction("AddPlayer", "Player");
+            }
+
             return View(new ChallengeFormModel());
         }
 
         [HttpPost]
         [Authorize]
-        public IActionResult CreateChallenge(ChallengeFormModel challenge, int id)
+        public IActionResult CreateChallenge(ChallengeFormModel challenge, int guestId)
         {
             if (!ModelState.IsValid)
             {
                 return View(challenge);
             }
 
+            if (!UserIsPlayer())
+            {
+                return RedirectToAction("Add", "Player");
+            }
+
             var hostUserId = this.User.GetId();
 
             var challengeData = new Challenge
             {
+                Id = challenge.Id,
                 Name = challenge.Name,
                 CourtType = challenge.CourtTypes,
                 Sets = challenge.Sets,
@@ -62,10 +73,13 @@ namespace TennisTournament.Controllers
                 LastSets = challenge.LastSets,
                 Description = challenge.Description,
                 PlayerHostUserId = hostUserId,
-                PlayerGuestId = id
+                PlayerGuestId = guestId
             };
 
-            this.challengeService.CreateChallenge(challenge, id, hostUserId);
+            var challengeId = challenge.Id;
+
+            this.challengeService.CreateChallenge(challenge, guestId, hostUserId);
+            this.challengeService.AddPlayerToChallenge(hostUserId, guestId, challengeId);
 
             return RedirectToAction("All", "Player");
         }
@@ -85,6 +99,13 @@ namespace TennisTournament.Controllers
                 LastSets = challenge.LastSets,
                 Description = challenge.Description
             });
+        }
+
+        public bool UserIsPlayer()
+        {
+            var userId = this.User.GetId();
+
+            return this.playerService.UserIsPlayer(userId);
         }
     }
 }

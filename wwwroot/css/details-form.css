@@ -3,7 +3,7 @@
     margin-top: 3%;
     margin-bottom: 3%;
     border-radius: 0.5rem;
-    background: #f2f2f5;
+    background: #1D2937;
 }
 
 .profile-img {
@@ -33,11 +33,11 @@
         }
 
 .profile-head h5 {
-    color: #333;
+    color: white;
 }
 
 .profile-head h6 {
-    color: #0062cc;
+    color: white;
 }
 
 .profile-edit-btn {
@@ -52,7 +52,7 @@
 
 .proile-rating {
     font-size: 12px;
-    color: #818182;
+    color: #D6F667;
     margin-top: 5%;
 }
 
@@ -80,14 +80,14 @@
 
     .profile-work p {
         font-size: 12px;
-        color: #818182;
+        color: #D6F667;
         font-weight: 600;
         margin-top: 10%;
     }
 
     .profile-work a {
         text-decoration: none;
-        color: #495057;
+        color: white;
         font-weight: 600;
         font-size: 14px;
     }
@@ -98,9 +98,10 @@
 
 .profile-tab label {
     font-weight: 600;
+    color: white;
 }
 
 .profile-tab p {
     font-weight: 600;
-    color: #0062cc;
+    color: white;
 }

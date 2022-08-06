@@ -1,8 +1,7 @@
 ﻿@model AllPlayersQueryModel
 
 @{
-    ViewBag.Title = "All Players";
-    ViewBag.Id = "15";
+    ViewBag.Title = "Players";
 }
 
 <link rel="stylesheet" href="~/css/card.css" asp-append-version="true" />
@@ -30,7 +29,7 @@
 }
 else
 {
-    <h2 class="title text-center mb-4 mt-3">@ViewBag.Title</h2>
+    <h2 class="text-color-green text-center mb-4 mt-3">@ViewBag.Title</h2>
 
     @foreach (var player in Model.Players)
     {

@@ -38,7 +38,6 @@ namespace TennisTournament.Controllers
         [HttpGet]
         public IActionResult RemovePlayerFromTournament(int tournamentId)
         {
-            //TODO Error message if try to remove second time
             this.tournamentService.RemovePlayerFromTournament(this.User.GetId(), tournamentId);
 
             return RedirectToAction("All", "Player");
@@ -46,7 +45,7 @@ namespace TennisTournament.Controllers
         }
 
         [Authorize]
-        public async Task<IActionResult> EditAsync(int id)
+        public async Task<IActionResult> Edit(int id)
         {
             var tournament = await this.tournamentService.DetailsAsync(id);
 
@@ -65,7 +64,7 @@ namespace TennisTournament.Controllers
 
         [HttpPost]
         [Authorize] 
-        public async Task<IActionResult> EditAsync(int id, TournamentFormModel tournament)
+        public async Task<IActionResult> Edit(int id, TournamentFormModel tournament)
         {
             if (!ModelState.IsValid)
             {
@@ -88,7 +87,7 @@ namespace TennisTournament.Controllers
                 return BadRequest();
             }
 
-            return RedirectToAction(nameof(AllAsync));
+            return RedirectToAction(nameof(All));
         }
 
         public async Task<IActionResult> Details(int id)
@@ -115,10 +114,10 @@ namespace TennisTournament.Controllers
         {
             var deleted = this.tournamentService.DeleteAsync(id);
 
-            return RedirectToAction(nameof(AllAsync));
+            return RedirectToAction(nameof(All));
         }
 
-        public async Task<IActionResult> AllAsync([FromQuery]AllTournamentsQueryModel query)
+        public async Task<IActionResult> All([FromQuery]AllTournamentsQueryModel query)
         {
             var queryResult = await this.tournamentService.AllAsync(
                 query.Name,
@@ -171,7 +170,7 @@ namespace TennisTournament.Controllers
 
             this.tournamentService.CreateTournament(tournament, coverPhoto);
 
-            return RedirectToAction(nameof(AllAsync));
+            return RedirectToAction(nameof(All));
         }
 
         private string UploadCoverPhoto(IFormFile coverPhoto)
