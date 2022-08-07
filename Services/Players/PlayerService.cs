@@ -96,6 +96,7 @@ namespace TennisTournament.Services.Players
             {
                 Id = player.Id,
                 Name = player.Name,
+                Rank = player.Rank,
                 Age = player.Age,
                 Gender = player.Gender,
                 StrongHand = player.StrongHand,

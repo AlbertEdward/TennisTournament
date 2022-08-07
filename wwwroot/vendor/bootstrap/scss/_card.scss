@@ -6,8 +6,6 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  min-height: 300;
-  max-height: 400;
   height: $card-height;
   word-wrap: break-word;
   background-color: $card-bg;
@@ -35,8 +33,6 @@
     }
   }
 
-  // Due to specificity of the above selector (`.card > .list-group`), we must
-  // use a child selector here to prevent double borders.
   > .card-header + .list-group,
   > .list-group + .card-footer {
     border-top: 0;
@@ -44,11 +40,7 @@
 }
 
 .card-body {
-  // Enable `flex-grow: 1` for decks and groups so that card blocks take up
-  // as much space as possible, ensuring footers are aligned to the bottom.
   flex: 1 1 auto;
-  // Workaround for the image size bug in IE
-  // See: https://github.com/twbs/bootstrap/pull/28855
   min-height: 1px;
   padding: $card-spacer-x;
   color: $card-color;

@@ -26,6 +26,26 @@ namespace TennisTournament.Controllers
             this.uploadFileService = uploadFile;
         }
 
+        public async Task<IActionResult> Bracket(int id)
+        {
+            var bracket = await this.tournamentService.DetailsAsync(id);
+
+            return View(new AllTournamentsQueryModel
+            {
+                Id = id,
+                Name = bracket.Name,
+                MinRank = bracket.MinRank,
+                CourtType = bracket.CourtType,
+                GameType = bracket.GameType,
+                Game = bracket.Game,
+                Set = bracket.Set,
+                Rule = bracket.Rule,
+                LastSet = bracket.LastSet,
+                Description = bracket.Description,
+                CoverPhoto = bracket.CoverPhoto
+            });
+        }
+
         [HttpGet]
         public IActionResult AddPlayerToTournament(int tournamentId)
         {
@@ -116,7 +136,6 @@ namespace TennisTournament.Controllers
                 LastSet = tournament.LastSet,
                 Description = tournament.Description,
                 CoverPhoto = tournament.CoverPhoto
-
             });
         }
 

@@ -27,7 +27,7 @@
                     <h6>
                         Professional tennis player
                     </h6>
-                    <p class="proile-rating">Rank : <span></span></p>
+                    <p class="proile-rating">Max Rank: @Model.MinRank<span></span></p>
                     <ul class="nav nav-tabs" id="myTab" role="tablist" />
                 </div>
             </div>
@@ -45,49 +45,45 @@
             <div class="col-md-4">
                 <div class="profile-work">
                     <p>Achievements</p>
-                    <a href="">Gold Medal</a><br />
-                    <a href="">Silver Medal</a><br />
-                    <a href="">Bronze Medal</a><br />
+                    <a href="">1st - Gold Medal</a><br />
+                    <a href="">2nd - Silver Medal</a><br />
+                    <a href="">3rd - Bronze Medal</a><br />
                 </div>
             </div>
             <div class="col-md-8">
                 <div class="tab-content profile-tab" id="myTabContent">
                     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                         <div class="row">
-                            <div class="col-md-6">
-                                <label>Name:</label>
-                            </div>
-                            <div class="col-md-6">
-                                <p>@Model.Name</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-3">
                                 <label>Court Type:</label>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-3">
                                 <p>@Model.CourtType</p>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-3">
                                 <label>Game Type:</label>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-3">
                                 <p>@Model.GameType</p>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-3">
                                 <label>Description:</label>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-3">
                                 <p>@Model.Description</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="col-md-12 text-center">
+                <a asp-controller="Tournament" asp-action="AddPlayerToTournament" asp-route-tournamentId="@Model.Id" class="btn btn-success">Join</a>
+            </div>
+            <a asp-controller="Tournament" asp-action="Bracket" asp-route-id="@Model.Id" class="btn btn-success">Bracket</a>
         </div>
     </form>
 </div>

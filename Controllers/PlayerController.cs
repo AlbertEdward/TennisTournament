@@ -43,6 +43,7 @@ namespace TennisTournament.Controllers
             {
                 Id = id,
                 Name = player.Name,
+                Rank = player.Rank,
                 Age = player.Age,
                 Gender = player.Gender,
                 StrongHand = player.StrongHand,

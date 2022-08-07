@@ -3021,15 +3021,17 @@ textarea.form-control-lg {
     }
 
 .btn-success {
-    color: #fff;
-    background-color: #198754;
-    border-color: #198754
+    color: #1d2937 !important;
+    background-color: #D6F667 !important;
+    border-color: #D6F667 !important;
+    min-width: 80px;
+    max-width: 200px;
 }
 
     .btn-success:hover {
-        color: #fff;
-        background-color: #157347;
-        border-color: #146c43
+        color: #1d2937 !important;
+        background-color: #00B0A6 !important;
+        border-color: #00B0A6 !important;
     }
 
     .btn-check:focus + .btn-success, .btn-success:focus {
@@ -4633,6 +4635,20 @@ textarea.form-control-lg {
     border: 1px solid rgba(0,0,0,.125);
     border-radius: .25rem
 }
+
+.card-challenge {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    height: 150px;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: .25rem
+}
+
 
     .card > hr {
         margin-right: 0;
