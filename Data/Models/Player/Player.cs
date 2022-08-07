@@ -16,7 +16,7 @@ namespace TennisTournament.Data.Models
 
         public BackHandStroke BackHandStroke { get; set; }
 
-        public double Rank { get; init; } = 0.00;
+        public double Rank { get; init; } = 10;
 
         public int Wons { get; init; } = 0;
 

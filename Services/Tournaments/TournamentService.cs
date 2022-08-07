@@ -80,8 +80,7 @@ namespace TennisTournament.Services.Tournaments
             Game game,
             Rule rule,
             LastSet lastSet,
-            string description,
-            string coverPhoto)
+            string description)
         {
             var tournamentData = await this.data.Tournaments.FindAsync(id);
 
@@ -100,7 +99,6 @@ namespace TennisTournament.Services.Tournaments
             tournamentData.Rules = rule;
             tournamentData.LastSets = lastSet;
             tournamentData.Description = description;
-            tournamentData.CoverPhoto = coverPhoto;
 
             this.data.SaveChangesAsync();
 
@@ -130,6 +128,11 @@ namespace TennisTournament.Services.Tournaments
         public void AddPlayerToTournament(string userId, int tournamentId)
         {
             var player = data.Players.FirstOrDefault(p => p.UserId == userId);
+
+            if (player == null)
+            {
+                
+            }
             var tournament = data.Tournaments.FirstOrDefault(t => t.Id == tournamentId);
 
             if (!tournament.Player.Any())

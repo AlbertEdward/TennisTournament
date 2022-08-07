@@ -15,7 +15,7 @@
             <div class="form-group row">
                 <label asp-for="MinRank" class="text-color-white col-sm-2 col-form-label">Min Rank</label>
                 <div class="col-sm-10">
-                    <input asp-for="MinRank" type="number" class="form-control" placeholder="Enter minimum rank">
+                    <input asp-for="MinRank" type="number" step=".50" max="10" min="1" class="form-control" placeholder="Enter minimum rank">
                     <span asp-validation-for="MinRank" class="small text-danger"></span>
                 </div>
             </div>

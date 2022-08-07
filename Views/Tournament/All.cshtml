@@ -74,8 +74,12 @@ else
                         <div class="card-body">
                             <h5 class="card-title">@tournament.Name</h5>
                             <h6 class="card-title">@tournament.GameType | @tournament.CourtType</h6>
-                            <p class="card-text">@tournament.Description</p>
-                            <a asp-controller="Tournament" asp-action="AddPlayerToTournament" asp-route-tournamentId="@tournament.Id" class="btn btn-outline-warning">Join</a>
+                            <p class="card-text">Maximum Rank:@tournament.MinRank</p>
+                            <div class="buttons">
+                                <a class="raise" asp-controller="Tournament" asp-action="AddPlayerToTournament" asp-route-tournamentId="@tournament.Id">
+                                    <span>Join</span>
+                                </a>
+                            </div>
                             <a asp-controller="Tournament" asp-action="Details" asp-route-id="@tournament.Id" class="btn btn-outline-dark">Details</a>
                         </div>
                     </div>
@@ -84,3 +88,5 @@ else
         }
     </div>
 }
+
+

@@ -29,7 +29,11 @@ namespace TennisTournament.Controllers
         [HttpGet]
         public IActionResult AddPlayerToTournament(int tournamentId)
         {
-            //TODO Error message if try to join second time
+            if (!UserIsPlayer())
+            {
+                return RedirectToAction("AddPlayer", "Player");
+            }
+
             this.tournamentService.AddPlayerToTournament(this.User.GetId(), tournamentId);
 
             return RedirectToAction("All", "Player");
@@ -49,9 +53,6 @@ namespace TennisTournament.Controllers
         {
             var tournament = await this.tournamentService.DetailsAsync(id);
 
-
-            string coverPhoto = this.UploadCoverPhoto(tournament.CoverPhoto);
-
             return View(new TournamentFormModel
             {
                 Name = tournament.Name,
@@ -62,8 +63,7 @@ namespace TennisTournament.Controllers
                 Games = tournament.Game,
                 Rules = tournament.Rule,
                 LastSets = tournament.LastSet,
-                Description = tournament.Description,
-                CoverPhoto = tournament.CoverPhoto
+                Description = tournament.Description
             });
         }
 
@@ -89,8 +89,7 @@ namespace TennisTournament.Controllers
                 tournament.Games,
                 tournament.Rules,
                 tournament.LastSets,
-                tournament.Description,
-                coverPhoto);
+                tournament.Description);
 
             if (!tournamentIsEdited)
             {
@@ -183,6 +182,13 @@ namespace TennisTournament.Controllers
             this.tournamentService.CreateTournament(tournament, coverPhoto);
 
             return RedirectToAction(nameof(All));
+        }
+
+        public bool UserIsPlayer()
+        {
+            var userId = this.User.GetId();
+
+            return this.playerService.UserIsPlayer(userId);
         }
 
         private string UploadCoverPhoto(IFormFile coverPhoto)
