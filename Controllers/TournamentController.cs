@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using TennisTournament.Data;
 using TennisTournament.Data.Models;
 using TennisTournament.Infrastructure;
@@ -30,7 +31,7 @@ namespace TennisTournament.Controllers
         {
             var bracket = await this.tournamentService.DetailsAsync(id);
 
-            return View(new AllTournamentsQueryModel
+            return View(new TournamentServiceModel
             {
                 Id = id,
                 Name = bracket.Name,
@@ -42,7 +43,8 @@ namespace TennisTournament.Controllers
                 Rule = bracket.Rule,
                 LastSet = bracket.LastSet,
                 Description = bracket.Description,
-                CoverPhoto = bracket.CoverPhoto
+                CoverPhoto = bracket.CoverPhoto,
+                Players = bracket.Players
             });
         }
 
@@ -77,12 +79,12 @@ namespace TennisTournament.Controllers
             {
                 Name = tournament.Name,
                 MinRank = tournament.MinRank,
-                GameTypes = tournament.GameType,
-                CourtTypes = tournament.CourtType,
-                Sets = tournament.Set,
-                Games = tournament.Game,
-                Rules = tournament.Rule,
-                LastSets = tournament.LastSet,
+                GameType = tournament.GameType,
+                CourtType = tournament.CourtType,
+                Set = tournament.Set,
+                Game = tournament.Game,
+                Rule = tournament.Rule,
+                LastSet = tournament.LastSet,
                 Description = tournament.Description
             });
         }
@@ -103,12 +105,12 @@ namespace TennisTournament.Controllers
                 id,
                 tournament.Name,
                 tournament.MinRank,
-                tournament.CourtTypes,
-                tournament.GameTypes,
-                tournament.Sets,
-                tournament.Games,
-                tournament.Rules,
-                tournament.LastSets,
+                tournament.CourtType,
+                tournament.GameType,
+                tournament.Set,
+                tournament.Game,
+                tournament.Rule,
+                tournament.LastSet,
                 tournament.Description);
 
             if (!tournamentIsEdited)
@@ -188,12 +190,12 @@ namespace TennisTournament.Controllers
             {
                 Name = tournament.Name,
                 MinRank = tournament.MinRank,
-                GameType = tournament.GameTypes,
-                CourtType = tournament.CourtTypes,
-                Sets = tournament.Sets,
-                Games = tournament.Games,
-                Rules = tournament.Rules,
-                LastSets = tournament.LastSets,
+                GameType = tournament.GameType,
+                CourtType = tournament.CourtType,
+                Set = tournament.Set,
+                Game = tournament.Game,
+                Rule = tournament.Rule,
+                LastSet = tournament.LastSet,
                 Description = tournament.Description,
                 CoverPhoto = coverPhoto
             };

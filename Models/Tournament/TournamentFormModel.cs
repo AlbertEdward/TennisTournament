@@ -14,22 +14,22 @@ namespace TennisTournament.Models.Tournament
         public double? MinRank { get; set; }
 
         [Required]
-        public GameType GameTypes { get; set; }
+        public GameType GameType { get; set; }
 
         [Required]
-        public CourtType CourtTypes { get; set; }
+        public CourtType CourtType { get; set; }
 
         [Required]
-        public Set Sets { get; set; }
+        public Set Set { get; set; }
 
         [Required]
-        public Game Games { get; set; }
+        public Game Game { get; set; }
 
         [Required]
-        public Rule Rules { get; set; }
+        public Rule Rule { get; set; }
 
         [Required]
-        public LastSet LastSets { get; set; }
+        public LastSet LastSet { get; set; }
 
         [Required]
         [StringLength(255, MinimumLength = 10, ErrorMessage = "Description must be in range 10-255 characters!")]

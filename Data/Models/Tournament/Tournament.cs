@@ -11,22 +11,26 @@ namespace TennisTournament.Data.Models
 
         public double? MinRank { get; set; }
 
+        public TournamentType TournamentType { get; set; }
+
         public GameType GameType { get; set; }
 
         public CourtType CourtType { get; set; }
 
-        public Set Sets { get; set; }
+        public Set Set { get; set; }
 
-        public Game Games { get; set; }
+        public Game Game { get; set; }
 
-        public Rule Rules { get; set; }
+        public Rule Rule { get; set; }
 
-        public LastSet LastSets { get; set; }
+        public LastSet LastSet { get; set; }
+
+        public DateTime StartDate { get; set; }
 
         public string Description { get; set; }
 
         public string CoverPhoto { get; set; }
 
-        public ICollection<Player> Player { get; set; } = new List<Player>();
+        public ICollection<Player> Players { get; set; } = new List<Player>();
     }
 }

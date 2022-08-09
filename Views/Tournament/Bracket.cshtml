@@ -1,4 +1,4 @@
-﻿@model AllTournamentsQueryModel
+﻿@model TournamentServiceModel
 
 <head>
     <meta charset="utf-8">
@@ -22,44 +22,16 @@
             <p>Ballin' Outta Control</p>
         </div>
     </header>
-
-
     <section id="bracket">
         <div class="container">
             <div class="split split-one">
                 <div class="round round-one current">
                     <div class="round-details">Round 1<br /><span class="date">March 16</span></div>
                     <ul class="matchup">
-                        <li class="team team-top">Duke<span class="score">76</span></li>
-                        <li class="team team-bottom">Virginia<span class="score">82</span></li>
-                    </ul>
-                    <ul class="matchup">
-                        <li class="team team-top">Wake Forest<span class="score">64</span></li>
-                        <li class="team team-bottom">Clemson<span class="score">56</span></li>
-                    </ul>
-                    <ul class="matchup">
-                        <li class="team team-top">North Carolina<span class="score">68</span></li>
-                        <li class="team team-bottom">Florida State<span class="score">54</span></li>
-                    </ul>
-                    <ul class="matchup">
-                        <li class="team team-top">NC State<span class="score">74</span></li>
-                        <li class="team team-bottom">Maryland<span class="score">92</span></li>
-                    </ul>
-                    <ul class="matchup">
-                        <li class="team team-top">Georgia Tech<span class="score">78</span></li>
-                        <li class="team team-bottom">Georgia<span class="score">80</span></li>
-                    </ul>
-                    <ul class="matchup">
-                        <li class="team team-top">Auburn<span class="score">64</span></li>
-                        <li class="team team-bottom">Florida<span class="score">63</span></li>
-                    </ul>
-                    <ul class="matchup">
-                        <li class="team team-top">Kentucky<span class="score">70</span></li>
-                        <li class="team team-bottom">Alabama<span class="score">59</span></li>
-                    </ul>
-                    <ul class="matchup">
-                        <li class="team team-top">Vanderbilt<span class="score">64</span></li>
-                        <li class="team team-bottom">Gonzaga<span class="score">68</span></li>
+                        @foreach (var player in Model.Players)
+                        {
+                            <li class="team team-top">@player.Name<span class="score">@player.Rank</span></li>
+                        }
                     </ul>
                 </div>  <!-- END ROUND ONE -->
 

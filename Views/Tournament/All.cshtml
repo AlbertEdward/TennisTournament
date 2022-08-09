@@ -4,24 +4,21 @@
     ViewBag.Title = "Tournaments";
 }
 
-
-<h2 class="text-color-green text-center mb-4 mt-3">@ViewBag.Title</h2>
-
 @if (!Model.Tournaments.Any())
 {
     <div class="jumbotron jumbotron-fluid">
         <div class="container text-center">
-            <h1 class="display-4 mt-5">There are no tournaments yet</h1>
+            <h1 class="text-color-white display-4 mt-5">There are no tournaments yet</h1>
             @if (User.IsInRole(Roles.Administrator))
             {
-                <p class="lead">
+                <p class="text-color-white lead">
                     To add a tournament go to
                     <a asp-controller="Tournament" asp-action="AddTournament" class="btn btn-outline-warning">Add Tournament</a>
                 </p>
             }
             else
             {
-                <p class="lead">
+                <p class="text-color-white lead">
                     Contact the website administrator.
                 </p>
             }
@@ -30,6 +27,8 @@
 }
 else
 {
+    <h2 class="text-color-green text-center mb-4 mt-3">@ViewBag.Title</h2>
+
     <form method="get">
         <div class="row mb-4 mt-3">
             <div class="form-group col-md-3">

@@ -7,6 +7,7 @@ using TennisTournament.Infrastructure.Seeder;
 using TennisTournament.Models.Player;
 using TennisTournament.Services;
 using TennisTournament.Services.Players;
+using TennisTournament.Models;
 
 namespace TennisTournament.Controllers
 {

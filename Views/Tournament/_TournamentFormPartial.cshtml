@@ -20,9 +20,9 @@
                 </div>
             </div>
             <div class="form-group">
-                <label asp-for="GameTypes" class="text-color-white">Game type</label>
-                <select asp-for="GameTypes" class="form-control">
-                    <span asp-validation-for="GameTypes" class="small text-danger"></span>
+                <label asp-for="GameType" class="text-color-white">Game type</label>
+                <select asp-for="GameType" class="form-control">
+                    <span asp-validation-for="GameType" class="small text-danger"></span>
                     @foreach (GameType gameType in (GameType[])Enum.GetValues(typeof(GameType)))
                     {
                         <option>@gameType</option>
@@ -30,9 +30,9 @@
                 </select>
             </div>
             <div class="form-group">
-                <label asp-for="CourtTypes" class="text-color-white">Court type</label>
-                <select asp-for="CourtTypes" class="form-control">
-                    <span asp-validation-for="CourtTypes" class="small text-danger"></span>
+                <label asp-for="CourtType" class="text-color-white">Court type</label>
+                <select asp-for="CourtType" class="form-control">
+                    <span asp-validation-for="CourtType" class="small text-danger"></span>
                     @foreach (CourtType courtType in (CourtType[])Enum.GetValues(typeof(CourtType)))
                     {
                         <option>@courtType</option>
@@ -40,9 +40,9 @@
                 </select>
             </div>
             <div class="form-group">
-                <label asp-for="Sets" class="text-color-white">Sets</label>
-                <select asp-for="Sets" class="form-control">
-                    <span asp-validation-for="Sets" class="small text-danger"></span>
+                <label asp-for="Set" class="text-color-white">Sets</label>
+                <select asp-for="Set" class="form-control">
+                    <span asp-validation-for="Set" class="small text-danger"></span>
                     @foreach (Set set in (Set[])Enum.GetValues(typeof(Set)))
                     {
                         <option>@set</option>
@@ -50,9 +50,9 @@
                 </select>
             </div>
             <div class="form-group">
-                <label asp-for="Games" class="text-color-white">Games</label>
-                <select asp-for="Games" class="form-control">
-                    <span asp-validation-for="Games" class="small text-danger"></span>
+                <label asp-for="Game" class="text-color-white">Games</label>
+                <select asp-for="Game" class="form-control">
+                    <span asp-validation-for="Game" class="small text-danger"></span>
                     @foreach (Game game in (Game[])Enum.GetValues(typeof(Game)))
                     {
                         <option>@game</option>
@@ -60,9 +60,9 @@
                 </select>
             </div>
             <div class="form-group">
-                <label asp-for="Rules" class="text-color-white">Rule</label>
-                <select asp-for="Rules" class="form-control">
-                    <span asp-validation-for="Rules" class="small text-danger"></span>
+                <label asp-for="Rule" class="text-color-white">Rule</label>
+                <select asp-for="Rule" class="form-control">
+                    <span asp-validation-for="Rule" class="small text-danger"></span>
                     @foreach (Rule rule in (Rule[])Enum.GetValues(typeof(Rule)))
                     {
                         <option>@rule</option>
@@ -70,9 +70,9 @@
                 </select>
             </div>
             <div class="form-group">
-                <label asp-for="LastSets" class="text-color-white">Last set</label>
-                <select asp-for="LastSets" class="form-control">
-                    <span asp-validation-for="LastSets" class="small text-danger"></span>
+                <label asp-for="LastSet" class="text-color-white">Last set</label>
+                <select asp-for="LastSet" class="form-control">
+                    <span asp-validation-for="LastSet" class="small text-danger"></span>
                     @foreach (LastSet lastSet in (LastSet[])Enum.GetValues(typeof(LastSet)))
                     {
                         <option>@lastSet</option>

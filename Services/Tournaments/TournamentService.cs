@@ -94,10 +94,10 @@ namespace TennisTournament.Services.Tournaments
             tournamentData.MinRank = minRank;
             tournamentData.CourtType = courtType;
             tournamentData.GameType = gameType;
-            tournamentData.Sets = set;
-            tournamentData.Games = game;
-            tournamentData.Rules = rule;
-            tournamentData.LastSets = lastSet;
+            tournamentData.Set = set;
+            tournamentData.Game = game;
+            tournamentData.Rule = rule;
+            tournamentData.LastSet = lastSet;
             tournamentData.Description = description;
 
             this.data.SaveChangesAsync();
@@ -115,13 +115,13 @@ namespace TennisTournament.Services.Tournaments
                 MinRank = tournament.MinRank,
                 GameType = tournament.GameType,
                 CourtType = tournament.CourtType,
-                Set = tournament.Sets,
-                Game = tournament.Games,
-                Rule = tournament.Rules,
-                LastSet = tournament.LastSets,
+                Set = tournament.Set,
+                Game = tournament.Game,
+                Rule = tournament.Rule,
+                LastSet = tournament.LastSet,
                 Description = tournament.Description,
-                CoverPhoto = tournament.CoverPhoto
-
+                CoverPhoto = tournament.CoverPhoto,
+                Players = tournament.Players
             })
             .FirstOrDefaultAsync();
 
@@ -135,9 +135,9 @@ namespace TennisTournament.Services.Tournaments
             }
             var tournament = data.Tournaments.FirstOrDefault(t => t.Id == tournamentId);
 
-            if (!tournament.Player.Any())
+            if (!tournament.Players.Any())
             {
-                tournament.Player.Add(player);
+                tournament.Players.Add(player);
             }
 
             this.data.SaveChanges();
@@ -157,12 +157,12 @@ namespace TennisTournament.Services.Tournaments
             {
                 Name = tournament.Name,
                 MinRank = tournament.MinRank,
-                GameType = tournament.GameTypes,
-                CourtType = tournament.CourtTypes,
-                Sets = tournament.Sets,
-                Games = tournament.Games,
-                Rules = tournament.Rules,
-                LastSets = tournament.LastSets,
+                GameType = tournament.GameType,
+                CourtType = tournament.CourtType,
+                Set = tournament.Set,
+                Game = tournament.Game,
+                Rule = tournament.Rule,
+                LastSet = tournament.LastSet,
                 Description = tournament.Description,
                 CoverPhoto = coverPhoto
             };

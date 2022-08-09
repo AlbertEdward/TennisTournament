@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TennisTournament.Data;
 
@@ -11,9 +12,10 @@ using TennisTournament.Data;
 namespace TennisTournament.Migrations
 {
     [DbContext(typeof(TennisDbContext))]
-    partial class TennisDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220808191158_EditedPlayers")]
+    partial class EditedPlayers
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -372,13 +374,13 @@ namespace TennisTournament.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Game")
-                        .HasColumnType("int");
-
                     b.Property<int>("GameType")
                         .HasColumnType("int");
 
-                    b.Property<int>("LastSet")
+                    b.Property<int>("Games")
+                        .HasColumnType("int");
+
+                    b.Property<int>("LastSets")
                         .HasColumnType("int");
 
                     b.Property<double?>("MinRank")
@@ -388,16 +390,10 @@ namespace TennisTournament.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Rule")
+                    b.Property<int>("Rules")
                         .HasColumnType("int");
 
-                    b.Property<int>("Set")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("StartDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("TournamentType")
+                    b.Property<int>("Sets")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
