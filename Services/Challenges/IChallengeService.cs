@@ -1,10 +1,11 @@
 ﻿using TennisTournament.Models.Challenge;
+using TennisTournament.Services.Challenges.Models;
 
 namespace TennisTournament.Services.Challenges
 {
     public interface IChallengeService
     {
-        AllChallengesQueryModel Details(int id);
+        ChallengeServiceModel Details(int id);
 
         void AddPlayerToChallenge(string playerHostUserId, int id, int challengeId);
 

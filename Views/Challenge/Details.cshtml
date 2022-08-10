@@ -1,4 +1,4 @@
-﻿@model AllChallengesQueryModel
+﻿@model ChallengeServiceModel
 
 @{
     ViewBag.Title = "Challenge details";
@@ -17,7 +17,7 @@
         {
             <div class="card-group">
                 <div class="card">
-                    <img src="@player.Name" class="card-img-top" alt="...">
+                    <img src="/UploadedPhotos/ProfilePhotos/@player.ProfilePhoto" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title">@player.Name</h5>
                         <p class="card-text">@player.Name</p>

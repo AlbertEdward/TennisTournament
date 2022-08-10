@@ -3,6 +3,8 @@
 
 @{
     ViewBag.Title = "Profile";
+    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+    var playerId = Model.UserId;
 }
 
 <h1 class="text-color-green title text-center">@ViewBag.Title</h1>
@@ -21,7 +23,10 @@
                 </div>
                 <div class="col">
                     <div class="row">
-                        <a asp-controller="Player" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit Profile</a>
+                        @if (userId == Model.UserId)
+                        {
+                            <a asp-controller="Player" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit Profile</a>
+                        }
                     </div>
                 </div>
             </div>
@@ -44,7 +49,10 @@
             </div>
             <div class="col-md-2">
                 <div class="row md-2">
-                    <a asp-controller="Challenge" asp-action="CreateChallenge" asp-route-id="@Model.Id" class="btn btn-success">Challenge</a>
+                    @if (userId != Model.UserId)
+                    {
+                        <a asp-controller="Challenge" asp-action="CreateChallenge" asp-route-id="@Model.Id" class="btn btn-success">Challenge</a>
+                    }
                 </div>
                 @if (User.IsInRole(Roles.Administrator))
                 {
@@ -110,7 +118,10 @@
                             <h5 class="card-title text-center">@tournament.Name</h5>
                             <p class="card-text text-center">@tournament.Description</p>
                             <a asp-controller="Tournament" asp-action="Details" asp-route-id="@tournament.Id" class="btn btn-outline-dark">Details</a>
-                            <a asp-controller="Tournament" asp-action="RemovePlayerFromTournament" asp-route-tournamentId="@tournament.Id" class="btn btn-outline-danger">Leave</a>
+                            @if (userId == Model.UserId)
+                            {
+                                <a asp-controller="Tournament" asp-action="RemovePlayerFromTournament" asp-route-tournamentId="@tournament.Id" class="btn btn-outline-danger">Leave</a>
+                            }
                         </div>
                     </div>
                 </div>
@@ -125,7 +136,10 @@
                             <h5 class="card-title text-center">@challenge.Name</h5>
                             <p class="card-text text-center">@challenge.Description</p>
                             <a asp-controller="Challenge" asp-action="Details" asp-route-id="@challenge.Id" class="btn btn-outline-dark">Details</a>
-                            <a asp-controller="Challenge" asp-action="DeleteChallenge" asp-route-id="@challenge.Id" class="btn btn-outline-danger">Leave</a>
+                            @if (userId == Model.UserId)
+                            {
+                                <a asp-controller="Challenge" asp-action="DeleteChallenge" asp-route-id="@challenge.Id" class="btn btn-outline-danger">Leave</a>
+                            }
                         </div>
                     </div>
                 </div>

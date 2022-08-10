@@ -1,6 +1,10 @@
 ﻿@inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 
+@{
+    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+}
+
 <ul class="navbar-nav">
     @if (SignInManager.IsSignedIn(User))
     {
@@ -17,11 +21,12 @@
                 <a class="nav-link text-dark" asp-area="" asp-controller="Player" asp-action="Details" asp-route-id="">My Profile</a>
             </li>
 
-            @*//TODO If User is Player, hide button*@
-            <li class="nav-item">
-                <a class="nav-link text-dark" asp-area="" asp-controller="Player" asp-action="AddPlayer">Become a Player</a>
-            </li>
-
+            @if (true)
+            {
+                <li class="nav-item">
+                    <a class="nav-link text-dark" asp-area="" asp-controller="Player" asp-action="AddPlayer">Become a Player</a>
+                </li>
+            }
         }
 
         <li class="nav-item">

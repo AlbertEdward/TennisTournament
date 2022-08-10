@@ -1,5 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using TennisTournament.Data.Models;
+using TennisTournament.Services.Challenges.Models;
+using TennisTournament.Services.Players;
 
 namespace TennisTournament.Models.Challenge
 {
@@ -22,7 +24,13 @@ namespace TennisTournament.Models.Challenge
 
         public string Description { get; set; }
 
-        public ICollection<ChallengeFormModel> Players { get; set; }
+        public string HostUserId { get; set; }
+
+        public int GuestId { get; set; }
+
+        public ICollection<ChallengeServiceModel> Players { get; set; }
+
+        public ICollection<ChallengeServiceModel> Challenges { get; set; }
 
     }
 }

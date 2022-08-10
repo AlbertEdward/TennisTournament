@@ -103,7 +103,8 @@ namespace TennisTournament.Services.Players
                 BackHandStroke = player.BackHandStroke,
                 ProfilePhoto = player.ProfilePhoto,
                 Tournaments = player.Tournaments,
-                Challenges = player.Challenges
+                Challenges = player.Challenges,
+                UserId = player.UserId
             })
             .FirstOrDefaultAsync();
 

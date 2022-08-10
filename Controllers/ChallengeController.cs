@@ -4,6 +4,7 @@ using TennisTournament.Data.Models;
 using TennisTournament.Infrastructure;
 using TennisTournament.Models.Challenge;
 using TennisTournament.Services.Challenges;
+using TennisTournament.Services.Challenges.Models;
 using TennisTournament.Services.Players;
 
 namespace TennisTournament.Controllers
@@ -55,6 +56,13 @@ namespace TennisTournament.Controllers
                 return View(challenge);
             }
 
+            var player = this.playerService.DetailsAsync(id);
+
+            if (true)
+            {
+
+            }
+
             var guestId = id;
             var hostUserId = this.User.GetId();
 
@@ -80,16 +88,17 @@ namespace TennisTournament.Controllers
         {
             var challenge = this.challengeService.Details(id);
 
-            return View(new AllChallengesQueryModel
+            return View(new ChallengeServiceModel
             {
                 Id = challenge.Id,
                 Name = challenge.Name,
-                CourtTypes = challenge.CourtTypes,
-                Games = challenge.Games,
-                Sets = challenge.Sets,
-                Rules = challenge.Rules,
-                LastSets = challenge.LastSets,
-                Description = challenge.Description
+                CourtType = challenge.CourtType,
+                Game = challenge.Game,
+                Set = challenge.Set,
+                Rule = challenge.Rule,
+                LastSet = challenge.LastSet,
+                Description = challenge.Description,
+                Players = challenge.Players
             });
         }
 

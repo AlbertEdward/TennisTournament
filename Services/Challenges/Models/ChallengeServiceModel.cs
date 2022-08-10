@@ -19,5 +19,7 @@ namespace TennisTournament.Services.Challenges.Models
         public LastSet LastSet { get; set; }
 
         public string Description { get; set; }
+
+        public ICollection<Player> Players { get; set; }
     }
 }

@@ -4,6 +4,7 @@ using TennisTournament.Data.Models;
 using TennisTournament.Models.Challenge;
 using TennisTournament.Infrastructure;
 using System.Security.Claims;
+using TennisTournament.Services.Challenges.Models;
 
 namespace TennisTournament.Services.Challenges
 {
@@ -45,20 +46,21 @@ namespace TennisTournament.Services.Challenges
             this.data.SaveChanges();
         }
 
-        public AllChallengesQueryModel Details(int Id)
+        public ChallengeServiceModel Details(int Id)
         => this.data
             .Challenges
             .Where(c => c.Id == Id)
-            .Select(challenges => new AllChallengesQueryModel
+            .Select(challenges => new ChallengeServiceModel
             {
                 Id = challenges.Id,
                 Name = challenges.Name,
-                CourtTypes = challenges.CourtType,
-                Sets = challenges.Sets,
-                Games = challenges.Games,
-                Rules = challenges.Rules,
-                LastSets = challenges.LastSets,
-                Description = challenges.Description
+                CourtType = challenges.CourtType,
+                Set = challenges.Sets,
+                Game = challenges.Games,
+                Rule = challenges.Rules,
+                LastSet = challenges.LastSets,
+                Description = challenges.Description,
+                Players = challenges.Players
             })
             .FirstOrDefault();
 

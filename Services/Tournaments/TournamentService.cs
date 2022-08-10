@@ -128,16 +128,18 @@ namespace TennisTournament.Services.Tournaments
         public void AddPlayerToTournament(string userId, int tournamentId)
         {
             var player = data.Players.FirstOrDefault(p => p.UserId == userId);
+            var tournament = data.Tournaments.Include(t => t.Players).FirstOrDefault(t => t.Id == tournamentId);
 
-            if (player == null)
+            if (player.Rank <= tournament.MinRank)
             {
-                
+                if (!tournament.Players.Any())
+                {
+                    tournament.Players.Add(player);
+                }
             }
-            var tournament = data.Tournaments.FirstOrDefault(t => t.Id == tournamentId);
-
-            if (!tournament.Players.Any())
+            else
             {
-                tournament.Players.Add(player);
+                throw new ArgumentOutOfRangeException();
             }
 
             this.data.SaveChanges();

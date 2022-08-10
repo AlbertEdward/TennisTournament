@@ -34,7 +34,7 @@ namespace TennisTournament.Migrations
 
                     b.HasIndex("PlayersId");
 
-                    b.ToTable("ChallengePlayer");
+                    b.ToTable("ChallengePlayer", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -186,7 +186,7 @@ namespace TennisTournament.Migrations
 
                     b.HasIndex("TournamentsId");
 
-                    b.ToTable("PlayerTournament");
+                    b.ToTable("PlayerTournament", (string)null);
                 });
 
             modelBuilder.Entity("TennisTournament.Data.Models.ApplicationUser", b =>
@@ -298,7 +298,7 @@ namespace TennisTournament.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Challenges");
+                    b.ToTable("Challenges", (string)null);
                 });
 
             modelBuilder.Entity("TennisTournament.Data.Models.Player", b =>
@@ -350,7 +350,7 @@ namespace TennisTournament.Migrations
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("Players");
+                    b.ToTable("Players", (string)null);
                 });
 
             modelBuilder.Entity("TennisTournament.Data.Models.Tournament", b =>
@@ -402,7 +402,7 @@ namespace TennisTournament.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Tournaments");
+                    b.ToTable("Tournaments", (string)null);
                 });
 
             modelBuilder.Entity("ChallengePlayer", b =>
