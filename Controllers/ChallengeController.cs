@@ -56,13 +56,6 @@ namespace TennisTournament.Controllers
                 return View(challenge);
             }
 
-            var player = this.playerService.DetailsAsync(id);
-
-            if (true)
-            {
-
-            }
-
             var guestId = id;
             var hostUserId = this.User.GetId();
 

@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using TennisTournament.Data;
 using TennisTournament.Data.Models;
 using TennisTournament.Infrastructure;
+using TennisTournament.Models.Challenge;
 using TennisTournament.Models.Tournament;
 using TennisTournament.Services;
 using TennisTournament.Services.Players;
@@ -125,7 +126,7 @@ namespace TennisTournament.Controllers
         {
             var tournament = await this.tournamentService.DetailsAsync(id);
 
-            return View(new AllTournamentsQueryModel
+            return View(new TournamentServiceModel
             {
                 Id = id,
                 Name = tournament.Name,
@@ -137,7 +138,8 @@ namespace TennisTournament.Controllers
                 Rule = tournament.Rule,
                 LastSet = tournament.LastSet,
                 Description = tournament.Description,
-                CoverPhoto = tournament.CoverPhoto
+                CoverPhoto = tournament.CoverPhoto,
+                Players = tournament.Players
             });
         }
 

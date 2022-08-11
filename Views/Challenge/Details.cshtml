@@ -9,22 +9,35 @@
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<link rel="stylesheet" href="~/css/details-form.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/css/card.css" asp-append-version="true" />
 
 <div class="container emp-profile">
     <form method="post">
         @foreach (var player in Model.Players)
         {
-            <div class="card-group">
-                <div class="card">
-                    <img src="/UploadedPhotos/ProfilePhotos/@player.ProfilePhoto" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">@player.Name</h5>
-                        <p class="card-text">@player.Name</p>
-                        <p class="card-text"><small class="text-muted">@player.Name</small></p>
+            <div class="column">
+            <div class="profile-card">
+                <a asp-controller="Player" asp-action="Details" asp-route-id="@player.Id" />
+                <img src="/UploadedPhotos/ProfilePhotos/@player.ProfilePhoto" class="img img-responsive">
+                <div class="profile-name">
+                    @player.Name
+                </div>
+                <div class="profile-overview">
+                    <div class="profile-overview">
+                        <div class="row text-center">
+                            <div class="col">
+                                <h3>@player.Rank</h3>
+                                <p>Rank</p>
+                            </div>
+                            <div class="col">
+                                <h3>@player.Rank</h3>
+                                <p>Wins</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+        </div>
         }
         <div class="col-md-2">
             @if (User.IsInRole(Roles.Administrator))
@@ -35,4 +48,3 @@
         </div>
     </form>
 </div>
-

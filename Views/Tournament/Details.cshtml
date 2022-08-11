@@ -1,4 +1,4 @@
-﻿@model AllTournamentsQueryModel
+﻿@model TournamentServiceModel
 
 @{
     ViewBag.Title = "Details";
@@ -10,97 +10,101 @@
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <link rel="stylesheet" href="~/css/details-form.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/css/joined-players.css" asp-append-version="true" />
 
 <div class="container emp-profile">
-    <form method="post">
-        <div class="row">
-            <div class="col-md-4">
-                <div class="profile-img">
-                    <img src="/UploadedPhotos/CoverPhotos/@Model.CoverPhoto" class="img img-responsive">
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="profile-head">
-                    <h5>
-                        @Model.Name
-                    </h5>
-                    <h6>
-                        Professional tennis player
-                    </h6>
-                    <p class="proile-rating">Max Rank: @Model.MinRank<span></span></p>
-                    <ul class="nav nav-tabs" id="myTab" role="tablist" />
-                </div>
-            </div>
-            <div class="col-md-2">
-                <div class="row mb-2">
-                    @if (User.IsInRole(Roles.Administrator))
-                    {
-                        <a asp-controller="Tournament" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
-                        <a asp-controller="Tournament" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger mt-3">Delete</a>
-                    }
-                </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="profile-img">
+                <img src="/UploadedPhotos/CoverPhotos/@Model.CoverPhoto" class="img img-responsive">
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-4">
-                <div class="profile-work">
-                    <p>Achievements</p>
-                    <a href="">1st - Gold Medal</a><br />
-                    <a href="">2nd - Silver Medal</a><br />
-                    <a href="">3rd - Bronze Medal</a><br />
-                </div>
+        <div class="col-md-6">
+            <div class="profile-head">
+                <h5>
+                    @Model.Name
+                </h5>
+                <h6>
+                    Professional tennis player
+                </h6>
+                <p class="proile-rating">Max Rank: @Model.MinRank<span></span></p>
+                <ul class="nav nav-tabs" id="myTab" role="tablist" />
             </div>
-            <div class="col-md-8">
-                <div class="tab-content profile-tab" id="myTabContent">
-                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <label>Court Type:</label>
-                            </div>
-                            <div class="col-md-3">
-                                <p>@Model.CourtType</p>
-                            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="row mb-2">
+                @if (User.IsInRole(Roles.Administrator))
+                {
+                    <a asp-controller="Tournament" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
+                    <a asp-controller="Tournament" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger mt-3">Delete</a>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="profile-work">
+                <p>Achievements</p>
+                <a href="">1st - Gold Medal</a><br />
+                <a href="">2nd - Silver Medal</a><br />
+                <a href="">3rd - Bronze Medal</a><br />
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="tab-content profile-tab" id="myTabContent">
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>Court Type:</label>
                         </div>
-                        <div class="row">
-                            <div class="col-md-3">
-                                <label>Game Type:</label>
-                            </div>
-                            <div class="col-md-3">
-                                <p>@Model.GameType</p>
-                            </div>
+                        <div class="col-md-3">
+                            <p>@Model.CourtType</p>
                         </div>
-                        <div class="row">
-                            <div class="col-md-3">
-                                <label>Description:</label>
-                            </div>
-                            <div class="col-md-3">
-                                <p>@Model.Description</p>
-                            </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>Game Type:</label>
+                        </div>
+                        <div class="col-md-3">
+                            <p>@Model.GameType</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>Description:</label>
+                        </div>
+                        <div class="col-md-3">
+                            <p>@Model.Description</p>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-12 text-center">
-                <a asp-controller="Tournament" asp-action="AddPlayerToTournament" asp-route-tournamentId="@Model.Id" class="btn btn-success">Join</a>
-            </div>
+
+        </div>
+        <div class="row-md-12 text-center">
+            <a asp-controller="Tournament" asp-action="AddPlayerToTournament" asp-route-tournamentId="@Model.Id" class="btn btn-success">Join</a>
             <a asp-controller="Tournament" asp-action="Bracket" asp-route-id="@Model.Id" class="btn btn-success">Bracket</a>
         </div>
-    </form>
+    </div>
+    <h1 class="text-color-green-dark text-center mb-3 mt-5">Joined Players</h1>
+    <div class="col">
+        <div class="row">
+            @foreach (var player in Model.Players)
+            {
+                <div class="col-md-3 mb-2">
+                    <li class="list-group-item d-flex justify-content-between align-content-center">
+                        <div class="d-flex flex-row">
+                            <img src="/UploadedPhotos/ProfilePhotos/@player.ProfilePhoto" width="40" />
+                            <div class="ml-2">
+                                <h6 class="text-color-white mb-0">@player.Name</h6>
+                                <div class="about">
+                                    <span class="text-color-green-dark">Rank: @player.Rank</span>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </div>
+            }
+        </div>
+    </div>
 </div>
-
-
-
-
-@section Scripts {
-<script>
-    $('#invite-button').on('click', ev =>{
-        $.get('/api/statistics', (data) => {
-        $('#total-tournaments').text(data.totalTournaments);
-        $('#total-players').text(data.totalPlayers);
-
-        $('#statistics-card').removeClass('d-none');
-        $('#statistics-button').hide();
-    })
-    })
-</script>
-}

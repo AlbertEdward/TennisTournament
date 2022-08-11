@@ -27,9 +27,9 @@ namespace TennisTournament.Services.Tournaments
 
         Task<TournamentServiceModel> DetailsAsync(int id);
 
-        void AddPlayerToTournament(string playerId, int tournamentId);
+        void AddPlayerToTournament(string userId, int tournamentId);
 
-        void RemovePlayerFromTournament(string playerId, int tournamentId);
+        void RemovePlayerFromTournament(string userId, int tournamentId);
 
         void CreateTournament(TournamentFormModel tournament, string coverPhoto);
     }

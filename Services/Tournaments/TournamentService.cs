@@ -132,14 +132,16 @@ namespace TennisTournament.Services.Tournaments
 
             if (player.Rank <= tournament.MinRank)
             {
-                if (!tournament.Players.Any())
-                {
-                    tournament.Players.Add(player);
-                }
+                tournament.Players.Add(player);
             }
             else
             {
                 throw new ArgumentOutOfRangeException();
+            }
+
+            if (tournament.Players.Count % 2 == 0)
+            {
+
             }
 
             this.data.SaveChanges();

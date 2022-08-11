@@ -55,10 +55,6 @@
     @include border-top-radius(inherit);
   }
 
-  &:last-child {
-    @include border-bottom-radius(inherit);
-  }
-
   &.disabled,
   &:disabled {
     color: $list-group-disabled-color;
