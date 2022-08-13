@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace TennisTournament.Data.Models
+﻿namespace TennisTournament.Data.Models
 {
     public class Tournament
     {
@@ -30,6 +27,8 @@ namespace TennisTournament.Data.Models
         public string Description { get; set; }
 
         public string CoverPhoto { get; set; }
+
+        public ICollection<Match> Match { get; set; } = new List<Match>();
 
         public ICollection<Player> Players { get; set; } = new List<Player>();
     }

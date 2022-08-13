@@ -139,11 +139,6 @@ namespace TennisTournament.Services.Tournaments
                 throw new ArgumentOutOfRangeException();
             }
 
-            if (tournament.Players.Count % 2 == 0)
-            {
-
-            }
-
             this.data.SaveChanges();
         }
 
