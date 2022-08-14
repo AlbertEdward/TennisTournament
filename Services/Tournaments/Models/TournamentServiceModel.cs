@@ -27,5 +27,7 @@ namespace TennisTournament.Services.Tournaments
         public string CoverPhoto { get; set; }
 
         public ICollection<Player> Players { get; set; }
+
+        public ICollection<Match> Matches { get; set; }
     }
 }

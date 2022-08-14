@@ -1,10 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using TennisTournament.Data;
 using TennisTournament.Data.Models;
 using TennisTournament.Infrastructure;
-using TennisTournament.Models.Challenge;
 using TennisTournament.Models.Tournament;
 using TennisTournament.Services;
 using TennisTournament.Services.Players;
@@ -45,11 +42,13 @@ namespace TennisTournament.Controllers
                 LastSet = bracket.LastSet,
                 Description = bracket.Description,
                 CoverPhoto = bracket.CoverPhoto,
-                Players = bracket.Players
+                Players = bracket.Players,
+                Matches = bracket.Matches
             });
         }
 
         [HttpGet]
+        [Authorize]
         public IActionResult AddPlayerToTournament(int tournamentId)
         {
             if (!UserIsPlayer())
@@ -63,6 +62,7 @@ namespace TennisTournament.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public IActionResult RemovePlayerFromTournament(int tournamentId)
         {
             this.tournamentService.RemovePlayerFromTournament(this.User.GetId(), tournamentId);
@@ -139,7 +139,8 @@ namespace TennisTournament.Controllers
                 LastSet = tournament.LastSet,
                 Description = tournament.Description,
                 CoverPhoto = tournament.CoverPhoto,
-                Players = tournament.Players
+                Players = tournament.Players,
+                Matches = tournament.Matches
             });
         }
 

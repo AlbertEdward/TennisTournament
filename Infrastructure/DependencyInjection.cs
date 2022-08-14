@@ -5,6 +5,7 @@ using System.Text;
 using TennisTournament.Options;
 using TennisTournament.Services;
 using TennisTournament.Services.Challenges;
+using TennisTournament.Services.Matches;
 using TennisTournament.Services.Players;
 using TennisTournament.Services.Statistics;
 using TennisTournament.Services.Tournaments;
@@ -53,6 +54,7 @@ namespace TennisTournament.Infrastructure
             services.AddScoped<IChallengeService, ChallengeService>();
             services.AddScoped<IStatisticsService, StatisticsService>();
             services.AddScoped<IUploadFileService, UploadFileService>();
+            services.AddScoped<IMatchService, MatchService>();
 
             return services;
         }

@@ -18,8 +18,8 @@
         <div class="hero-wrap">
             <p class="intro" id="intro">@Model.GameType</p>
             <h1 id="headline">@Model.Name</h1>
-            <p class="year"><i class="fa fa-star"></i> 2015 <i class="fa fa-star"></i></p>
-            <p>Ballin' Outta Control</p>
+            <p class="year"><i class="fa fa-star"></i>@DateTime.UtcNow.Year<i class="fa fa-star"></i></p>
+            <p>@Model.Description</p>
         </div>
     </header>
     <section id="bracket">
@@ -27,12 +27,16 @@
             <div class="split split-one">
                 <div class="round round-one current">
                     <div class="round-details">Round 1<br /><span class="date">March 16</span></div>
-                    <ul class="matchup">
-                        @foreach (var player in Model.Players)
-                        {
-                            <li class="team team-top">@player.Name<span class="score">@player.Rank</span></li>
-                        }
-                    </ul>
+                    @foreach (var player in Model.Matches)
+                    {
+                        var firstPlayer = Model.Players.FirstOrDefault(p => p.Id == player.FirstPlayerId);
+                        var secondPlayer = Model.Players.FirstOrDefault(p => p.Id == player.SecondPlayerId);
+
+                        <ul class="matchup">
+                            <li class="team team-top">@firstPlayer.Name<span class="score">@firstPlayer.Rank</span></li>
+                            <li class="team team-top">@secondPlayer.Name<span class="score">@secondPlayer.Rank</span></li>
+                        </ul>
+                    }
                 </div>  <!-- END ROUND ONE -->
 
                 <div class="round round-two">

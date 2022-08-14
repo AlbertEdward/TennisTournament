@@ -1,44 +1,38 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using TennisTournament.Data.Models;
+using TennisTournament.Services.Matches;
+using TennisTournament.Services.Matches.Models;
 
 namespace TennisTournament.Controllers
 {
     public class MatchController : Controller
     {
-        [Authorize]
-        public IActionResult CreateMatch()
+        private readonly IMatchService matchService;
+
+        public MatchController(IMatchService matchService)
         {
-            return View();
+            this.matchService = matchService;
         }
 
-        [HttpPost]
         [Authorize]
-        public IActionResult CreateMatch(ChallengeFormModel challenge, int id)
+        public IActionResult CreateMatch(MatchServiceModel match, int id)
         {
             if (!ModelState.IsValid)
             {
-                return View(challenge);
+                return View(match);
             }
 
-            var guestId = id;
-            var hostUserId = this.User.GetId();
-
-            var challengeData = new Challenge
+            var matchData = new Match
             {
-                Name = challenge.Name,
-                CourtType = challenge.CourtTypes,
-                Sets = challenge.Sets,
-                Games = challenge.Games,
-                Rules = challenge.Rules,
-                LastSets = challenge.LastSets,
-                Description = challenge.Description,
-                PlayerHostUserId = hostUserId,
-                PlayerGuestId = guestId
+                FirstPlayerId = match.FirstPlayerId,
+                SecondPlayerId = match.SecondPlayerId,
+                TournamentId = id
             };
 
-            this.challengeService.CreateChallenge(challenge, guestId, hostUserId);
+            this.matchService.CreateMatch(match, id);
 
-            return RedirectToAction("All", "Player");
+            return RedirectToAction("All", "Tournament");
         }
     }
 }

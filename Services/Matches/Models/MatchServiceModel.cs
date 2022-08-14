@@ -1,8 +1,6 @@
-﻿using TennisTournament.Data.Models;
-
-namespace TennisTournament.Data.Models
+﻿namespace TennisTournament.Services.Matches.Models
 {
-    public class Match
+    public class MatchServiceModel
     {
         public int Id { get; set; }
 
@@ -11,7 +9,5 @@ namespace TennisTournament.Data.Models
         public int SecondPlayerId { get; set; }
 
         public int TournamentId { get; set; }
-
-        public Tournament Tournament { get; set; }
     }
 }

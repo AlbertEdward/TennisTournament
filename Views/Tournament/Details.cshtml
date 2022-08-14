@@ -84,6 +84,7 @@
         <div class="row-md-12 text-center">
             <a asp-controller="Tournament" asp-action="AddPlayerToTournament" asp-route-tournamentId="@Model.Id" class="btn btn-success">Join</a>
             <a asp-controller="Tournament" asp-action="Bracket" asp-route-id="@Model.Id" class="btn btn-success">Bracket</a>
+            <a asp-controller="Match" asp-action="CreateMatch" asp-route-id="@Model.Id" class="btn btn-success">Start Tournament</a>
         </div>
     </div>
     <h1 class="text-color-green-dark text-center mb-3 mt-5">Joined Players</h1>

@@ -2,16 +2,19 @@
 using TennisTournament.Data;
 using TennisTournament.Data.Models;
 using TennisTournament.Models.Tournament;
+using TennisTournament.Services.Matches;
 
 namespace TennisTournament.Services.Tournaments
 {
     public class TournamentService : ITournamentService
     {
         private readonly TennisDbContext data;
+        private readonly IMatchService matchService;
 
-        public TournamentService(TennisDbContext data)
+        public TournamentService(TennisDbContext data, IMatchService matchService)
         {
             this.data = data;
+            this.matchService = matchService;
         }
         public async Task<TournamentQueryServiceModel> AllAsync(
             string name,
@@ -121,7 +124,8 @@ namespace TennisTournament.Services.Tournaments
                 LastSet = tournament.LastSet,
                 Description = tournament.Description,
                 CoverPhoto = tournament.CoverPhoto,
-                Players = tournament.Players
+                Players = tournament.Players,
+                Matches = tournament.Match
             })
             .FirstOrDefaultAsync();
 
@@ -136,7 +140,7 @@ namespace TennisTournament.Services.Tournaments
             }
             else
             {
-                throw new ArgumentOutOfRangeException();
+                throw new ArgumentOutOfRangeException(); // TODO Message -> "Your rank is lower for this tournament"
             }
 
             this.data.SaveChanges();
