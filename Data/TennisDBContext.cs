@@ -22,7 +22,7 @@ namespace TennisTournament.Data
 
         public DbSet<Player> Players { get; init; }
 
-        public DbSet<Match> Matches { get; init; }
+        public DbSet<Match> Matches { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

@@ -1,5 +1,12 @@
 ﻿@model TournamentFormModel
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+<script src='https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.1.4/dist/js/datepicker-full.min.js'></script>
+<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css'>
+<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.1.4/dist/css/datepicker.min.css'>
+<link rel="stylesheet" href="css/calendar.css">
+<link rel="stylesheet" href="css/calendar2.css">
+
 <form method="post" enctype="multipart/form-data" asp-controller="Tournament" asp-action="AddTournament">
     <div class="row">
         <div class="offset-md-3 col-md-5 col-sm-12">
@@ -79,21 +86,51 @@
                     }
                 </select>
             </div>
+            <div class="form-floating mb-4 d-flex">
+                <select asp-for="StartDate" class="form-control"></select>
+                <input asp-for="StartDate" type="text"
+                       class="datepicker_input form-control border-2"
+                       id="datepicker1"
+                       required
+                       placeholder="DD/MM/YYYY">
+                <label asp-for="StartDate">Pick Date</label>
+            </div>
             <div class="form-group">
                 <label asp-for="Description" class="text-color-white col-sm-2 col-form-label">Description</label>
                 <textarea asp-for="Description" type="text" class="form-control" placeholder="Enter more info about tournament" rows="3"></textarea>
                 <span asp-validation-for="Description" class="small text-danger"></span>
             </div>
-
             <label class="text-color-white form-label" asp-for="CoverPhoto">Add cover photo</label>
             <input type="file" name="coverPhoto" class="form-control" />
             <span asp-validation-for="CoverPhoto" class="text-danger"></span>
 
             <div class="form-group row">
                 <div class="col-sm-10">
-                    <input class="btn btn-success mt-2" type="submit" value="Save"/>
+                    <input class="btn btn-success mt-2" type="submit" value="Save" />
                 </div>
             </div>
         </div>
     </div>
+
 </form>
+
+<script>
+    const getDatePickerTitle = elem => {
+      const label = elem.nextElementSibling;
+      let titleText = '';
+      if (label && label.tagName === 'LABEL') {
+        titleText = label.textContent;
+      } else {
+        titleText = elem.getAttribute('aria-label') || '';
+      }
+      return titleText;
+    }
+
+    const elems = document.querySelectorAll('.datepicker_input');
+    for (const elem of elems) {
+      const datepicker = new Datepicker(elem, {
+        'format': 'dd/mm/yyyy',
+        title: getDatePickerTitle(elem)
+      });
+    }
+</script>

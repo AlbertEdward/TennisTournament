@@ -22,7 +22,7 @@
 
         public LastSet LastSet { get; set; }
 
-        public DateTime StartDate { get; set; }
+        public DateTime StartDate { get; set; } = DateTime.UtcNow;
 
         public string Description { get; set; }
 

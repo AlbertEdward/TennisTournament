@@ -16,35 +16,34 @@
         @foreach (var player in Model.Players)
         {
             <div class="column">
-            <div class="profile-card">
-                <a asp-controller="Player" asp-action="Details" asp-route-id="@player.Id" />
-                <img src="/UploadedPhotos/ProfilePhotos/@player.ProfilePhoto" class="img img-responsive">
-                <div class="profile-name">
-                    @player.Name
-                </div>
-                <div class="profile-overview">
+                <div class="profile-card">
+                    <a asp-controller="Player" asp-action="Details" asp-route-id="@player.Id" />
+                    <img src="/UploadedPhotos/ProfilePhotos/@player.ProfilePhoto" class="img img-responsive">
+                    <div class="profile-name">
+                        @player.Name
+                    </div>
                     <div class="profile-overview">
-                        <div class="row text-center">
-                            <div class="col">
-                                <h3>@player.Rank</h3>
-                                <p>Rank</p>
-                            </div>
-                            <div class="col">
-                                <h3>@player.Rank</h3>
-                                <p>Wins</p>
+                        <div class="profile-overview">
+                            <div class="row text-center">
+                                <div class="col">
+                                    <h3>@player.Rank</h3>
+                                    <p>Rank</p>
+                                </div>
+                                <div class="col">
+                                    <h3>@player.Wons</h3>
+                                    <p>Wins</p>
+                                </div>
+                                <div class="col">
+                                    <h3>@player.Losts</h3>
+                                    <p>Losts</p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
         }
-        <div class="col-md-2">
-            @if (User.IsInRole(Roles.Administrator))
-            {
-                <a asp-controller="Tournament" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-dark">Edit</a>
-                <a asp-controller="Tournament" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-outline-danger mt-3">Delete</a>
-            }
-        </div>
+
+        <a asp-controller="Challenge" asp-action="ChallengeResult" asp-route-id="@Model.Id" class="btn btn-danger mt-3">Who is the winner?</a>
     </form>
 </div>

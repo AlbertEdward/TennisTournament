@@ -40,6 +40,7 @@ namespace TennisTournament.Controllers
                 Set = bracket.Set,
                 Rule = bracket.Rule,
                 LastSet = bracket.LastSet,
+                StartDate = bracket.StartDate,
                 Description = bracket.Description,
                 CoverPhoto = bracket.CoverPhoto,
                 Players = bracket.Players,
@@ -86,6 +87,7 @@ namespace TennisTournament.Controllers
                 Game = tournament.Game,
                 Rule = tournament.Rule,
                 LastSet = tournament.LastSet,
+                StartDate = tournament.StartDate,
                 Description = tournament.Description
             });
         }
@@ -112,6 +114,7 @@ namespace TennisTournament.Controllers
                 tournament.Game,
                 tournament.Rule,
                 tournament.LastSet,
+                tournament.StartDate,
                 tournament.Description);
 
             if (!tournamentIsEdited)
@@ -137,6 +140,7 @@ namespace TennisTournament.Controllers
                 Set = tournament.Set,
                 Rule = tournament.Rule,
                 LastSet = tournament.LastSet,
+                StartDate = tournament.StartDate,
                 Description = tournament.Description,
                 CoverPhoto = tournament.CoverPhoto,
                 Players = tournament.Players,
@@ -199,8 +203,9 @@ namespace TennisTournament.Controllers
                 Game = tournament.Game,
                 Rule = tournament.Rule,
                 LastSet = tournament.LastSet,
+                StartDate = tournament.StartDate,
                 Description = tournament.Description,
-                CoverPhoto = coverPhoto
+                CoverPhoto = coverPhoto,
             };
 
             this.tournamentService.CreateTournament(tournament, coverPhoto);

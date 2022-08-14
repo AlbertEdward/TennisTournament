@@ -10,7 +10,7 @@
 {
     <div class="jumbotron jumbotron-fluid">
         <div class="container text-center">
-            <h1 class="display-4 mt-5">There are no players yet</h1>
+            <h1 class="display-4 mt-5 text-color-white">There are no players yet</h1>
             @if (User.IsInRole(Roles.Administrator))
             {
                 <p class="lead">
@@ -20,7 +20,7 @@
             }
             else
             {
-                <p class="lead">
+                <p class="lead text-color-white">
                     Contact the website administrator.
                 </p>
             }

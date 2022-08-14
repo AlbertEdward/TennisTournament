@@ -9,12 +9,10 @@ namespace TennisTournament.Services.Tournaments
     public class TournamentService : ITournamentService
     {
         private readonly TennisDbContext data;
-        private readonly IMatchService matchService;
 
-        public TournamentService(TennisDbContext data, IMatchService matchService)
+        public TournamentService(TennisDbContext data)
         {
             this.data = data;
-            this.matchService = matchService;
         }
         public async Task<TournamentQueryServiceModel> AllAsync(
             string name,
@@ -53,6 +51,7 @@ namespace TennisTournament.Services.Tournaments
                     GameType = t.GameType,
                     CourtType = t.CourtType,
                     CoverPhoto = t.CoverPhoto,
+                    StartDate = t.StartDate,
                     Description = t.Description,
                 })
                 .ToList();
@@ -83,6 +82,7 @@ namespace TennisTournament.Services.Tournaments
             Game game,
             Rule rule,
             LastSet lastSet,
+            DateTime startDate,
             string description)
         {
             var tournamentData = await this.data.Tournaments.FindAsync(id);
@@ -101,6 +101,7 @@ namespace TennisTournament.Services.Tournaments
             tournamentData.Game = game;
             tournamentData.Rule = rule;
             tournamentData.LastSet = lastSet;
+            tournamentData.StartDate = startDate;
             tournamentData.Description = description;
 
             this.data.SaveChangesAsync();
@@ -122,6 +123,7 @@ namespace TennisTournament.Services.Tournaments
                 Game = tournament.Game,
                 Rule = tournament.Rule,
                 LastSet = tournament.LastSet,
+                StartDate = tournament.StartDate,
                 Description = tournament.Description,
                 CoverPhoto = tournament.CoverPhoto,
                 Players = tournament.Players,
@@ -166,6 +168,7 @@ namespace TennisTournament.Services.Tournaments
                 Game = tournament.Game,
                 Rule = tournament.Rule,
                 LastSet = tournament.LastSet,
+                StartDate = tournament.StartDate,
                 Description = tournament.Description,
                 CoverPhoto = coverPhoto
             };

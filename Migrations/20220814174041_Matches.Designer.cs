@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TennisTournament.Data;
 
@@ -11,9 +12,10 @@ using TennisTournament.Data;
 namespace TennisTournament.Migrations
 {
     [DbContext(typeof(TennisDbContext))]
-    partial class TennisDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220814174041_Matches")]
+    partial class Matches
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -279,10 +281,6 @@ namespace TennisTournament.Migrations
                     b.Property<int>("LastSets")
                         .HasColumnType("int");
 
-                    b.Property<string>("Loser")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -300,10 +298,6 @@ namespace TennisTournament.Migrations
                     b.Property<int>("Sets")
                         .HasColumnType("int");
 
-                    b.Property<string>("Winner")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
 
                     b.ToTable("Challenges");
@@ -318,9 +312,6 @@ namespace TennisTournament.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<int>("FirstPlayerId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("Loser")
                         .HasColumnType("int");
 
                     b.Property<int>("SecondPlayerId")

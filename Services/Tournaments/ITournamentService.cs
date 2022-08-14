@@ -21,6 +21,7 @@ namespace TennisTournament.Services.Tournaments
             Game game,
             Rule rule,
             LastSet lastSet,
+            DateTime startDate,
             string description);
 
         Task<TournamentServiceModel> DeleteAsync(int id);
