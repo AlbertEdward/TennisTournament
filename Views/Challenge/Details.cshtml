@@ -30,11 +30,11 @@
                                     <p>Rank</p>
                                 </div>
                                 <div class="col">
-                                    <h3>@player.Wons</h3>
+                                    <h3>@player.Wins</h3>
                                     <p>Wins</p>
                                 </div>
                                 <div class="col">
-                                    <h3>@player.Losts</h3>
+                                    <h3>@player.Losses</h3>
                                     <p>Losts</p>
                                 </div>
                             </div>
@@ -42,8 +42,16 @@
                     </div>
                 </div>
             </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                <label class="text-color-white form-check-label" for="inlineRadio1">@player.Name</label>
+            </div>
+            <div class="col-sm-10">
+                <button asp-controller="Challenge" asp-action="ChallengeResult" asp-route-challengeId="@Model.Id" asp-route-winnerId="@player.Id"  type="submit" class="btn btn-primary">Submit</button>
+            </div>
         }
-
-        <a asp-controller="Challenge" asp-action="ChallengeResult" asp-route-id="@Model.Id" class="btn btn-danger mt-3">Who is the winner?</a>
+        
+        <h4 class="text-color-white">Who is the winner?</h4>
+        
     </form>
 </div>

@@ -1,13 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using TennisTournament.Data;
 using TennisTournament.Data.Models;
 using TennisTournament.Infrastructure;
 using TennisTournament.Infrastructure.Seeder;
 using TennisTournament.Models.Player;
 using TennisTournament.Services;
 using TennisTournament.Services.Players;
-using TennisTournament.Models;
 
 namespace TennisTournament.Controllers
 {
@@ -44,11 +42,14 @@ namespace TennisTournament.Controllers
             {
                 Id = id,
                 Name = player.Name,
-                Rank = player.Rank,
                 Age = player.Age,
                 Gender = player.Gender,
                 StrongHand = player.StrongHand,
                 BackHandStroke = player.BackHandStroke,
+                Rank = player.Rank,
+                Wins = player.Wins,
+                Losses = player.Losses,
+                TotalMatches = player.TotalMatches,
                 ProfilePhoto = player.ProfilePhoto,
                 Tournaments = player.Tournaments,
                 Challenges = player.Challenges,
@@ -147,6 +148,10 @@ namespace TennisTournament.Controllers
                 Gender = player.Gender,
                 StrongHand = player.StrongHand,
                 BackHandStroke = player.BackHandStroke,
+                Rank = player.Rank,
+                Wins = player.Wins,
+                Losses = player.Losses,
+                TotalMatches = player.TotalMatches,
                 ProfilePhoto = profilePhoto,
                 UserId = userId
             };

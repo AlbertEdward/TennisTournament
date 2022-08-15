@@ -18,9 +18,9 @@
 
         public string Description { get; set; }
 
-        public string Winner { get; set; }
+        public int Winner { get; set; }
 
-        public string Loser { get; set; }
+        public int Loser { get; set; }
 
         public ICollection<Player> Players { get; set; } = new List<Player>();
 

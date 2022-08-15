@@ -33,6 +33,8 @@ namespace TennisTournament.Models.Player
 
         public int Losses { get; set; }
 
+        public int TotalMatches { get; set; }
+
         public ICollection<PlayerServiceModel> Players { get; set; }
 
         public ICollection<TournamentServiceModel> Tournaments { get; set; }

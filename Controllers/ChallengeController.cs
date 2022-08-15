@@ -96,9 +96,9 @@ namespace TennisTournament.Controllers
         }
 
         [Authorize]
-        public IActionResult ChallengeResult(int winnerId, int loserId)
+        public IActionResult ChallengeResult(int challengeId, int winnerId)
         {
-            this.challengeService.ChallengeResult(winnerId, loserId);
+            this.challengeService.ChallengeResult(challengeId, winnerId);
 
             return RedirectToAction("All", "Player");
         }

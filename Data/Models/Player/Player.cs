@@ -18,9 +18,9 @@ namespace TennisTournament.Data.Models
 
         public double Rank { get; set; } = 10;
 
-        public int Wons { get; set; } = 0;
+        public int Wins { get; set; } = 0;
 
-        public int Losts { get; set; } = 0;
+        public int Losses { get; set; } = 0;
 
         public int TotalMatches { get; set; } = 0;
 

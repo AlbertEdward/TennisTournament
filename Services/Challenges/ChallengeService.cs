@@ -82,19 +82,29 @@ namespace TennisTournament.Services.Challenges
             this.data.Challenges.Add(challengeData);
             this.data.SaveChanges();
 
-
             var challengeId = challengeData.Id;
 
             AddPlayerToChallenge(hostUserId, guestId, challengeId);
         }
 
-        public void ChallengeResult(int winnerId, int loserId)
+        public void ChallengeResult(int challengeId, int winnerId)
         {
-            var winner = data.Players.FirstOrDefault(p => p.Id == winnerId);
-            var loser = data.Players.FirstOrDefault(p => p.Id == loserId);
+            var challenge = this.data.Challenges.Include(p => p.Players).FirstOrDefault(c => c.Id == challengeId);
 
-            winner.Wons += 1;
-            loser.Losts += 1;
+            var winner = challenge.Players.FirstOrDefault(p => p.Id == winnerId);
+            var loser = challenge.Players.FirstOrDefault(p => p.Id != winnerId);
+
+            challenge.Winner = winner.Id;
+            challenge.Loser = loser.Id;
+
+            winner.Wins += 1;
+            loser.Losses += 1;
+
+            winner.TotalMatches += 1;
+            loser.TotalMatches += 1;
+
+            winner.Rank = (winner.Wins + winner.Losses) / winner.TotalMatches;
+            loser.Rank = (loser.Wins + loser.Losses) / loser.TotalMatches;
 
             this.data.SaveChanges();
         }

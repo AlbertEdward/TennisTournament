@@ -22,6 +22,8 @@ namespace TennisTournament.Services.Players
 
         public int Losses { get; set; }
 
+        public int TotalMatches { get; set; }
+
         public string ProfilePhoto { get; set; }
 
         public string UserId { get; set; }

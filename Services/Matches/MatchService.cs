@@ -21,7 +21,16 @@ namespace TennisTournament.Services.Matches
             var random = new Random();
             var randomized = tournament.Players.OrderBy(r => random.Next()).ToList();
 
-            for (int i = 0; i < randomized.Count() - 1; i++)
+            // remove 1 player if uneven players
+            // TODO: handle case
+            if (randomized.Count() %2 != 0) {
+                // create 1 more game;
+                
+                var playerToRemove = randomized[randomized.Count() -1];
+                randomized.Remove(playerToRemove);
+            }
+
+            for (int i = 0; i < randomized.Count(); i+=2)
             {
                 var firstPlayerId = randomized[i];
                 var secondPlayerId = randomized[i+1];
@@ -34,11 +43,6 @@ namespace TennisTournament.Services.Matches
                 };
 
                 this.data.Matches.Add(matchData);
-
-                randomized.Remove(firstPlayerId);
-                randomized.Remove(secondPlayerId);
-
-                i = -1;
             }
 
             this.data.SaveChanges();

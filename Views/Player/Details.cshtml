@@ -1,5 +1,4 @@
 ﻿@model PlayerServiceModel
-@using static TennisTournament.Infrastructure.ClaimsPrincipalExtensions;
 
 @{
     ViewBag.Title = "Profile";
@@ -42,6 +41,7 @@
                         Rank: @Model.Rank<br />
                         Wins: @Model.Wins<br />
                         Losses: @Model.Losses<br />
+                        Total Matches: @Model.TotalMatches<br />
                         <span></span>
                     </p>
                     <ul class="nav nav-tabs" id="myTab" role="tablist" />

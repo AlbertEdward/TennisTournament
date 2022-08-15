@@ -40,6 +40,9 @@ namespace TennisTournament.Services.Players
                     Name = p.Name,
                     Gender = p.Gender,
                     Rank = p.Rank,
+                    Wins = p.Wins,
+                    Losses = p.Losses,
+                    TotalMatches = p.TotalMatches,
                     ProfilePhoto = p.ProfilePhoto
                 })
                 .ToList();
@@ -101,6 +104,9 @@ namespace TennisTournament.Services.Players
                 Gender = player.Gender,
                 StrongHand = player.StrongHand,
                 BackHandStroke = player.BackHandStroke,
+                Wins = player.Wins,
+                Losses = player.Losses,
+                TotalMatches = player.TotalMatches,
                 ProfilePhoto = player.ProfilePhoto,
                 Tournaments = player.Tournaments,
                 Challenges = player.Challenges,
