@@ -33,6 +33,15 @@ namespace TennisTournament.Controllers
             return View(query);
         }
 
+        public IActionResult MyProfile(string userId)
+        {
+            var player = this.playerService.FindPlayerByUserIdAsync(userId);
+
+            playerService.DetailsAsync(player.Id);
+
+            return View();
+        }
+
         public async Task<IActionResult> DetailsAsync(int id)
         {
             var player = await this.playerService.DetailsAsync(id);

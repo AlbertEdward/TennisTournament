@@ -23,5 +23,7 @@ namespace TennisTournament.Services.Players
         void AddPlayer(PlayerFormModel player, string userId, string profilePhoto);
 
         bool UserIsPlayer(string userId);
+
+        Task<Player> FindPlayerByUserIdAsync(string userId);
     }
 }

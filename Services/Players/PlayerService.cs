@@ -137,9 +137,14 @@ namespace TennisTournament.Services.Players
 
         public bool UserIsPlayer(string userId)
         {
-            var user = this.data.Players.Any(p => p.UserId == userId);
+            var player = this.data.Players.Any(p => p.UserId == userId);
 
-            return user;
+            return player;
         }
+
+        public async Task<Player> FindPlayerByUserIdAsync(string userId)
+        => await this.data
+            .Players
+            .FirstOrDefaultAsync(p => p.UserId == userId);
     }
 }

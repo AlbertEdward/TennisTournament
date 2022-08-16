@@ -11,13 +11,13 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <link rel="stylesheet" href="~/css/card.css" asp-append-version="true" />
 
+<h4 class="text-color-white">Who is the winner?</h4>
 <div class="container emp-profile">
     <form method="post">
         @foreach (var player in Model.Players)
         {
-            <div class="column">
+            <label for="@player.Id" class="column">
                 <div class="profile-card">
-                    <a asp-controller="Player" asp-action="Details" asp-route-id="@player.Id" />
                     <img src="/UploadedPhotos/ProfilePhotos/@player.ProfilePhoto" class="img img-responsive">
                     <div class="profile-name">
                         @player.Name
@@ -35,23 +35,20 @@
                                 </div>
                                 <div class="col">
                                     <h3>@player.Losses</h3>
-                                    <p>Losts</p>
+                                    <p>Losses</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-                <label class="text-color-white form-check-label" for="inlineRadio1">@player.Name</label>
-            </div>
-            <div class="col-sm-10">
-                <button asp-controller="Challenge" asp-action="ChallengeResult" asp-route-challengeId="@Model.Id" asp-route-winnerId="@player.Id"  type="submit" class="btn btn-primary">Submit</button>
+            </label>
+            <div class="form-check form-check-inline" style="visibility: hidden;">
+                <input class="form-check-input" type="radio" name="winnerId" id="@player.Id" value="@player.Id">
             </div>
         }
-        
-        <h4 class="text-color-white">Who is the winner?</h4>
-        
+        <div class="col-sm-10">
+            <button asp-controller="Challenge" asp-action="ChallengeResult" asp-route-challengeId="@Model.Id" type="submit" class="btn btn-primary">Submit</button>
+            <span asp-validation-for="Id" class="small text-danger"></span>
+        </div>
     </form>
 </div>
