@@ -7,5 +7,7 @@ namespace TennisTournament.Data.Models
     {
         [MaxLength(30)]
         public string? FullName { get; set; }
+
+        public Player Player { get; set; }
     }
 }

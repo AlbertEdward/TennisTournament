@@ -26,6 +26,8 @@ namespace TennisTournament.Data.Models
 
         public string ProfilePhoto { get; set; }
 
+        public ApplicationUser User { get; set; }
+
         public string UserId { get; set; }
 
         public ICollection<Challenge> Challenges { get; set; } = new List<Challenge>();

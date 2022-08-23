@@ -3,6 +3,9 @@
 
 @{
     var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+    var user = await UserManager.Users
+        .Include(u => u.Player)
+        .FirstOrDefaultAsync(u => u.Id == userId);
 }
 
 <ul class="navbar-nav">
@@ -21,7 +24,7 @@
                 <a class="nav-link text-dark" asp-area="" asp-controller="Player" asp-action="MyProfile" asp-route-id="@userId">My Profile</a>
             </li>
 
-            @if (true)
+            @if (user.Player == null)
             {
                 <li class="nav-item">
                     <a class="nav-link text-dark" asp-area="" asp-controller="Player" asp-action="AddPlayer">Become a Player</a>
