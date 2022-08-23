@@ -1,0 +1,149 @@
+﻿@model PlayerServiceModel
+
+@{
+    ViewBag.Title = "Profile";
+    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+    var playerId = Model.UserId;
+}
+
+<h1 class="text-color-green title text-center">@ViewBag.Title</h1>
+
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link rel="stylesheet" href="~/css/details-form.css" asp-append-version="true" />
+
+<div class="container emp-profile">
+    <form method="post">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="profile-img">
+                    <img src="/UploadedPhotos/ProfilePhotos/@Model.ProfilePhoto" class="img img-responsive">
+                </div>
+                <div class="col">
+                    <div class="row">
+                        @if (userId == Model.UserId)
+                        {
+                            <a asp-controller="Player" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit Profile</a>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="profile-head">
+                    <h5>
+                        @Model.Name
+                    </h5>
+                    <h6>
+                        Professional tennis player
+                    </h6>
+                    <p class="proile-rating">
+                        Rank: @Model.Rank<br />
+                        Wins: @Model.Wins<br />
+                        Losses: @Model.Losses<br />
+                        Total Matches: @Model.TotalMatches<br />
+                        <span></span>
+                    </p>
+                    <ul class="nav nav-tabs" id="myTab" role="tablist" />
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="row md-2">
+                    @if (userId != Model.UserId)
+                    {
+                        <a asp-controller="Challenge" asp-action="CreateChallenge" asp-route-id="@Model.Id" class="btn btn-success">Challenge</a>
+                    }
+                </div>
+                @if (User.IsInRole(Roles.Administrator))
+                {
+                    <a asp-controller="Player" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-outline-danger mt-3">Delete</a>
+                    <a id="invite-button" asp-controller="Player" asp-action="Invite" asp-route-id="@Model.Id" class="btn btn-outline-dark">Invite</a>
+                }
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="profile-work">
+                    <p>Achievements</p>
+                    <a href="">Gold Medal</a><br />
+                    <a href="">Silver Medal</a><br />
+                    <a href="">Bronze Medal</a><br />
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="tab-content profile-tab" id="myTabContent">
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Gender</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>@Model.Gender</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Age</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>@Model.Age</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Strong Hand</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>@Model.StrongHand</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Back Hand Stroke</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>@Model.BackHandStroke</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="text-color-green-dark text-center">Tournaments</h3>
+            @foreach (var tournament in Model.Tournaments)
+            {
+                <div class="col-md-6">
+                    <div class="card-challenge">
+                        <div class="card-body">
+                            <h5 class="card-title text-center">@tournament.Name</h5>
+                            <p class="card-text text-center">@tournament.Description</p>
+                            <a asp-controller="Tournament" asp-action="Details" asp-route-id="@tournament.Id" class="btn btn-outline-dark">Details</a>
+                            @if (userId == Model.UserId)
+                            {
+                                <a asp-controller="Tournament" asp-action="RemovePlayerFromTournament" asp-route-tournamentId="@tournament.Id" class="btn btn-outline-danger">Leave</a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+
+            <h3 class="text-color-green-dark text-center">Challenges</h3>
+            @foreach (var challenge in Model.Challenges)
+            {
+                <div class="col-md-6">
+                    <div class="card-challenge">
+                        <div class="card-body">
+                            <h5 class="card-title text-center">@challenge.Name</h5>
+                            <p class="card-text text-center">@challenge.Description</p>
+                            <a asp-controller="Challenge" asp-action="Details" asp-route-id="@challenge.Id" class="btn btn-outline-dark">Details</a>
+                            @if (userId == Model.UserId)
+                            {
+                                <a asp-controller="Challenge" asp-action="DeleteChallenge" asp-route-id="@challenge.Id" class="btn btn-outline-danger">Leave</a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </form>
+</div>

@@ -33,13 +33,28 @@ namespace TennisTournament.Controllers
             return View(query);
         }
 
-        public IActionResult MyProfile(string userId)
+        public async Task<IActionResult> MyProfile(string userId)
         {
-            var player = this.playerService.FindPlayerByUserIdAsync(userId);
+            var player = await this.playerService.FindPlayerByUserIdAsync(userId);
 
             playerService.DetailsAsync(player.Id);
 
-            return View();
+            return View(new PlayerServiceModel
+            {
+                Name = player.Name,
+                Age = player.Age,
+                Gender = player.Gender,
+                StrongHand = player.StrongHand,
+                BackHandStroke = player.BackHandStroke,
+                Rank = player.Rank,
+                Wins = player.Wins,
+                Losses = player.Losses,
+                TotalMatches = player.TotalMatches,
+                ProfilePhoto = player.ProfilePhoto,
+                Tournaments = player.Tournaments,
+                Challenges = player.Challenges,
+                UserId = player.UserId
+            });
         }
 
         public async Task<IActionResult> DetailsAsync(int id)

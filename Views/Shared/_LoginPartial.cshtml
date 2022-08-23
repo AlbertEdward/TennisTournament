@@ -21,7 +21,7 @@
         if (!User.IsInRole(Roles.User) && !User.IsInRole(Roles.Administrator))
         {
             <li class="nav-item">
-                <a class="nav-link text-dark" asp-area="" asp-controller="Player" asp-action="MyProfile" asp-route-id="@userId">My Profile</a>
+                <a class="nav-link text-dark" asp-area="" asp-controller="Player" asp-action="MyProfile" asp-route-userId="@user.Id">My Profile</a>
             </li>
 
             @if (user.Player == null)

@@ -103,8 +103,17 @@ namespace TennisTournament.Services.Challenges
             winner.TotalMatches += 1;
             loser.TotalMatches += 1;
 
-            winner.Rank = (winner.Wins + winner.Losses) / winner.TotalMatches;
-            loser.Rank = (loser.Wins + loser.Losses) / loser.TotalMatches;
+            winner.Rank = 10.00 - (winner.Wins + winner.Losses) / winner.TotalMatches;
+            loser.Rank = 10.00 + (loser.Wins + loser.Losses) / loser.TotalMatches;
+
+            if (winner.Rank > 10) 
+            {
+                winner.Rank = 10.00;
+            }
+            else if (loser.Rank > 10)
+            {
+                loser.Rank = 10.00;
+            }
 
             this.data.SaveChanges();
         }
