@@ -535,10 +535,18 @@ namespace TennisTournament.Migrations
 
             modelBuilder.Entity("TennisTournament.Data.Models.Player", b =>
                 {
-                    b.HasOne("TennisTournament.Data.Models.ApplicationUser", null)
-                        .WithOne()
+                    b.HasOne("TennisTournament.Data.Models.ApplicationUser", "User")
+                        .WithOne("Player")
                         .HasForeignKey("TennisTournament.Data.Models.Player", "UserId")
                         .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("TennisTournament.Data.Models.ApplicationUser", b =>
+                {
+                    b.Navigation("Player")
                         .IsRequired();
                 });
 

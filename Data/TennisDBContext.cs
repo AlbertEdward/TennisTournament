@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection.Emit;
 using TennisTournament.Data.Models;
 
 namespace TennisTournament.Data
@@ -26,10 +27,9 @@ namespace TennisTournament.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder
-                .Entity<Player>()
-                .HasOne<ApplicationUser>()
-                .WithOne()
+            builder.Entity<Player>()
+                .HasOne(p => p.User)
+                .WithOne(u => u.Player)
                 .HasForeignKey<Player>(p => p.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
 
