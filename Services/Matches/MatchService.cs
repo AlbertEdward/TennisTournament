@@ -47,5 +47,45 @@ namespace TennisTournament.Services.Matches
 
             this.data.SaveChanges();
         }
+
+        public void MatchResult(int matchId, int winnerId)
+        {
+            var match = this.data.Matches.FirstOrDefault(c => c.Id == matchId);
+
+            match.Winner = winnerId;
+
+            if (match.FirstPlayerId != winnerId)
+            {
+                match.Loser = match.FirstPlayerId;
+            }
+            else
+            {
+                match.Loser = match.SecondPlayerId;
+            }
+
+
+            var winner = data.Players.FirstOrDefault(p => p.Id == winnerId);
+            var loser = data.Players.FirstOrDefault(p => p.Id == match.Loser);
+
+            winner.Wins += 1;
+            loser.Losses += 1;
+
+            winner.TotalMatches += 1;
+            loser.TotalMatches += 1;
+
+            winner.Rank = 10.00 - (winner.Wins + winner.Losses) / winner.TotalMatches;
+            loser.Rank = 10.00 + (loser.Wins + loser.Losses) / loser.TotalMatches;
+
+            if (winner.Rank > 10)
+            {
+                winner.Rank = 10.00;
+            }
+            else if (loser.Rank > 10)
+            {
+                loser.Rank = 10.00;
+            }
+
+            this.data.SaveChanges();
+        }
     }
 }

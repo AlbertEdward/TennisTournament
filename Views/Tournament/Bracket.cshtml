@@ -27,12 +27,14 @@
             <div class="split split-one">
                 <div class="round round-one current">
                     <div class="round-details">Round 1<br /><span class="date">March 16</span></div>
-                    @foreach (var player in Model.Matches)
+                    @foreach (var match in Model.Matches)
                     {
-                        var firstPlayer = Model.Players.FirstOrDefault(p => p.Id == player.FirstPlayerId);
-                        var secondPlayer = Model.Players.FirstOrDefault(p => p.Id == player.SecondPlayerId);
+                        var firstPlayer = Model.Players.FirstOrDefault(p => p.Id == match.FirstPlayerId);
+                        var secondPlayer = Model.Players.FirstOrDefault(p => p.Id == match.SecondPlayerId);
 
+                        
                         <ul class="matchup">
+                            <a asp-controller="Match" asp-action="ResultMatch" asp-route-id="@match.Id" />
                             <li class="team team-top">@firstPlayer.Name<span class="score">@firstPlayer.Rank</span></li>
                             <li class="team team-top">@secondPlayer.Name<span class="score">@secondPlayer.Rank</span></li>
                         </ul>

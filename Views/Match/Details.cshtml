@@ -1,0 +1,40 @@
+﻿@model MatchServiceModel
+
+@{
+    ViewBag.Title = "Match details";
+}
+
+<h1 class="text-color-green text-center">@ViewBag.Title</h1>
+
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link rel="stylesheet" href="~/css/card.css" asp-append-version="true" />
+
+<h4 class="text-color-white">Who is the winner?</h4>
+<div class="container emp-profile">
+    <form method="post">
+            <label for="@Model.FirstPlayerId" class="column">
+                <div class="profile-card">
+                    <div class="profile-name">
+                        @Model.FirstPlayerId
+                    </div>
+                </div>
+            </label>
+            <label for="@Model.SecondPlayerId" class="column">
+                <div class="profile-card">
+                    <div class="profile-name">
+                        @Model.SecondPlayerId
+                    </div>
+                </div>
+            </label>
+            <div class="form-check form-check-inline" style="visibility: hidden;">
+                <input class="form-check-input" type="radio" name="winnerId" id="@player.Id" value="@player.Id">
+            </div>
+        }
+        <div class="col-sm-10">
+            <button asp-controller="Challenge" asp-action="ChallengeResult" asp-route-challengeId="@Model.Id" type="submit" class="btn btn-primary">Submit</button>
+            <span asp-validation-for="Id" class="small text-danger"></span>
+        </div>
+    </form>
+</div>
