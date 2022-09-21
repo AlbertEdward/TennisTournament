@@ -14,9 +14,9 @@ namespace TennisTournament.Services.Matches
             this.data = data;
         }
 
-        public void CreateMatch(MatchServiceModel match, int id)
+        public void CreateMatch(MatchServiceModel match, int tournamentId)
         {
-            var tournament = data.Tournaments.Include(t => t.Players).FirstOrDefault(t => t.Id == id);
+            var tournament = data.Tournaments.Include(t => t.Players).FirstOrDefault(t => t.Id == tournamentId);
 
             var random = new Random();
             var randomized = tournament.Players.OrderBy(r => random.Next()).ToList();
@@ -37,9 +37,10 @@ namespace TennisTournament.Services.Matches
 
                 var matchData = new Match
                 {
+                    Id = match.Id,
                     FirstPlayerId = firstPlayerId.Id,
                     SecondPlayerId = secondPlayerId.Id,
-                    TournamentId = id,
+                    TournamentId = tournamentId,
                 };
 
                 this.data.Matches.Add(matchData);
@@ -47,6 +48,19 @@ namespace TennisTournament.Services.Matches
 
             this.data.SaveChanges();
         }
+
+        public MatchServiceModel Details(int Id)
+        => this.data
+            .Matches
+            .Where(m => m.Id == Id)
+            .Select(matches => new MatchServiceModel
+            {
+                Id = matches.Id,
+                FirstPlayerId = matches.FirstPlayerId,
+                SecondPlayerId = matches.SecondPlayerId,
+                TournamentId = matches.TournamentId
+            })
+            .FirstOrDefault();
 
         public void MatchResult(int matchId, int winnerId)
         {
@@ -62,7 +76,6 @@ namespace TennisTournament.Services.Matches
             {
                 match.Loser = match.SecondPlayerId;
             }
-
 
             var winner = data.Players.FirstOrDefault(p => p.Id == winnerId);
             var loser = data.Players.FirstOrDefault(p => p.Id == match.Loser);

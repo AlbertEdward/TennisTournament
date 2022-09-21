@@ -28,7 +28,7 @@
 
         public string CoverPhoto { get; set; }
 
-        public ICollection<Match> Match { get; set; } = new List<Match>();
+        public ICollection<Round> Rounds { get; set; } = new List<Round>();
 
         public ICollection<Player> Players { get; set; } = new List<Player>();
     }

@@ -25,6 +25,8 @@ namespace TennisTournament.Data
 
         public DbSet<Match> Matches { get; set; }
 
+        public DbSet<Round> Rounds { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<Player>()

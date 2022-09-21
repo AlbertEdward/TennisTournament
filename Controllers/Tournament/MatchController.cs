@@ -17,14 +17,12 @@ namespace TennisTournament.Controllers
         }
 
         [Authorize]
-        public IActionResult CreateMatch(MatchServiceModel match, int id)
+        public IActionResult CreateMatch(MatchServiceModel match, int tournamentId)
         {
             if (!ModelState.IsValid)
             {
                 return View(match);
             }
-
-            var tournamentId = id;
 
             var matchData = new Match
             {
@@ -33,9 +31,22 @@ namespace TennisTournament.Controllers
                 TournamentId = tournamentId
             };
 
-            this.matchService.CreateMatch(match, id);
+            this.matchService.CreateMatch(match, tournamentId);
 
             return RedirectToAction("All", "Tournament");
+        }
+
+        public IActionResult Details(int id)
+        {
+            var match = this.matchService.Details(id);
+
+            return View(new MatchServiceModel
+            {
+                Id = match.Id,
+                FirstPlayerId = match.FirstPlayerId,
+                SecondPlayerId = match.SecondPlayerId,
+                TournamentId = match.TournamentId
+            });
         }
 
         [Authorize]

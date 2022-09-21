@@ -7,6 +7,7 @@ using TennisTournament.Services;
 using TennisTournament.Services.Challenges;
 using TennisTournament.Services.Matches;
 using TennisTournament.Services.Players;
+using TennisTournament.Services.Rounds;
 using TennisTournament.Services.Statistics;
 using TennisTournament.Services.Tournaments;
 
@@ -55,6 +56,7 @@ namespace TennisTournament.Infrastructure
             services.AddScoped<IStatisticsService, StatisticsService>();
             services.AddScoped<IUploadFileService, UploadFileService>();
             services.AddScoped<IMatchService, MatchService>();
+            services.AddScoped<IRoundService, RoundService>();
 
             return services;
         }

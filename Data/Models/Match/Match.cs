@@ -16,6 +16,6 @@ namespace TennisTournament.Data.Models
 
         public int? Loser { get; set; }
 
-        public Tournament Tournament { get; set; }
+        public Round Round { get; set; }
     }
 }

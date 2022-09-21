@@ -14,26 +14,30 @@
 <h4 class="text-color-white">Who is the winner?</h4>
 <div class="container emp-profile">
     <form method="post">
-            <label for="@Model.FirstPlayerId" class="column">
-                <div class="profile-card">
-                    <div class="profile-name">
-                        @Model.FirstPlayerId
-                    </div>
+        <div class="form-check form-check-inline" style="visibility: hidden;">
+            <input class="form-check-input" type="radio" name="winnerId" id="@Model.FirstPlayerId" value="@Model.FirstPlayerId">
+        </div>
+        <label for="@Model.FirstPlayerId" class="column">
+            <div class="profile-card">
+                <div class="profile-name">
+                    @Model.FirstPlayerId
                 </div>
-            </label>
-            <label for="@Model.SecondPlayerId" class="column">
-                <div class="profile-card">
-                    <div class="profile-name">
-                        @Model.SecondPlayerId
-                    </div>
-                </div>
-            </label>
-            <div class="form-check form-check-inline" style="visibility: hidden;">
-                <input class="form-check-input" type="radio" name="winnerId" id="@player.Id" value="@player.Id">
             </div>
-        }
+        </label>
+
+        <div class="form-check form-check-inline" style="visibility: hidden;">
+            <input class="form-check-input" type="radio" name="winnerId" id="@Model.SecondPlayerId" value="@Model.SecondPlayerId">
+        </div>
+        <label for="@Model.SecondPlayerId" class="column">
+            <div class="profile-card">
+                <div class="profile-name">
+                    @Model.SecondPlayerId
+                </div>
+            </div>
+        </label>
+        
         <div class="col-sm-10">
-            <button asp-controller="Challenge" asp-action="ChallengeResult" asp-route-challengeId="@Model.Id" type="submit" class="btn btn-primary">Submit</button>
+            <button asp-controller="Match" asp-action="ResultMatch" asp-route-matchId="@Model.Id" type="submit" class="btn btn-primary">Submit</button>
             <span asp-validation-for="Id" class="small text-danger"></span>
         </div>
     </form>
